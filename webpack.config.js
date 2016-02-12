@@ -1,12 +1,7 @@
 var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  plugins: [
-    new HtmlWebpackPlugin({
-        title: 'ParaViewWeb Visualizer',
-    }),
-  ],
+  plugins: [],
   entry: './lib/app.js',
   output: {
     path: './dist',
@@ -34,7 +29,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            Style: path.resolve('./lib/style'),
+            PVWStyles: path.resolve('./lib/styles'),
         },
     },
     postcss: [

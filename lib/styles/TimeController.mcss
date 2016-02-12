@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.time {
+    background: none;
+    border: none;
+    text-align: right;
+}
+
+.time3 {
+    composes: time;
+    width: 45px;
+}
+
+.time5 {
+    composes: time;
+    width: 75px;
+}
+
+.time7 {
+    composes: time;
+    width: 105px;
+}
+
+.time9 {
+    composes: time;
+    width: 135px;
+}
+
+.container > i {
+    cursor: pointer;
+}
+
+
+.container > i:hover {
+    color: #000;
+}

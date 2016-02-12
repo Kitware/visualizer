@@ -1,0 +1,118 @@
+::-webkit-scrollbar {
+    width: 2px;
+    height: 1px;
+    border-left: 0;
+    background: rgba(0,0,0,0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.4);
+    border-radius: 0
+}
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.topBar {
+    background-color: #00bcd4;
+    color: white;
+    font-size: 30px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    with: 100%;
+
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.viewport {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.title {
+    position: relative;
+}
+
+.toggleMenu {
+    font-family: RobotoDraft, Roboto, sans-serif;
+    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggleMenu img {
+    position:relative;
+    top: -1px;
+    margin-right: 10px;
+}
+
+.menu {
+    position: absolute;
+    top: 45px;
+    left: 0px;
+    height: calc(100vh - 60px);
+    width: 300px;
+    background-color: #eee;
+    z-index: 2;
+    border-radius: 5px;
+    color: #111;
+    font-size: 20px;
+    transition: opacity 0.5s;
+    opacity: .75;
+    overflow: hidden;
+}
+
+
+.menu:hover {
+   opacity: 1;
+}
+
+.hiddenMenu {
+    composes: menu;
+    z-index: -1;
+    opacity: 0;
+}
+
+.toggleMenu:hover + .menu {
+    opacity: 0.6;
+}
+
+.toggleMenu:hover + .hiddenMenu {
+    opacity: 0.4;
+    z-index: 2;
+}
+
+.buttons {
+    text-align: right;
+    display: flex;
+    align-items: center;
+}
+
+.buttons > i {
+    cursor: pointer;
+    padding-left: 10px;
+    margin-left: 5px;
+}
+
+.buttons > i:hover {
+    color: #000;
+}

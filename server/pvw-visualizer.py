@@ -185,6 +185,7 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
 
         # Disable interactor-based render calls
         simple.GetRenderView().EnableRenderOnInteraction = 0
+        simple.GetRenderView().Background = [0,0,0]
 
 # =============================================================================
 # Main: Parse args and start server
