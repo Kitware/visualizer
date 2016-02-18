@@ -2,7 +2,7 @@
 
 ### Goal ###
 
-Provide a Web based interface to ParaView.
+Provide a Web based interface to ParaView 5.0.1+.
 
 ## Installation
 
