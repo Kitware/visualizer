@@ -1,0 +1,131 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eee;
+    border-radius: 5px 5px 0 0;
+    z-index: 1;
+}
+
+.actions {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 20px;
+    font-size: 20px;
+}
+
+.content {
+    font-size: 15px;
+    border-top: 1px solid #d0d0d0;
+    overflow: hidden;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0 5px 5px 0;
+    overflow-y: scroll;
+
+    background: linear-gradient(#eee 10px, hsla(0,0%,100%,0)) 0 0 / 100% 40px,
+                radial-gradient(at top, rgba(0,0,0,.3), transparent 70%) 0 0 / 100% 10px,
+                linear-gradient(to top, #eee 10px, hsla(0,0%,100%,0)) bottom / 100% 40px,
+                radial-gradient(at bottom, rgba(0,0,0,.3), transparent 70%) bottom / 100% 10px;
+    background-repeat: no-repeat;
+    background-attachment: local, scroll, local, scroll;
+}
+
+.button {
+    padding: 0 5px 5px 5px;
+    margin: 0 5px;
+    box-sizing: border-box;
+    color: #777;
+    cursor: pointer;
+    composes: fa    from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw from 'font-awesome/css/font-awesome.css';
+}
+
+.activeButton {
+    color: #111;
+}
+
+.pipelineButton {
+    composes: button;
+    composes: fa-code-fork      from 'font-awesome/css/font-awesome.css';
+    composes: fa-flip-vertical  from 'font-awesome/css/font-awesome.css';
+    top: -5px;
+    position: relative;
+}
+
+.pipelineButtonActive {
+    composes: pipelineButton;
+    composes: activeButton;
+}
+
+.openFileButton {
+    composes: button;
+    composes: fa-file-text-o from 'font-awesome/css/font-awesome.css';
+    top: -1px;
+    position: relative;
+}
+
+.openFileButtonActive {
+    composes: openFileButton;
+    composes: activeButton;
+}
+
+.filterButton {
+    composes: button;
+    composes: fa-plus from 'font-awesome/css/font-awesome.css';
+}
+
+.filterButtonActive {
+    composes: filterButton;
+    composes: activeButton;
+}
+
+.saveButton {
+    composes: button;
+    composes: fa-hdd-o from 'font-awesome/css/font-awesome.css';
+}
+
+.saveButtonActive {
+    composes: saveButton;
+    composes: activeButton;
+}
+
+.infoButton {
+    composes: button;
+    composes: fa-info from 'font-awesome/css/font-awesome.css';
+}
+
+.infoButtonActive {
+    composes: infoButton;
+    composes: activeButton;
+}
+
+.settingsButton {
+    composes: button;
+    composes: fa-cogs from 'font-awesome/css/font-awesome.css';
+}
+
+.settingsButtonActive {
+    composes: settingsButton;
+    composes: activeButton;
+}
+
+.sourceIcon {
+    composes: fa            from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw         from 'font-awesome/css/font-awesome.css';
+    composes: fa-database   from 'font-awesome/css/font-awesome.css';
+    margin-right: 5px;
+}
+
+.filterIcon {
+    composes: fa        from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw     from 'font-awesome/css/font-awesome.css';
+    composes: fa-plus   from 'font-awesome/css/font-awesome.css';
+    margin-right: 5px;
+}
+

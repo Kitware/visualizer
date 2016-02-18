@@ -1,8 +1,9 @@
-var path = require('path');
+var path = require('path'),
+    loaders = require('./node_modules/paraviewweb/config/webpack.loaders.js');
 
 module.exports = {
   plugins: [],
-  entry: './lib/app.js',
+  entry: './src/app.js',
   output: {
     path: './dist',
     filename: 'Visualizer.js',
@@ -14,22 +15,13 @@ module.exports = {
             exclude: /node_modules/,
         }],
         loaders: [
-            { test: require.resolve("./lib/app.js"), loader: "expose?PVW" },
-            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000&mimetype=application/font-woff" },
-            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000" },
-            { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
-            { test: /\.css$/, include: /node_modules/, loader: "style!css!postcss"},
-            { test: /\.css$/, exclude: /node_modules/, loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss'},
-            { test: /\.mcss$/,loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss'},
-            { test: /\.json$/, loader: 'json-loader' },
-            { test: /\.html$/, loader: 'html-loader' },
-            { test: /\.js$/, include: /node_modules\/tonic-/, loader: "babel?presets[]=react,presets[]=es2015" },
-            { test: /\.js$/, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015" },
-        ],
+            { test: require.resolve("./src/app.js"), loader: "expose?Visualizer" },
+        ].concat(loaders),
     },
     resolve: {
         alias: {
-            PVWStyles: path.resolve('./lib/styles'),
+            PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
+            VisualizerStyle: path.resolve('./style'),
         },
     },
     postcss: [

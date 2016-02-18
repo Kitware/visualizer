@@ -1,5 +1,5 @@
 import React from 'react';
-import PipelineWidget from 'tonic-ui/lib/react/widget/PipelineWidget';
+import PipelineWidget from 'paraviewweb/src/React/Widgets/GitTreeWidget';
 
 function getIndexedProxyMap(proxyList) {
     const idToProxyMap = {};

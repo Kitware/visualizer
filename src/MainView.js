@@ -1,6 +1,6 @@
 import React            from 'react';
-import VtkRenderer      from 'tonic-ui/lib/react/renderer/VtkRenderer';
-import style            from 'PVWStyles/MainView.mcss';
+import VtkRenderer      from 'paraviewweb/src/React/Renderers/VtkRenderer';
+import style            from 'VisualizerStyle/MainView.mcss';
 import ControlPanel     from './panels/ControlPanel';
 import TimeController   from './panels/TimeController';
 import logo             from './logo.png';
@@ -41,7 +41,7 @@ export default React.createClass({
                     </div>
                     <div className={ style.buttons }>
                         <TimeController proxyManager={ proxyManager }/>
-                        <i className='fa fa-arrows-alt' onClick={ this.resetCamera }></i>
+                        <i className={ style.resetCameraButton } onClick={ this.resetCamera }></i>
                     </div>
                   </div>
                   <VtkRenderer { ...proxyManager.getNetworkAdapter() } className={ style.viewport }/>

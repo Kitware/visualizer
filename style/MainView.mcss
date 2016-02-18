@@ -107,12 +107,19 @@
     align-items: center;
 }
 
-.buttons > i {
+.button {
     cursor: pointer;
     padding-left: 10px;
     margin-left: 5px;
+    composes: fa    from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw from 'font-awesome/css/font-awesome.css';
 }
 
-.buttons > i:hover {
+.resetCameraButton {
+    composes: button;
+    composes: fa-arrows-alt from 'font-awesome/css/font-awesome.css';
+}
+
+.button:hover {
     color: #000;
 }

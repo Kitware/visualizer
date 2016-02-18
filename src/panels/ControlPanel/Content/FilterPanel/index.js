@@ -1,6 +1,7 @@
 import React        from 'react';
-import ActionList   from 'tonic-ui/lib/react/widget/ActionList';
+import ActionList   from 'paraviewweb/src/React/Widgets/ActionListWidget';
 
+import style from 'VisualizerStyle/ToggleIcons.mcss';
 
 export default React.createClass({
 
@@ -21,9 +22,9 @@ export default React.createClass({
 
     getAlgorithms() {
         var list = [];
-        list = list.concat(this.props.proxyManager.getSources().map(name => { return { name, icon: 'fa fa-fw fa-database' };}));
+        list = list.concat(this.props.proxyManager.getSources().map(name => { return { name, icon: style.sourceIcon };}));
         if(this.props.proxyManager.canApplyFilter()) {
-            list = list.concat(this.props.proxyManager.getFilters().map(name => { return { name, icon: 'fa fa-fw fa-plus' };}));
+            list = list.concat(this.props.proxyManager.getFilters().map(name => { return { name, icon: style.filterIcon };}));
         }
         return list;
     },

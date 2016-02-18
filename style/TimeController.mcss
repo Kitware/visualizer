@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.time {
+    background: none;
+    border: none;
+    text-align: right;
+}
+
+.time3 {
+    composes: time;
+    width: 45px;
+}
+
+.time5 {
+    composes: time;
+    width: 75px;
+}
+
+.time7 {
+    composes: time;
+    width: 105px;
+}
+
+.time9 {
+    composes: time;
+    width: 135px;
+}
+
+.button {
+    cursor: pointer;
+    composes: fa    from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw from 'font-awesome/css/font-awesome.css';
+}
+
+.button:hover {
+    color: #000;
+}
+
+.previousButton {
+    composes: button;
+    composes: fa-step-backward from 'font-awesome/css/font-awesome.css';
+}
+
+.nextButton {
+    composes: button;
+    composes: fa-step-forward from 'font-awesome/css/font-awesome.css';
+}
+
+.stopButton {
+    composes: button;
+    composes: fa-stop from 'font-awesome/css/font-awesome.css';
+}
+
+.playButton {
+    composes: button;
+    composes: fa-play from 'font-awesome/css/font-awesome.css';
+}

@@ -1,5 +1,5 @@
 import React        from 'react';
-import style        from 'PVWStyles/InformationPanel.mcss';
+import style        from 'VisualizerStyle/InformationPanel.mcss';
 
 function memoryToString(number) {
     var unitIdx = 0,
@@ -102,19 +102,19 @@ export default React.createClass({
         return (
             <div className={style.container}>
                 <div className={style.line}>
-                    <i className='fa fa-fw fa-file-text-o'></i>
+                    <i className={ style.iconType }></i>
                     {this.state.proxy.data.type}
                 </div>
                 <div className={style.line}>
-                    <i className='fa fa-fw fa-connectdevelop'></i>
+                    <i className={ style.iconConnectivity }></i>
                     {this.state.proxy.data.points + ' points / ' + this.state.proxy.data.cells + ' cells'}
                 </div>
                 <div className={style.line}>
-                    <i className='fa fa-fw fa-commenting-o'></i>
+                    <i className={ style.iconMemory }></i>
                     { memoryToString(this.state.proxy.data.memory) }
                 </div>
                 <div className={style.line}>
-                    <i className='fa fa-fw fa-codepen'></i>
+                    <i className={ style.iconBondingBox }></i>
                     <div>
                     <table className={ style.table }>
                         <tbody>
@@ -136,7 +136,7 @@ export default React.createClass({
                 </div>
                 { this.props.proxyManager.getTimeValues().length ?
                     <div className={style.line}>
-                        <i className='fa fa-fw fa-clock-o'></i>
+                        <i className={ style.iconTime }></i>
                         <select value={ this.props.proxyManager.getTimeStep() } onChange={ this.updateTime }>
                             { this.props.proxyManager.getTimeValues().map((t, idx) => <option key={idx} value={idx}>{t}</option>)}
                         </select>
@@ -145,20 +145,20 @@ export default React.createClass({
                 { activeArray ?
                     <div>
                     <div className={style.line}>
-                        <i className='fa fa-fw fa-database'></i>
+                        <i className={ style.iconArray }></i>
                         <select value={ this.state.arrayIdx } onChange={ this.updateArray }>
                             { this.state.proxy.data.arrays.map((a,idx) => <option key={idx} value={ idx }>{a.name}</option>)}
                         </select>
                     </div>
                     <div className={style.line}>
-                        <i className='fa fa-fw fa-file-code-o'></i>
+                        <i className={ style.iconArrayType }></i>
                         { `${activeArray.location} / ${activeArray.type}(${activeArray.size})` }
                     </div>
 
                     <div className={style.line}><table className={style.table}>
                     <thead>
                         <tr>
-                            <th><i className='fa fa-arrows-h'></i></th>
+                            <th><i className={ style.iconRange }></i></th>
                             <th>Min</th>
                             <th>Max</th>
                         </tr>

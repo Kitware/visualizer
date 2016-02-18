@@ -1,5 +1,5 @@
-import vtkWebClientFactory from 'tonic-io/lib/VtkWeb/client/pvw/ClientFactory';
-import VtkWebSmartConnect  from 'tonic-io/lib/VtkWeb/SmartConnect';
+import vtkWebClientFactory from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
+import VtkWebSmartConnect  from 'paraviewweb/src/IO/WebSocket/SmartConnect';
 
 var connection = null,
     client = null,

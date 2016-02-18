@@ -1,5 +1,5 @@
 import React        from 'react';
-import FileBrowser  from 'tonic-ui/lib/react/widget/FileBrowser';
+import FileBrowser  from 'paraviewweb/src/React/Widgets/FileBrowserWidget';
 
 export default React.createClass({
 

@@ -1,7 +1,7 @@
 import React                from 'react';
 import ControlPanelContent  from './Content';
 
-import style from 'PVWStyles/ToggleIcons.mcss';
+import style from 'VisualizerStyle/ToggleIcons.mcss';
 
 export default React.createClass({
 
@@ -32,26 +32,24 @@ export default React.createClass({
                         <div className={ style.actions }>
                             <i data-idx='0'
                                 onClick={ this.updateActive }
-                                style={{ top: '-4px', position: 'relative'}}
-                                className={ (this.state.activeIdx === 0 ? style.active : '') + ' fa fa-fw fa-code-fork fa-flip-vertical' }></i>
+                                className={ this.state.activeIdx === 0 ? style.pipelineButtonActive : style.pipelineButton }></i>
                             <i data-idx='1'
                                 onClick={ this.updateActive }
-                                style={{ top: '-1px', position: 'relative'}}
-                                className={ (this.state.activeIdx === 1 ? style.active : '') + ' fa fa-fw fa-file-text-o' }></i>
+                                className={ this.state.activeIdx === 1 ? style.openFileButtonActive : style.openFileButton }></i>
                             <i data-idx='2'
                                 onClick={ this.updateActive }
-                                className={ (this.state.activeIdx === 2 ? style.active : '') + ' fa fa-fw fa-plus' }></i>
+                                className={ this.state.activeIdx === 2 ? style.filterButtonActive : style.filterButton }></i>
                             <i data-idx='3'
                                 onClick={ this.updateActive }
-                                className={ (this.state.activeIdx === 3 ? style.active : '') + ' fa fa-fw fa-hdd-o' }></i>
+                                className={ this.state.activeIdx === 3 ? style.saveButtonActive : style.saveButton }></i>
                             <i data-idx='4'
                                 onClick={ this.updateActive }
-                                className={ (this.state.activeIdx === 4 ? style.active : '') + ' fa fa-fw fa-info' }></i>
+                                className={ this.state.activeIdx === 4 ? style.infoButtonActive : style.infoButton }></i>
                         </div>
                         <div className={ style.actions }>
                             <i data-idx='5'
                                 onClick={ this.updateActive }
-                                className={ (this.state.activeIdx === 5 ? style.active : '') + ' fa fa-cogs' }></i>
+                                className={ this.state.activeIdx === 5 ? style.settingsButtonActive : style.settingsButton }></i>
                         </div>
                     </div>
                     <div className={ style.content} >

@@ -4,7 +4,6 @@ import ProxyManager  from './ProxyManager';
 import React         from 'react';
 import ReactDOM      from 'react-dom';
 
-require('font-awesome/css/font-awesome.css');
 require('normalize.css');
 
 function start() {

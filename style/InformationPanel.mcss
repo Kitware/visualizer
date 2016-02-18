@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.line {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.line > * {
+    flex: 1;
+    text-align: center;
+}
+
+.table {
+    position:relative;
+    width: 100%;
+}
+
+.table td:first-child {
+    text-align: center;
+}
+
+.table input {
+    width: 90%;
+    text-align: right;
+}
+
+.icon {
+    flex: none;
+    composes: fa    from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw from 'font-awesome/css/font-awesome.css';
+}
+
+.iconType {
+    composes: icon;
+    composes: fa-file-text-o from 'font-awesome/css/font-awesome.css';
+}
+
+.iconConnectivity {
+    composes: icon;
+    composes: fa-connectdevelop from 'font-awesome/css/font-awesome.css';
+}
+
+.iconMemory {
+    composes: icon;
+    composes: fa-commenting-o from 'font-awesome/css/font-awesome.css';
+}
+
+.iconBondingBox {
+    composes: icon;
+    composes: fa-codepen from 'font-awesome/css/font-awesome.css';
+}
+
+.iconTime {
+    composes: icon;
+    composes: fa-clock-o from 'font-awesome/css/font-awesome.css';
+}
+
+.iconArray {
+    composes: icon;
+    composes: fa-database from 'font-awesome/css/font-awesome.css';
+}
+
+.iconArrayType {
+    composes: icon;
+    composes: fa-file-code-o from 'font-awesome/css/font-awesome.css';
+}
+
+.iconRange {
+    composes: icon;
+    composes: fa-arrows-h from 'font-awesome/css/font-awesome.css';
+}

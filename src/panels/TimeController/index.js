@@ -1,5 +1,5 @@
 import React from 'react';
-import style from 'PVWStyles/TimeController.mcss';
+import style from 'VisualizerStyle/TimeController.mcss';
 
 export default React.createClass({
 
@@ -66,12 +66,12 @@ export default React.createClass({
             <div className={style.container}>
                 {
                     this.state.playing
-                    ? <i className='fa fa-fw fa-stop' onClick={ this.togglePlay }></i>
-                    : <i className='fa fa-fw fa-play' onClick={ this.togglePlay }></i>
+                    ? <i className={ style.stopButton } onClick={ this.togglePlay }></i>
+                    : <i className={ style.playButton } onClick={ this.togglePlay }></i>
                 }
-                <i onClick={ this.previous } className='fa fa-fw fa-step-backward'></i>
+                <i onClick={ this.previous } className={ style.previousButton }></i>
                 <input className={timeClass} type='text' readOnly value={ `${this.state.timeStep + 1}/${this.state.timeValues.length}`  }/>
-                <i onClick={ this.next } className='fa fa-fw fa-step-forward'></i>
+                <i onClick={ this.next } className={ style.nextButton }></i>
             </div>);
     },
 });
