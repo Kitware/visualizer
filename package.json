@@ -3,7 +3,7 @@
   "description": "ParaViewWeb based application Standalone application useful to load and explore InSitu/Batch data products.",
   "license": "BSD-3-Clause",
   "version": "0.0.0-semantically-release",
-  "main": "./lib/app.js",
+  "main": "./src/app.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kitware/visualizer.git"
@@ -64,7 +64,7 @@
   },
   "scripts": {
     "fix-autobahn": "sed -i.bak 's/WAMP_FEATURES = {/var WAMP_FEATURES = {/' ./node_modules/autobahn/lib/session.js && sed -i.bak 's/var var WAMP_FEATURES = {/var WAMP_FEATURES = {/' ./node_modules/autobahn/lib/session.js && rm ./node_modules/autobahn/lib/session.js.bak",
-    "postinstall": "npm-dep build deploy && npm run fix-autobahn",
+    "postinstall": "npm run fix-autobahn",
 
     "build": "webpack",
     "build:debug": "webpack --display-modules",
