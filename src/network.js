@@ -1,5 +1,5 @@
-import vtkWebClientFactory from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
-import VtkWebSmartConnect  from 'paraviewweb/src/IO/WebSocket/SmartConnect';
+import ParaViewWebClient from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
+import SmartConnect  from 'paraviewweb/src/IO/WebSocket/SmartConnect';
 
 var connection = null,
     client = null,
@@ -21,7 +21,7 @@ const customProtocols = {
 
 function start(conn) {
     connection = conn;
-    client = vtkWebClientFactory(conn, [
+    client = ParaViewWebClient.createClient(conn, [
         'FileListing',
         'MouseHandler',
         'ProxyManager',
@@ -35,7 +35,7 @@ function start(conn) {
 }
 
 export function connect(config={}) {
-    smartConnect = new VtkWebSmartConnect(config);
+    smartConnect = new SmartConnect(config);
     smartConnect.onConnectionReady(start);
     smartConnect.connect();
 }
@@ -55,6 +55,3 @@ export function onReady(callback) {
         readyCallback = callback;
     }
 }
-
-
-// ''
