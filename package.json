@@ -26,7 +26,7 @@
     "react-dom": "0.14.7",
     "when": "3.7.7",
     "ws": "0.8.1",
-    "paraviewweb": "1.0.2",
+    "paraviewweb": "1.0.8",
 
     "node-libs-browser": "1.0.0",
 

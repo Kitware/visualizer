@@ -2,4 +2,3 @@ docs
 .travis.yml
 .gitmodule
 .npmrc
-site.config.js

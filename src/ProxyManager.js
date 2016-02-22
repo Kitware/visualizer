@@ -211,8 +211,8 @@ export default class ProxyManager {
             });
     }
 
-    getProxy(id) {
-        return this.client.ProxyManager.get(id);
+    getProxy(id, withUI=true) {
+        return this.client.ProxyManager.get(id, withUI);
     }
 
     listProxies() {
