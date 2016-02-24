@@ -1,4 +1,6 @@
 import Monologue from 'monologue.js';
+const proxyUICache = {};
+var fullProxyCache = {};
 
 // ----------------------------------------------------------------------------
 
@@ -197,8 +199,8 @@ export default class ProxyManager {
         return this.client.ProxyManager.create(algo, parent)
             .then(proxy => {
                 updateTimeInformation(this);
-                this.setActiveProxyId(proxy.id);
                 this.emit(TOPICS.PIPELINE_CHANGE, proxy);
+                this.setActiveProxyId(proxy.id);
             });
     }
 
@@ -211,8 +213,30 @@ export default class ProxyManager {
             });
     }
 
-    getProxy(id, withUI=true) {
-        return this.client.ProxyManager.get(id, withUI);
+    getProxy(id) {
+        if(fullProxyCache[id]) {
+            return new Promise((a,r) => {
+                a(fullProxyCache[id]);
+            });
+        }
+        const needUI = !proxyUICache[id];
+
+        return this.client.ProxyManager.get(id, needUI)
+            .then(ok => {
+                if(ok.ui) {
+                    fullProxyCache[id] = ok;
+                    proxyUICache[id] = ok.ui;
+                    return new Promise((a,r) => {
+                        a(ok);
+                    });
+                } else if(proxyUICache[id]){
+                    const proxy = Object.assign({}, ok, { ui: proxyUICache[id] });
+                    fullProxyCache[id] = proxy;
+                    return new Promise((a,r) => {
+                        a(proxy);
+                    });
+                }
+            });
     }
 
     listProxies() {
@@ -220,6 +244,7 @@ export default class ProxyManager {
     }
 
     updateProperties(propertyChangeSet) {
+        fullProxyCache = {};
         return this.client.ProxyManager.update(propertyChangeSet);
     }
 }
