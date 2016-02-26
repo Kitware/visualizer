@@ -22,6 +22,7 @@ const customProtocols = {
 function start(conn) {
     connection = conn;
     client = ParaViewWebClient.createClient(conn, [
+        'ColorManager',
         'FileListing',
         'MouseHandler',
         'ProxyManager',
