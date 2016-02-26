@@ -8,3 +8,31 @@
 .container > * {
     flex: 1;
 }
+
+.pipelineContainer {
+    text-align: center;
+    box-sizing: border-box;
+    min-height: 25vh;
+    max-height: 25vh;
+    overflow-y: scroll;
+    padding: 5px 0;
+    margin: 0;
+
+    background: linear-gradient(#eee 10px, hsla(0,0%,100%,0)) 0 0 / 100% 40px,
+                radial-gradient(at top, rgba(0,0,0,.3), transparent 70%) 0 0 / 100% 10px,
+                linear-gradient(to top, #eee 10px, hsla(0,0%,100%,0)) bottom / 100% 40px,
+                radial-gradient(at bottom, rgba(0,0,0,.3), transparent 70%) bottom / 100% 10px;
+    background-repeat: no-repeat;
+    background-attachment: local, scroll, local, scroll;
+}
+
+.proxyEditorContainer {
+    position: absolute;
+    width: 100%;
+    top: 25vh;
+    bottom: 0;
+}
+
+.colorBy {
+    padding: 5px 10px;
+}

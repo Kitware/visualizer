@@ -1,6 +1,8 @@
 import Monologue from 'monologue.js';
 const proxyUICache = {};
 var fullProxyCache = {};
+var renderingSettingProxyId = null;
+var presetImages = null;
 
 // ----------------------------------------------------------------------------
 
@@ -9,6 +11,21 @@ const TOPICS = {
     TIME_CHANGE:         'pvw.proxymanager.time.change',
     PIPELINE_CHANGE:     'pvw.proxymanager.pipeline.change',
 };
+
+// ----------------------------------------------------------------------------
+
+function removeRepresentationFromCache() {
+    const proxyToDelete = [];
+    for(const id in fullProxyCache) {
+        if(fullProxyCache[id].colorBy) {
+            proxyToDelete.push(id);
+        }
+    }
+
+    proxyToDelete.forEach(id => {
+        delete fullProxyCache[id];
+    });
+}
 
 // ----------------------------------------------------------------------------
 
@@ -246,6 +263,58 @@ export default class ProxyManager {
     updateProperties(propertyChangeSet) {
         fullProxyCache = {};
         return this.client.ProxyManager.update(propertyChangeSet);
+    }
+
+    getRenderViewSettings() {
+        if(renderingSettingProxyId) {
+            return this.getProxy(renderingSettingProxyId);
+        }
+        return this.client.ProxyManager.findProxyId('settings', 'RenderViewSettings')
+            .then(
+                pId => {
+                    renderingSettingProxyId = pId;
+                    return this.getProxy(renderingSettingProxyId);
+                });
+    }
+
+    // --- Color Handling ---
+
+    getLookupTableImage(repId, sampling=512) {
+        return this.client.ColorManager.getLutImage(repId, sampling);
+    }
+
+    colorBy(representation, colorMode, arrayLocation='POINTS', arrayName='', vectorComponent=0, vectorMode='Magnitude', rescale=false) {
+        removeRepresentationFromCache();
+        return this.client.ColorManager.colorBy(representation, colorMode, arrayLocation, arrayName, vectorMode, vectorComponent, rescale);
+    }
+
+    showScalarBar(sourceId, show) {
+        removeRepresentationFromCache();
+        const proxyIdMap = { [sourceId]: show };
+        return this.client.ColorManager.setScalarBarVisibilities(proxyIdMap);
+    }
+
+    updateLookupTablePreset(repId, presetName) {
+        return this.client.ColorManager.selectColorMap(repId, presetName);
+    }
+
+    listColorMapImages(sampling=512) {
+        if(presetImages) {
+            return new Promise((a,r) => { a(presetImages); });
+        }
+        return this.client.ColorManager.listColorMapImages(sampling)
+            .then(ok => {
+                presetImages = ok;
+                return new Promise((a,r) => { a(presetImages); });
+            });
+    }
+
+    rescaleTransferFunction(options) {
+        return this.client.ColorManager.rescaleTransferFunction(options);
+    }
+
+    getLookupTableScalarRange(sourceProxyId) {
+        return this.client.ColorManager.getCurrentScalarRange(sourceProxyId);
     }
 }
 Monologue.mixInto(ProxyManager);

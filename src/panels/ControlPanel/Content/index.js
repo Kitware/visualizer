@@ -3,6 +3,7 @@ import FilterPanel      from './FilterPanel';
 import InformationPanel from './InformationPanel';
 import PipelineBrowser  from './PipelineBrowser';
 import React            from 'react';
+import SettingPanel     from './SettingPanel';
 
 export default React.createClass({
 
@@ -24,6 +25,7 @@ export default React.createClass({
                     <FileBrowserPanel visible={ view === 1 } proxyManager={proxyManager} goTo={ this.props.onChange }/>
                     <FilterPanel      visible={ view === 2 } proxyManager={proxyManager} goTo={ this.props.onChange }/>
                     <InformationPanel visible={ view === 4 } proxyManager={proxyManager} goTo={ this.props.onChange }/>
+                    <SettingPanel     visible={ view === 5 } proxyManager={proxyManager} goTo={ this.props.onChange }/>
                 </div>);
     },
 });
