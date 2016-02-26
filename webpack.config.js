@@ -1,8 +1,19 @@
 var path = require('path'),
-    loaders = require('./node_modules/paraviewweb/config/webpack.loaders.js');
+    webpack = require('webpack'),
+    loaders = require('./node_modules/paraviewweb/config/webpack.loaders.js'),
+    plugins = [];
+
+if(process.env.NODE_ENV === 'production') {
+    console.log('==> Production build');
+    plugins.push(new webpack.DefinePlugin({
+        "process.env": {
+            NODE_ENV: JSON.stringify("production"),
+        },
+    }));
+}
 
 module.exports = {
-  plugins: [],
+  plugins: plugins,
   entry: './src/app.js',
   output: {
     path: './dist',
