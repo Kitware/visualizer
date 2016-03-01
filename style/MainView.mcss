@@ -74,6 +74,7 @@
     background-color: #eee;
     z-index: 2;
     border-radius: 5px;
+    border: solid 1px #aaa;
     color: #111;
     font-size: 20px;
     transition: opacity 0.5s;

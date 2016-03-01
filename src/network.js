@@ -25,6 +25,7 @@ function start(conn) {
         'ColorManager',
         'FileListing',
         'MouseHandler',
+        'SaveData',
         'ProxyManager',
         'TimeHandler',
         'ViewPort',

@@ -316,5 +316,21 @@ export default class ProxyManager {
     getLookupTableScalarRange(sourceProxyId) {
         return this.client.ColorManager.getCurrentScalarRange(sourceProxyId);
     }
+
+    // --- Renderer ---
+
+    setImageProvider(provider) {
+        this.imageProvider = provider;
+    }
+
+    getImageProvider() {
+        return this.imageProvider;
+    }
+
+    // --- Save Data ---
+
+    saveData(path, options={}) {
+        return this.client.SaveData.saveData(path, options);
+    }
 }
 Monologue.mixInto(ProxyManager);

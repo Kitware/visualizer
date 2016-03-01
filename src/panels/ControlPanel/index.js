@@ -26,6 +26,10 @@ export default React.createClass({
         this.setState({activeIdx});
     },
 
+    resetCamera() {
+        this.props.proxyManager.resetCamera();
+    },
+
     render() {
         return (<div className={ this.props.className }>
                     <div className={ style.container }>
@@ -50,10 +54,14 @@ export default React.createClass({
                             <i data-idx='5'
                                 onClick={ this.updateActive }
                                 className={ this.state.activeIdx === 5 ? style.settingsButtonActive : style.settingsButton }></i>
+                                <i className={ style.resetCameraIcon } onClick={ this.resetCamera }></i>
                         </div>
                     </div>
                     <div className={ style.content} >
-                        <ControlPanelContent activeIdx={this.state.activeIdx} proxyManager={ this.props.proxyManager } onChange={ this.changeActive }/>
+                        <ControlPanelContent
+                            activeIdx={this.state.activeIdx}
+                            proxyManager={ this.props.proxyManager }
+                            onChange={ this.changeActive }/>
                     </div>
                 </div>);
     },
