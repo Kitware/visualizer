@@ -129,3 +129,13 @@
     margin-right: 5px;
 }
 
+.resetCameraIcon {
+    composes: button;
+    composes: activeButton;
+    composes: fa-arrows-alt from 'font-awesome/css/font-awesome.css';
+    border-left: 1px solid #aaa;
+    padding: 0 0 0 5px;
+    position: relative;
+    top: -2px;
+}
+

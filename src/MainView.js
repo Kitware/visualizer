@@ -19,6 +19,10 @@ export default React.createClass({
         };
     },
 
+    componentDidMount() {
+        this.props.proxyManager.setImageProvider(this.refs.renderer.binaryImageStream);
+    },
+
     toggleMenu() {
         this.setState({menuVisible: !this.state.menuVisible});
     },
@@ -37,14 +41,16 @@ export default React.createClass({
                             <img src={logo}/>
                             Visualizer
                         </div>
-                        <ControlPanel className={ this.state.menuVisible ? style.menu : style.hiddenMenu } proxyManager={ proxyManager }/>
+                        <ControlPanel
+                            className={ this.state.menuVisible ? style.menu : style.hiddenMenu }
+                            proxyManager={ proxyManager }/>
                     </div>
                     <div className={ style.buttons }>
                         <TimeController proxyManager={ proxyManager }/>
                         <i className={ style.resetCameraButton } onClick={ this.resetCamera }></i>
                     </div>
                   </div>
-                  <VtkRenderer { ...proxyManager.getNetworkAdapter() } className={ style.viewport }/>
+                  <VtkRenderer ref='renderer' { ...proxyManager.getNetworkAdapter() } className={ style.viewport }/>
                 </div>);
     },
 });
