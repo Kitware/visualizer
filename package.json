@@ -23,7 +23,7 @@
     "monologue.js": "0.3.4",
     "mout": "0.11.1",
     "normalize.css": "3.0.3",
-    "paraviewweb": "1.2.10",
+    "paraviewweb": "1.2.13",
     "react": "0.14.7",
     "react-dom": "0.14.7",
 
@@ -32,7 +32,7 @@
     "redux": "3.3.1"
   },
   "scripts": {
-    "postinstall": "fix-kw-web-suite",
+    "postinstall": "fix-kw-web-suite || true",
 
     "build": "fix-autobahn && webpack",
     "build:debug": "fix-autobahn && webpack --display-modules",
