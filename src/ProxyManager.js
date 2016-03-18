@@ -2,6 +2,7 @@ import Monologue from 'monologue.js';
 const proxyUICache = {};
 var fullProxyCache = {};
 var renderingSettingProxyId = null;
+var renderingInteractionSettingProxyId = null;
 var presetImages = null;
 
 // ----------------------------------------------------------------------------
@@ -284,6 +285,18 @@ export default class ProxyManager {
         pId => {
           renderingSettingProxyId = pId;
           return this.getProxy(renderingSettingProxyId);
+        });
+  }
+
+  getRenderViewInteractionSettings() {
+    if (renderingInteractionSettingProxyId) {
+      return this.getProxy(renderingInteractionSettingProxyId);
+    }
+    return this.client.ProxyManager.findProxyId('settings', 'RenderViewInteractionSettings')
+      .then(
+        pId => {
+          renderingInteractionSettingProxyId = pId;
+          return this.getProxy(renderingInteractionSettingProxyId);
         });
   }
 

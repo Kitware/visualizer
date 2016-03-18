@@ -21,6 +21,7 @@ export default React.createClass({
   getInitialState() {
     return {
       settingProxy: null,
+      interactionProxy: null,
     };
   },
 
@@ -38,6 +39,17 @@ export default React.createClass({
         err => {
           console.log('Error fetching setting proxy', err);
         });
+
+
+    // this.props.proxyManager.getRenderViewInteractionSettings()
+    //   .then(
+    //     proxy => {
+    //       const interactionProxy = Object.assign({ name: 'Interaction settings', collapsed: true }, proxy);
+    //       this.setState({ interactionProxy });
+    //     },
+    //     err => {
+    //       console.log('Error fetching setting proxy', err);
+    //     });
   },
 
   applyChanges(changeSet) {
@@ -64,7 +76,7 @@ export default React.createClass({
     if (!this.props.visible) {
       return null;
     }
-    const sections = [this.state.settingProxy].filter(i => !!i);
+    const sections = [this.state.settingProxy, this.state.interactionProxy].filter(i => !!i);
 
     return  (
       <div className={ style.container }>
