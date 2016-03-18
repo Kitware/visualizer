@@ -6,17 +6,8 @@ import React            from 'react';
 import SavePanel        from './SavePanel';
 import SettingPanel     from './SettingPanel';
 
-export default React.createClass({
-
-  displayName: 'ParaViewWeb/ControlPanelContent',
-
-  propTypes: {
-    activeIdx: React.PropTypes.number,
-    className: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    proxyManager: React.PropTypes.object,
-  },
-
+/* eslint-disable react/prefer-stateless-function */
+class ControlPanelContent extends React.Component {
   render() {
     const proxyManager = this.props.proxyManager,
       view = this.props.activeIdx;
@@ -30,5 +21,14 @@ export default React.createClass({
         <InformationPanel visible={ view === 4 } proxyManager={proxyManager} goTo={ this.props.onChange } />
         <SettingPanel     visible={ view === 5 } proxyManager={proxyManager} goTo={ this.props.onChange } />
       </div>);
-  },
-});
+  }
+}
+
+ControlPanelContent.propTypes = {
+  activeIdx: React.PropTypes.number,
+  className: React.PropTypes.string,
+  onChange: React.PropTypes.func,
+  proxyManager: React.PropTypes.object,
+};
+
+export default ControlPanelContent;

@@ -23,11 +23,11 @@
     "monologue.js": "0.3.4",
     "mout": "0.11.1",
     "normalize.css": "3.0.3",
-    "paraviewweb": "1.2.23",
+    "paraviewweb": "1.2.27",
     "react": "0.14.7",
     "react-dom": "0.14.7",
 
-    "kw-web-suite": "1.0.7",
+    "kw-web-suite": "1.1.0",
     "react-redux": "4.4.0",
     "redux": "3.3.1"
   },
