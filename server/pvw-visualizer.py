@@ -112,7 +112,7 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
     rsPort = 11111
     rcPort = -1
     fileToLoad = None
-    groupRegex = "[0-9]+\\."
+    groupRegex = "[0-9]+\\.[0-9]+\\.|[0-9]+\\."
     excludeRegex = "^\\.|~$|^\\$"
     plugins = None
     filterFile = None
@@ -131,8 +131,8 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
         parser.add_argument("--rs-host", default=None, help="Hostname to connect to for RenderServer", dest="rsHost")
         parser.add_argument("--rs-port", default=11111, type=int, help="Port number to connect to for RenderServer", dest="rsPort")
         parser.add_argument("--reverse-connect-port", default=-1, type=int, help="If supplied, a reverse connection will be established on the given port", dest="reverseConnectPort")
-        parser.add_argument("--exclude-regex", default="^\\.|~$|^\\$", help="Regular expression for file filtering", dest="exclude")
-        parser.add_argument("--group-regex", default="[0-9]+\\.", help="Regular expression for grouping files", dest="group")
+        parser.add_argument("--exclude-regex", default=_VisualizerServer.excludeRegex, help="Regular expression for file filtering", dest="exclude")
+        parser.add_argument("--group-regex", default=_VisualizerServer.groupRegex, help="Regular expression for grouping files", dest="group")
         parser.add_argument("--plugins", default="", help="List of fully qualified path names to plugin objects to load", dest="plugins")
         parser.add_argument("--proxies", default=None, help="Path to a file with json text containing filters to load", dest="proxies")
         parser.add_argument("--no-auto-readers", help="If provided, disables ability to use non-configured readers", action="store_true", dest="no_auto_readers")
