@@ -19,3 +19,15 @@ export function connect(config = {}) {
   network.onReady(start);
   network.connect(config);
 }
+
+export function autoStopServer(timeout = 60) {
+  function exitOnClose() {
+    network.exit(timeout);
+  }
+  window.addEventListener('unload', exitOnClose);
+  window.addEventListener('beforeunload', exitOnClose);
+}
+
+export function exit(timeout = 60) {
+  network.exit(timeout);
+}

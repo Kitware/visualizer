@@ -36,6 +36,13 @@ function start(conn) {
   }
 }
 
+export function exit(timeout = 60) {
+  if (connection) {
+    connection.destroy(timeout);
+    connection = null;
+  }
+}
+
 export function connect(config = {}) {
   smartConnect = new SmartConnect(config);
   smartConnect.onConnectionReady(start);
