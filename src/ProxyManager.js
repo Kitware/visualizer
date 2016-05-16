@@ -17,11 +17,11 @@ const TOPICS = {
 
 function removeRepresentationFromCache() {
   const proxyToDelete = [];
-  for (const id in fullProxyCache) {
+  Object.keys(fullProxyCache).forEach(id => {
     if (fullProxyCache[id].colorBy) {
       proxyToDelete.push(id);
     }
-  }
+  });
 
   proxyToDelete.forEach(id => {
     delete fullProxyCache[id];

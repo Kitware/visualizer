@@ -35,27 +35,27 @@ export default React.createClass({
     const { proxyManager } = this.props;
 
     return (
-      <div className={ style.container }>
-        <div className={ style.topBar }>
-          <div className={ style.title }>
-              <div className={ style.toggleMenu } onClick={ this.toggleMenu }>
-                  <img src={logo} />
-                  Visualizer
-              </div>
-              <ControlPanel
-                className={ this.state.menuVisible ? style.menu : style.hiddenMenu }
-                proxyManager={ proxyManager }
-              />
+      <div className={style.container}>
+        <div className={style.topBar}>
+          <div className={style.title}>
+            <div className={style.toggleMenu} onClick={this.toggleMenu}>
+              <img src={logo} alt="ParaViewWeb Visualizer" />
+              Visualizer
+            </div>
+            <ControlPanel
+              className={this.state.menuVisible ? style.menu : style.hiddenMenu}
+              proxyManager={proxyManager}
+            />
           </div>
-          <div className={ style.buttons }>
-              <TimeController proxyManager={ proxyManager } />
-              <i className={ style.resetCameraButton } onClick={ this.resetCamera }></i>
+          <div className={style.buttons}>
+            <TimeController proxyManager={proxyManager} />
+            <i className={style.resetCameraButton} onClick={this.resetCamera}></i>
           </div>
         </div>
         <VtkRenderer
           ref="renderer"
-          { ...proxyManager.getNetworkAdapter() }
-          className={ style.viewport }
+          {...proxyManager.getNetworkAdapter()}
+          className={style.viewport}
         />
       </div>);
   },

@@ -55,12 +55,12 @@ export default React.createClass({
   applyChanges(changeSet) {
     const changeToPush = [],
       ids = {};
-    for (const key in changeSet) {
+    Object.keys(changeSet).forEach(key => {
       const [id, name] = key.split(':'),
         value = changeSet[key];
       ids[id] = true;
       changeToPush.push({ id, name, value });
-    }
+    });
 
     this.props.proxyManager.updateProperties(changeToPush)
       .then(
@@ -79,8 +79,8 @@ export default React.createClass({
     const sections = [this.state.settingProxy, this.state.interactionProxy].filter(i => !!i);
 
     return  (
-      <div className={ style.container }>
-        <ProxyEditorWidget sections={sections} onApply={ this.applyChanges } />
+      <div className={style.container}>
+        <ProxyEditorWidget sections={sections} onApply={this.applyChanges} />
       </div>);
   },
 });

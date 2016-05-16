@@ -1,5 +1,5 @@
-import React        from 'react';
-import style        from 'VisualizerStyle/InformationPanel.mcss';
+import React from 'react';
+import style from 'VisualizerStyle/InformationPanel.mcss';
 
 function memoryToString(number) {
   var unitIdx = 0,
@@ -101,78 +101,82 @@ export default React.createClass({
 
     return (
       <div className={style.container}>
-          <div className={style.line}>
-              <i className={ style.iconType }></i>
-              {this.state.proxy.data.type}
-          </div>
-          <div className={style.line}>
-              <i className={ style.iconConnectivity }></i>
-              { `${this.state.proxy.data.points} points / ${this.state.proxy.data.cells} cells` }
-          </div>
-          <div className={style.line}>
-              <i className={ style.iconMemory }></i>
-              { memoryToString(this.state.proxy.data.memory) }
-          </div>
-          <div className={style.line}>
-              <i className={ style.iconBondingBox }></i>
-              <div>
-              <table className={ style.table }>
-                  <tbody>
-                      <tr>
-                          <td><input readOnly type="text" value={this.state.proxy.data.bounds[0]} title="X min" /></td>
-                          <td><input readOnly type="text" value={this.state.proxy.data.bounds[1]} title="X max" /></td>
-                      </tr>
-                      <tr>
-                          <td><input readOnly type="text" value={this.state.proxy.data.bounds[2]} title="Y min" /></td>
-                          <td><input readOnly type="text" value={this.state.proxy.data.bounds[3]} title="Y max" /></td>
-                      </tr>
-                      <tr>
-                          <td><input readOnly type="text" value={this.state.proxy.data.bounds[4]} title="Z min" /></td>
-                          <td><input readOnly type="text" value={this.state.proxy.data.bounds[5]} title="Z max" /></td>
-                      </tr>
-                  </tbody>
-              </table>
-              </div>
-          </div>
-          { this.props.proxyManager.getTimeValues().length ?
-              <div className={style.line}>
-                  <i className={ style.iconTime }></i>
-                  <select value={ this.props.proxyManager.getTimeStep() } onChange={ this.updateTime }>
-                      { this.props.proxyManager.getTimeValues().map((t, idx) => <option key={idx} value={idx}>{t}</option>)}
-                  </select>
-              </div> : null
-          }
-          { activeArray ?
-              <div>
-              <div className={style.line}>
-                  <i className={ style.iconArray }></i>
-                  <select value={ this.state.arrayIdx } onChange={ this.updateArray }>
-                      { this.state.proxy.data.arrays.map((a, idx) => <option key={idx} value={ idx }>{a.name}</option>)}
-                  </select>
-              </div>
-              <div className={style.line}>
-                  <i className={ style.iconArrayType }></i>
-                  { `${activeArray.location} / ${activeArray.type}(${activeArray.size})` }
-              </div>
-
-              <div className={style.line}><table className={style.table}>
-              <thead>
-                  <tr>
-                      <th><i className={ style.iconRange }></i></th>
-                      <th>Min</th>
-                      <th>Max</th>
-                  </tr>
-              </thead>
+        <div className={style.line}>
+          <i className={style.iconType}></i>
+          {this.state.proxy.data.type}
+        </div>
+        <div className={style.line}>
+          <i className={style.iconConnectivity}></i>
+          {`${this.state.proxy.data.points} points / ${this.state.proxy.data.cells} cells`}
+        </div>
+        <div className={style.line}>
+          <i className={style.iconMemory}></i>
+          {memoryToString(this.state.proxy.data.memory)}
+        </div>
+        <div className={style.line}>
+          <i className={style.iconBondingBox}></i>
+          <div>
+            <table className={style.table}>
               <tbody>
-              { activeArray.range.map((range, idx) =>
-                <tr key={idx}>
-                  <td>{range.name.length ? range.name : 'Range'}</td>
-                  <td><input readOnly type="text" value={range.min} /></td>
-                  <td><input readOnly type="text" value={range.max} /></td>
+                <tr>
+                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[0]} title="X min" /></td>
+                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[1]} title="X max" /></td>
                 </tr>
-              )}
-              </tbody></table></div></div> : null
-          }
+                <tr>
+                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[2]} title="Y min" /></td>
+                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[3]} title="Y max" /></td>
+                </tr>
+                <tr>
+                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[4]} title="Z min" /></td>
+                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[5]} title="Z max" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {this.props.proxyManager.getTimeValues().length ?
+          <div className={style.line}>
+            <i className={style.iconTime}></i>
+            <select value={this.props.proxyManager.getTimeStep()} onChange={this.updateTime}>
+              {this.props.proxyManager.getTimeValues().map((t, idx) => <option key={idx} value={idx}>{t}</option>)}
+            </select>
+          </div> : null
+        }
+        {activeArray ?
+          <div>
+            <div className={style.line}>
+              <i className={style.iconArray}></i>
+              <select value={this.state.arrayIdx} onChange={this.updateArray}>
+                {this.state.proxy.data.arrays.map((a, idx) => <option key={idx} value={idx}>{a.name}</option>)}
+              </select>
+            </div>
+            <div className={style.line}>
+              <i className={style.iconArrayType}></i>
+              {`${activeArray.location} / ${activeArray.type}(${activeArray.size})`}
+            </div>
+
+            <div className={style.line}>
+              <table className={style.table}>
+                <thead>
+                  <tr>
+                    <th><i className={style.iconRange}></i></th>
+                    <th>Min</th>
+                    <th>Max</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {activeArray.range.map((range, idx) =>
+                    <tr key={idx}>
+                      <td>{range.name.length ? range.name : 'Range'}</td>
+                      <td><input readOnly type="text" value={range.min} /></td>
+                      <td><input readOnly type="text" value={range.max} /></td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div> : null
+        }
       </div>);
   },
 });

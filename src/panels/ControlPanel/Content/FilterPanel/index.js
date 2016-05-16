@@ -1,7 +1,6 @@
 import React        from 'react';
 import ActionList   from 'paraviewweb/src/React/Widgets/ActionListWidget';
-
-import style from 'VisualizerStyle/ToggleIcons.mcss';
+import style        from 'VisualizerStyle/ToggleIcons.mcss';
 
 export default React.createClass({
 
@@ -56,9 +55,9 @@ export default React.createClass({
 
     return (
       <ActionList
-        className={ this.props.className }
-        list={ this.getAlgorithms() }
-        onClick={ this.applyFilter }
+        className={this.props.className}
+        list={this.getAlgorithms()}
+        onClick={this.applyFilter}
       />);
   },
 });

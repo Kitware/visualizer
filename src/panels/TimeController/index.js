@@ -63,15 +63,15 @@ export default React.createClass({
     const timeClass = style[`time${timeSize}`];
 
     return (
-        <div className={style.container}>
-            {
-              this.state.playing
-              ? <i className={ style.stopButton } onClick={ this.togglePlay }></i>
-              : <i className={ style.playButton } onClick={ this.togglePlay }></i>
-            }
-            <i onClick={ this.previous } className={ style.previousButton }></i>
-            <input className={timeClass} type="text" readOnly value={ `${this.state.timeStep + 1}/${this.state.timeValues.length}` } />
-            <i onClick={ this.next } className={ style.nextButton }></i>
-        </div>);
+      <div className={style.container}>
+        {
+          this.state.playing
+          ? <i className={style.stopButton} onClick={this.togglePlay}></i>
+          : <i className={style.playButton} onClick={this.togglePlay}></i>
+        }
+        <i onClick={this.previous} className={style.previousButton}></i>
+        <input className={timeClass} type="text" readOnly value={`${this.state.timeStep + 1}/${this.state.timeValues.length}`} />
+        <i onClick={this.next} className={style.nextButton}></i>
+      </div>);
   },
 });
