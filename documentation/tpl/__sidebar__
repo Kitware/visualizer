@@ -1,0 +1,9 @@
+docs:
+  getting_started:
+    overview: /visualizer/docs/index.html
+  miscellaneous:
+    tools: /visualizer/docs/tools.html
+    troubleshooting: /visualizer/docs/troubleshooting.html
+    contributing: /visualizer/docs/contributing.html
+  redux:
+    datamodel: /visualizer/docs/redux.html
