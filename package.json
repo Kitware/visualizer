@@ -31,6 +31,8 @@
     "kw-doc": "1.0.7"
   },
   "scripts": {
+    "postinstall": "fix-kw-web-suite || true",
+
     "build": "fix-autobahn && webpack",
     "build:debug": "fix-autobahn && webpack --display-modules",
     "build:release": "export NODE_ENV=production && fix-autobahn && webpack -p",
