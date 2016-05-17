@@ -1,6 +1,5 @@
 import React                from 'react';
 import CollapsibleWidget    from 'paraviewweb/src/React/Widgets/CollapsibleWidget';
-
 import style                from 'VisualizerStyle/SavePanel.mcss';
 
 const DATASET_MAPPING = {
@@ -172,84 +171,84 @@ export default React.createClass({
     }
 
     return (
-      <div className={ [ this.props.className, style.container ].join(' ') }>
-          <CollapsibleWidget open subtitle="Local" title="Screenshot">
-            <img ref="screenshot" src={ this.state.url } className={ style.localImage } />
-          </CollapsibleWidget>
-          <CollapsibleWidget open={false} subtitle="Remote" title="Screenshot">
-            <div className={ style.line }>
-              <i className={ style.resizeIcon } onClick={ this.resetSize }></i>
-              <div className={ style.group }>
-                <input
-                  type="number"
-                  className={ style.sizeInput }
-                  name="width"
-                  value={ this.state.width }
-                  onChange={ this.updateForm }
-                />
-                x
-                <input
-                  type="number"
-                  className={ style.sizeInput }
-                  name="height"
-                  value={ this.state.height }
-                  onChange={ this.updateForm }
-                />
-              </div>
-            </div>
-            <div className={ style.line }>
-              <i
-                className={ this.state.screenMessage === 'success'
-                  ? style.saveIconSuccess : (this.state.screenMessage && this.state.screenMessage.length
-                    ? style.saveIconError : style.saveIcon) }
-                title={ this.state.screenMessage }
-                onClick={ this.saveScreenShot }
-              ></i>
+      <div className={[ this.props.className, style.container ].join(' ')}>
+        <CollapsibleWidget open subtitle="Local" title="Screenshot">
+          <img ref="screenshot" src={this.state.url} className={style.localImage} alt="" />
+        </CollapsibleWidget>
+        <CollapsibleWidget open={false} subtitle="Remote" title="Screenshot">
+          <div className={style.line}>
+            <i className={style.resizeIcon} onClick={this.resetSize}></i>
+            <div className={style.group}>
               <input
-                type="text"
-                className={ style.input }
-                name="screenshotPath"
-                value={ this.state.screenshotPath }
-                onChange={ this.updateForm }
+                type="number"
+                className={style.sizeInput}
+                name="width"
+                value={this.state.width}
+                onChange={this.updateForm}
+              />
+              x
+              <input
+                type="number"
+                className={style.sizeInput}
+                name="height"
+                value={this.state.height}
+                onChange={this.updateForm}
               />
             </div>
-          </CollapsibleWidget>
-          <CollapsibleWidget open={false} subtitle="Remote" title="Dataset" visible={ this.props.proxyManager.hasActiveProxy() }>
-            <div className={ style.line }>
-              <i
-                className={ this.state.datasetMessage === 'success'
-                  ? style.saveIconSuccess : (this.state.datasetMessage && this.state.datasetMessage.length
-                      ? style.saveIconError : style.saveIcon) }
-                title={ this.state.datasetMessage }
-                onClick={ this.saveDataset }
-              ></i>
-              <input
-                type="text"
-                className={ style.input }
-                name="datasetPath"
-                value={ this.state.datasetPath }
-                onChange={ this.updateForm }
-              />
-            </div>
-          </CollapsibleWidget>
-          <CollapsibleWidget open={false} subtitle="Remote" title="State">
-            <div className={ style.line }>
-              <i
-                className={ this.state.stateMessage === 'success'
-                  ? style.saveIconSuccess : (this.state.stateMessage && this.state.stateMessage.length
-                      ? style.saveIconError : style.saveIcon) }
-                title={ this.state.stateMessage }
-                onClick={ this.saveState }
-              ></i>
-              <input
-                type="text"
-                className={ style.input }
-                name="statePath"
-                value={ this.state.statePath }
-                onChange={ this.updateForm }
-              />
-            </div>
-          </CollapsibleWidget>
+          </div>
+          <div className={style.line}>
+            <i
+              className={this.state.screenMessage === 'success'
+                ? style.saveIconSuccess : (this.state.screenMessage && this.state.screenMessage.length
+                  ? style.saveIconError : style.saveIcon)}
+              title={this.state.screenMessage}
+              onClick={this.saveScreenShot}
+            ></i>
+            <input
+              type="text"
+              className={style.input}
+              name="screenshotPath"
+              value={this.state.screenshotPath}
+              onChange={this.updateForm}
+            />
+          </div>
+        </CollapsibleWidget>
+        <CollapsibleWidget open={false} subtitle="Remote" title="Dataset" visible={this.props.proxyManager.hasActiveProxy()}>
+          <div className={style.line}>
+            <i
+              className={this.state.datasetMessage === 'success'
+                ? style.saveIconSuccess : (this.state.datasetMessage && this.state.datasetMessage.length
+                    ? style.saveIconError : style.saveIcon)}
+              title={this.state.datasetMessage}
+              onClick={this.saveDataset}
+            ></i>
+            <input
+              type="text"
+              className={style.input}
+              name="datasetPath"
+              value={this.state.datasetPath}
+              onChange={this.updateForm}
+            />
+          </div>
+        </CollapsibleWidget>
+        <CollapsibleWidget open={false} subtitle="Remote" title="State">
+          <div className={style.line}>
+            <i
+              className={this.state.stateMessage === 'success'
+                ? style.saveIconSuccess : (this.state.stateMessage && this.state.stateMessage.length
+                    ? style.saveIconError : style.saveIcon)}
+              title={this.state.stateMessage}
+              onClick={this.saveState}
+            ></i>
+            <input
+              type="text"
+              className={style.input}
+              name="statePath"
+              value={this.state.statePath}
+              onChange={this.updateForm}
+            />
+          </div>
+        </CollapsibleWidget>
       </div>);
   },
 });

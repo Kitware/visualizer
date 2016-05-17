@@ -182,12 +182,12 @@ export default React.createClass({
   applyChanges(changeSet) {
     const changeToPush = [],
       ids = {};
-    for (const key in changeSet) {
+    Object.keys(changeSet).forEach(key => {
       const [id, name] = key.split(':'),
         value = changeSet[key];
       ids[id] = true;
       changeToPush.push({ id, name, value });
-    }
+    });
 
     const dirtyProxyNames = ['sourceProxy', 'representationProxy', 'viewProxy'].filter(key => {
       var keep = false;
@@ -262,27 +262,27 @@ export default React.createClass({
     const sections = [this.state.sourceProxy, this.state.representationProxy, this.state.viewProxy].filter(i => !!i);
 
     return (
-      <div className={ style.container }>
-        <div className={ style.pipelineContainer }>
-        <PipelineWidget
-          nodes={ this.state.proxyList.sources }
-          actives={ [ this.props.proxyManager.getActiveProxyId() ] }
-          onChange={ this.handleChange }
-          enableDelete
-          width="295"
-        />
+      <div className={style.container}>
+        <div className={style.pipelineContainer}>
+          <PipelineWidget
+            nodes={this.state.proxyList.sources}
+            actives={[ this.props.proxyManager.getActiveProxyId() ]}
+            onChange={this.handleChange}
+            enableDelete
+            width="295"
+          />
         </div>
-        <div className={ style.proxyEditorContainer }>
-          <ProxyEditorWidget sections={sections} onApply={ this.applyChanges }>
+        <div className={style.proxyEditorContainer}>
+          <ProxyEditorWidget sections={sections} onApply={this.applyChanges}>
             <ColorByWidget
-              className={ style.colorBy }
+              className={style.colorBy}
               source={this.state.sourceProxy}
               representation={this.state.representationProxy}
-              scalarBar={ this.state.scalarBar }
-              presets= { this.state.presets }
-              min={ this.state.min }
-              max={ this.state.max }
-              onChange={ this.updateColorBy }
+              scalarBar={this.state.scalarBar}
+              presets={this.state.presets}
+              min={this.state.min}
+              max={this.state.max}
+              onChange={this.updateColorBy}
             />
           </ProxyEditorWidget>
         </div>

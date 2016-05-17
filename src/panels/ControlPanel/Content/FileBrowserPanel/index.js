@@ -94,12 +94,12 @@ export default React.createClass({
 
     return (
       <FileBrowser
-        className={ this.props.className }
-        path={ this.state.path }
-        directories={ this.state.dirs }
-        groups={ this.state.groups }
-        files={ this.state.files }
-        onAction={ this.processAction }
+        className={this.props.className}
+        path={this.state.path}
+        directories={this.state.dirs}
+        groups={this.state.groups}
+        files={this.state.files}
+        onAction={this.processAction}
       />);
   },
 });

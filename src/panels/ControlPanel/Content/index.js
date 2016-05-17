@@ -13,13 +13,13 @@ class ControlPanelContent extends React.Component {
       view = this.props.activeIdx;
 
     return (
-      <div className={ this.props.className }>
-        <PipelineBrowser  visible={ view === 0 } proxyManager={proxyManager} goTo={ this.props.onChange } />
-        <FileBrowserPanel visible={ view === 1 } proxyManager={proxyManager} goTo={ this.props.onChange } />
-        <FilterPanel      visible={ view === 2 } proxyManager={proxyManager} goTo={ this.props.onChange } />
-        <SavePanel        visible={ view === 3 } proxyManager={proxyManager} goTo={ this.props.onChange } />
-        <InformationPanel visible={ view === 4 } proxyManager={proxyManager} goTo={ this.props.onChange } />
-        <SettingPanel     visible={ view === 5 } proxyManager={proxyManager} goTo={ this.props.onChange } />
+      <div className={this.props.className}>
+        <PipelineBrowser  visible={view === 0} proxyManager={proxyManager} goTo={this.props.onChange} />
+        <FileBrowserPanel visible={view === 1} proxyManager={proxyManager} goTo={this.props.onChange} />
+        <FilterPanel      visible={view === 2} proxyManager={proxyManager} goTo={this.props.onChange} />
+        <SavePanel        visible={view === 3} proxyManager={proxyManager} goTo={this.props.onChange} />
+        <InformationPanel visible={view === 4} proxyManager={proxyManager} goTo={this.props.onChange} />
+        <SettingPanel     visible={view === 5} proxyManager={proxyManager} goTo={this.props.onChange} />
       </div>);
   }
 }

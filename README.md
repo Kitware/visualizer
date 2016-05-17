@@ -62,17 +62,15 @@ which should be added to your commit.
 
 ## Documentation
 
-** COMING SOON **
-
 See the [documentation](https://kitware.github.io/visualizer) for a
 getting started guide, advanced documentation, and API descriptions.
 
 #### Licensing
 
-**visualizer** aka ParaViewWeb:Visualizer is licensed under [BSD Clause 3](LICENSE).
+**Visualizer** aka ParaViewWeb:Visualizer is licensed under [BSD Clause 3](LICENSE).
 
 #### Getting Involved
 
 Fork our repository and do great things. At [Kitware](http://www.kitware.com),
 we've been contributing to open-source software for 15 years and counting, and
-want to make **visualizer** useful to as many people as possible.
+want to make **Visualizer** useful to as many people as possible.

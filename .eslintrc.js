@@ -19,5 +19,8 @@ module.exports = {
     'react/sort-comp': 0,
     'spaced-comment': 1,
     'one-var': 0,
+  },
+  settings: {
+    'import/resolver': 'webpack',
   }
 };
