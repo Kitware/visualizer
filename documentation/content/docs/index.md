@@ -1,27 +1,26 @@
 title: Documentation
 ---
 
-The ParaViewWeb Visualizer is a Web application that aims to enable scientific visualization
-on the Web using a ParaView backend for data processing and rendering.
+The ParaView Visualizer is a Web application that aims to enable scientific visualization on the Web using a ParaView backend for data processing and rendering.
 
-If you encounter any problems when using Visualizer, you can find the solutions in [Troubleshooting](troubleshooting.html) or ask me on [GitHub](https://github.com/kitware/visualizer/issues) or [Mailing list](http://www.paraview.org/mailman/listinfo/paraview). If you can't find the answer, please report it on GitHub.
+If you encounter any problems when using ParaView Visualizer, you can find the solutions in [Troubleshooting](troubleshooting.html) or ask me on [GitHub](https://github.com/kitware/visualizer/issues) or [Mailing list](http://www.paraview.org/mailman/listinfo/paraview). If you can't find the answer, please report it on GitHub.
 
-## What is ParaViewWeb Visualizer?
+## What is ParaView Visualizer?
 
-ParaViewWeb Visualizer is a standalone application that leverage ParaView capabilities on the backend to produce interactive visualizations over the Web. The Visualizer application can be used locally as a command line tool (demo-mode) or remotely when properly deployed.
+ParaView Visualizer is a standalone application that leverage ParaView capabilities on the backend to produce interactive visualizations over the Web. The Visualizer application can be used locally as a command line tool (demo-mode) or remotely when properly deployed.
 
 The ParaViewWeb Visualizer aims to provide a ParaView like application for your browser.
 
 ## Installation
 
-It only takes few minutes to set up ParaViewWeb Visualizer. If you encounter a problem and can't find the solution here, please [submit a GitHub issue](https://github.com/kitware/visualizer/issues).
+It only takes few minutes to set up ParaView Visualizer. If you encounter a problem and can't find the solution here, please [submit a GitHub issue](https://github.com/kitware/visualizer/issues).
 
 ```sh
 $ npm install -g pvw-visualizer
 $ Visualizer --paraview /Applications/paraview.app --data ~/Desktop
 ```
 
-For production usage, ParaViewWeb Visualizer should be deployed within your Web insfrastructure following the proper requirements: 
+For production usage, ParaView Visualizer should be deployed within your Web insfrastructure following the proper requirements: 
 
 1) Serve the Visualizer application to the client (Static content: JS + HTML) using any kind of Web server (Apache, Nginx, Tomcat, Node...).
 2) Enable the client to start a new ParaView process on the server side (Cluster). We provide a generic launcher implementation using Python which could be replaced with something more appropriate to your infrastructure. 
@@ -31,7 +30,7 @@ For better rendering performances, the ParaView server should run on a GPU machi
 
 ### Requirements
 
-Installing ParaViewWeb Visualizer as a dependency inside your Web project is quite easy. However, you do need to have a couple of other things installed first:
+Installing ParaView Visualizer as a dependency inside your Web project is quite easy. However, you do need to have a couple of other things installed first:
 
 - [Node.js](http://nodejs.org/)
 - [Git](http://git-scm.com/)

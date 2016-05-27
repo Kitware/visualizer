@@ -1,6 +1,6 @@
 # Visualizer Data Model
 
-Visualizer use **Redux** for managing its internal state which is described below.
+ParaView Visualizer use **Redux** for managing its internal state which is described below.
 
 ## Global state
 

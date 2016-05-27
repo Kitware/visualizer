@@ -1,7 +1,7 @@
 title: Tools
 ---
 
-ParaViewWeb Visualizer is meant to be an Open Source application for 3D
+ParaView Visualizer is meant to be an Open Source application for 3D
 Scientific Visualization.
 
 The following guide explain our software process and tools use to

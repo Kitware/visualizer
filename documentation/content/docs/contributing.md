@@ -1,7 +1,7 @@
 title: Contributing
 ---
 
-We welcome you to join the development of ParaViewWeb - Visualizer. This document will help you through the process.
+We welcome you to join the development of ParaView Visualizer. This document will help you through the process.
 
 ## Before You Start
 
@@ -55,8 +55,8 @@ Please follow the coding style:
 
 ## Updating Documentation
 
-The ParaViewWeb Visualizer documentation is part of the code repository.
+The ParaView Visualizer documentation is part of the code repository.
 
 ## Reporting Issues
 
-When you encounter some problems when using Visualizer, you can find the solutions in [Troubleshooting](troubleshooting.html) or ask me on [GitHub](https://github.com/kitware/visualizer/issues) or [Mailing list](http://www.paraview.org/mailman/listinfo/paraview). If you can't find the answer, please report it on GitHub.
+When you encounter some problems when using ParaView Visualizer, you can find the solutions in [Troubleshooting](troubleshooting.html) or ask me on [GitHub](https://github.com/kitware/visualizer/issues) or [Mailing list](http://www.paraview.org/mailman/listinfo/paraview). If you can't find the answer, please report it on GitHub.
