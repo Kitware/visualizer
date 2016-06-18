@@ -58,7 +58,8 @@ export function getConnection() {
 }
 
 export function onReady(callback) {
-  if (client) {
+  // Only call the callback if we have an open session
+  if (client && client.session.isOpen) {
     callback();
   } else {
     readyCallback = callback;
