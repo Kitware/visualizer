@@ -23,16 +23,14 @@
     "monologue.js": "0.3.5",
     "mout": "1.0.0",
     "normalize.css": "4.1.1",
-    "paraviewweb": "1.5.4",
-    "react": "15.0.2",
-    "react-dom": "15.0.2",
+    "paraviewweb": "1.8.2",
+    "react": "15.1.0",
+    "react-dom": "15.1.0",
 
     "kw-web-suite": "2.0.1",
-    "kw-doc": "1.0.7"
+    "kw-doc": "1.0.12"
   },
   "scripts": {
-    "postinstall": "fix-kw-web-suite || true",
-
     "build": "fix-autobahn && webpack",
     "build:debug": "fix-autobahn && webpack --display-modules",
     "build:release": "export NODE_ENV=production && fix-autobahn && webpack -p",
