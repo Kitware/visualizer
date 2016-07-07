@@ -58,7 +58,7 @@ export function getConnection() {
 }
 
 export function onReady(callback) {
-  if (client) {
+  if (client && client.session.isOpen) {
     callback();
   } else {
     readyCallback = callback;
