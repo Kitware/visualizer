@@ -64,3 +64,11 @@ export function onReady(callback) {
     readyCallback = callback;
   }
 }
+
+export default {
+  exit,
+  connect,
+  getClient,
+  getConnection,
+  onReady,
+};

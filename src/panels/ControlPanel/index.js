@@ -3,31 +3,27 @@ import ControlPanelContent  from './Content';
 
 import style from 'VisualizerStyle/ToggleIcons.mcss';
 
-export default React.createClass({
+import { connect } from 'react-redux';
+import { selectors, actions, dispatch } from '../../redux';
+
+export const ControlPanel = React.createClass({
 
   displayName: 'ParaViewWeb/ControlPanel',
 
   propTypes: {
     className: React.PropTypes.string,
-    proxyManager: React.PropTypes.object,
-  },
+    activeIdx: React.PropTypes.number,
 
-  getInitialState() {
-    return {
-      activeIdx: 0,
-    };
+    updateActivePanel: React.PropTypes.func,
+    resetCamera: React.PropTypes.func,
   },
 
   updateActive(e) {
-    this.changeActive(Number(e.target.dataset.idx) || 0);
-  },
-
-  changeActive(activeIdx) {
-    this.setState({ activeIdx });
+    this.props.updateActivePanel(Number(e.target.dataset.idx) || 0);
   },
 
   resetCamera() {
-    this.props.proxyManager.resetCamera();
+    this.props.resetCamera();
   },
 
   render() {
@@ -38,45 +34,62 @@ export default React.createClass({
             <i
               data-idx="0"
               onClick={this.updateActive}
-              className={this.state.activeIdx === 0 ? style.pipelineButtonActive : style.pipelineButton}
+              className={this.props.activeIdx === 0 ? style.pipelineButtonActive : style.pipelineButton}
             ></i>
             <i
               data-idx="1"
               onClick={this.updateActive}
-              className={this.state.activeIdx === 1 ? style.openFileButtonActive : style.openFileButton}
+              className={this.props.activeIdx === 1 ? style.openFileButtonActive : style.openFileButton}
             ></i>
             <i
               data-idx="2"
               onClick={this.updateActive}
-              className={this.state.activeIdx === 2 ? style.filterButtonActive : style.filterButton}
+              className={this.props.activeIdx === 2 ? style.filterButtonActive : style.filterButton}
             ></i>
             <i
               data-idx="3"
               onClick={this.updateActive}
-              className={this.state.activeIdx === 3 ? style.saveButtonActive : style.saveButton}
+              className={this.props.activeIdx === 3 ? style.saveButtonActive : style.saveButton}
             ></i>
             <i
               data-idx="4"
               onClick={this.updateActive}
-              className={this.state.activeIdx === 4 ? style.infoButtonActive : style.infoButton}
+              className={this.props.activeIdx === 4 ? style.infoButtonActive : style.infoButton}
             ></i>
           </div>
           <div className={style.actions}>
             <i
               data-idx="5"
               onClick={this.updateActive}
-              className={this.state.activeIdx === 5 ? style.settingsButtonActive : style.settingsButton}
+              className={this.props.activeIdx === 5 ? style.settingsButtonActive : style.settingsButton}
             ></i>
             <i className={style.resetCameraIcon} onClick={this.resetCamera}></i>
           </div>
         </div>
         <div className={style.content} >
           <ControlPanelContent
-            activeIdx={this.state.activeIdx}
-            proxyManager={this.props.proxyManager}
-            onChange={this.changeActive}
+            activeIdx={this.props.activeIdx}
+            onChange={this.props.updateActivePanel}
           />
         </div>
       </div>);
   },
 });
+
+
+// Binding --------------------------------------------------------------------
+/* eslint-disable arrow-body-style */
+
+export default connect(
+  state => {
+    return {
+      activeIdx: selectors.ui.getVisiblePanel(state),
+      resetCamera() {
+        dispatch(actions.view.resetCamera());
+      },
+      updateActivePanel(idx) {
+        dispatch(actions.ui.updateVisiblePanel(idx));
+      },
+    };
+  }
+)(ControlPanel);

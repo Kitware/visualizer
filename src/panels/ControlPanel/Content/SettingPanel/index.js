@@ -2,54 +2,29 @@ import React                from 'react';
 import ProxyEditorWidget    from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
 import style                from 'VisualizerStyle/SettingPanel.mcss';
 
-export default React.createClass({
+import { connect } from 'react-redux';
+import { selectors, actions, dispatch } from '../../../../redux';
+
+// ----------------------------------------------------------------------------
+
+export const SettingPanel = React.createClass({
 
   displayName: 'ParaViewWeb/SettingPanel',
 
   propTypes: {
     className: React.PropTypes.string,
-    proxyManager: React.PropTypes.object,
     visible: React.PropTypes.bool,
+
+    sections: React.PropTypes.array,
+    fetchSettingProxy: React.PropTypes.func,
+    applyChangeSet: React.PropTypes.func,
+    updateCollapsableState: React.PropTypes.func,
   },
 
   getDefaultProps() {
     return {
       visible: true,
     };
-  },
-
-  getInitialState() {
-    return {
-      settingProxy: null,
-      interactionProxy: null,
-    };
-  },
-
-  componentWillMount() {
-    this.updateSettingProxy();
-  },
-
-  updateSettingProxy() {
-    this.props.proxyManager.getRenderViewSettings()
-      .then(
-        proxy => {
-          const settingProxy = Object.assign({ name: 'Global settings', collapsed: false }, proxy);
-          this.setState({ settingProxy });
-        },
-        err => {
-          console.log('Error fetching setting proxy', err);
-        });
-
-
-    // this.props.proxyManager.getRenderViewInteractionSettings()
-    //   .then(
-    //     proxy => {
-    //       const interactionProxy = Object.assign({ name: 'Interaction settings', collapsed: true }, proxy);
-    //       this.setState({ interactionProxy });
-    //     },
-    //     err => {
-    //       console.log('Error fetching setting proxy', err);
-    //     });
   },
 
   applyChanges(changeSet) {
@@ -62,25 +37,42 @@ export default React.createClass({
       changeToPush.push({ id, name, value });
     });
 
-    this.props.proxyManager.updateProperties(changeToPush)
-      .then(
-        ok => {
-          this.updateSettingProxy();
-        },
-        ko => {
-          console.log('Error update props', ko);
-        });
+    this.props.applyChangeSet(changeToPush);
+    this.props.fetchSettingProxy();
   },
 
   render() {
     if (!this.props.visible) {
       return null;
     }
-    const sections = [this.state.settingProxy, this.state.interactionProxy].filter(i => !!i);
 
     return  (
       <div className={style.container}>
-        <ProxyEditorWidget sections={sections} onApply={this.applyChanges} />
+        <ProxyEditorWidget
+          sections={this.props.sections}
+          onApply={this.applyChanges}
+          onCollapseChange={this.props.updateCollapsableState}
+        />
       </div>);
   },
 });
+
+// Binding --------------------------------------------------------------------
+/* eslint-disable arrow-body-style */
+
+export default connect(
+  state => {
+    return {
+      sections: [selectors.proxies.getRenderViewSettingsPropertyGroup(state)],
+      fetchSettingProxy: () => {
+        dispatch(actions.proxies.fetchSettingProxy());
+      },
+      applyChangeSet: (changeSet) => {
+        dispatch(actions.proxies.applyChangeSet(changeSet));
+      },
+      updateCollapsableState(name, isOpen) {
+        dispatch(actions.ui.updateCollapsableState(name, isOpen));
+      },
+    };
+  }
+)(SettingPanel);

@@ -2,50 +2,31 @@ import React        from 'react';
 import ActionList   from 'paraviewweb/src/React/Widgets/ActionListWidget';
 import style        from 'VisualizerStyle/ToggleIcons.mcss';
 
-export default React.createClass({
+import { connect } from 'react-redux';
+import { selectors, actions, dispatch } from '../../../../redux';
+
+const ICON_MAPPING = {
+  source: style.sourceIcon,
+  filter: style.filterIcon,
+};
+
+// ----------------------------------------------------------------------------
+
+export const FilterPanel = React.createClass({
 
   displayName: 'ParaViewWeb/FilterPanel',
 
   propTypes: {
     className: React.PropTypes.string,
-    goTo: React.PropTypes.func,
-    proxyManager: React.PropTypes.object,
     visible: React.PropTypes.bool,
+    list: React.PropTypes.array,
+    applyFilter: React.PropTypes.func,
   },
 
   getDefaultProps() {
     return {
       visible: true,
     };
-  },
-
-  /* eslint-disable */
-  getAlgorithms() {
-    var icon = style.sourceIcon;
-    var list = [];
-
-    list = list.concat(this.props.proxyManager.getSources().map(name => {
-      return { name, icon };
-    }));
-    if (this.props.proxyManager.canApplyFilter()) {
-      icon = style.filterIcon;
-      list = list.concat(this.props.proxyManager.getFilters().map(name => {
-        return { name, icon };
-      }));
-    }
-    return list;
-  },
-  /* eslint-enable */
-
-  applyFilter(name) {
-    this.props.proxyManager.createProxy(name)
-      .then(
-        ok => {
-          this.props.goTo(0);
-        },
-        ko => {
-          console.log('ERROR: Create', name, ko);
-        });
   },
 
   render() {
@@ -56,8 +37,23 @@ export default React.createClass({
     return (
       <ActionList
         className={this.props.className}
-        list={this.getAlgorithms()}
-        onClick={this.applyFilter}
+        list={this.props.list}
+        onClick={this.props.applyFilter}
       />);
   },
 });
+
+// Binding --------------------------------------------------------------------
+/* eslint-disable arrow-body-style */
+
+export default connect(
+  state => {
+    return {
+      list: selectors.proxies.getAvailableList(state).map(i => ({ name: i.name, icon: ICON_MAPPING[i.icon] })),
+      applyFilter: name => {
+        dispatch(actions.proxies.createProxy(name, selectors.proxies.getActiveSourceId(state)));
+        dispatch(actions.ui.updateVisiblePanel(0));
+      },
+    };
+  }
+)(FilterPanel);

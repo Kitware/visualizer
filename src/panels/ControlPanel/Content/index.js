@@ -7,19 +7,18 @@ import SavePanel        from './SavePanel';
 import SettingPanel     from './SettingPanel';
 
 /* eslint-disable react/prefer-stateless-function */
-class ControlPanelContent extends React.Component {
+export default class ControlPanelContent extends React.Component {
   render() {
-    const proxyManager = this.props.proxyManager,
-      view = this.props.activeIdx;
+    const { activeIdx } = this.props;
 
     return (
       <div className={this.props.className}>
-        <PipelineBrowser  visible={view === 0} proxyManager={proxyManager} goTo={this.props.onChange} />
-        <FileBrowserPanel visible={view === 1} proxyManager={proxyManager} goTo={this.props.onChange} />
-        <FilterPanel      visible={view === 2} proxyManager={proxyManager} goTo={this.props.onChange} />
-        <SavePanel        visible={view === 3} proxyManager={proxyManager} goTo={this.props.onChange} />
-        <InformationPanel visible={view === 4} proxyManager={proxyManager} goTo={this.props.onChange} />
-        <SettingPanel     visible={view === 5} proxyManager={proxyManager} goTo={this.props.onChange} />
+        <PipelineBrowser  visible={activeIdx === 0} />
+        <FileBrowserPanel visible={activeIdx === 1} />
+        <FilterPanel      visible={activeIdx === 2} />
+        <SavePanel        visible={activeIdx === 3} />
+        <InformationPanel visible={activeIdx === 4} />
+        <SettingPanel     visible={activeIdx === 5} />
       </div>);
   }
 }
@@ -27,8 +26,4 @@ class ControlPanelContent extends React.Component {
 ControlPanelContent.propTypes = {
   activeIdx: React.PropTypes.number,
   className: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-  proxyManager: React.PropTypes.object,
 };
-
-export default ControlPanelContent;

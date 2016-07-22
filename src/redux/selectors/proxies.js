@@ -1,0 +1,84 @@
+import { createSelector } from 'reselect';
+
+// ----------------------------------------------------------------------------
+// Pure state selection
+// ----------------------------------------------------------------------------
+
+export const hasSource = state => state.active.source && state.active.source !== '0';
+
+export const getActiveSourceId = state => state.active.source;
+export const getProxyMapById = state => state.proxies.proxies;
+export const getPipeline = state => state.proxies.pipeline;
+export const getSourceToRepresentationMap = state => state.proxies.sourceToRepresentation;
+export const getActiveViewId = state => state.proxies.pipeline.view;
+
+export const getAvailableSources = state => state.proxies.available.sources;
+export const getAvailableFilters = state => state.proxies.available.filters;
+
+export const isSourceCollapsed = state => state.ui.collapsableState.Source;
+export const isRepresentationCollapsed = state => state.ui.collapsableState.Representation;
+export const isViewCollapsed = state => state.ui.collapsableState.View;
+export const isRenderViewSettingsCollapsed = state => state.ui.collapsableState['Global Settings'];
+
+export const getRenderViewSettingsProxyId = state => state.proxies.settings.RenderViewSettings;
+
+// ----------------------------------------------------------------------------
+// Composite selector
+// ----------------------------------------------------------------------------
+
+export const getActiveSource = createSelector(
+  [getActiveSourceId, getProxyMapById],
+  (sourceId, proxyMapById) => ((sourceId && proxyMapById) ? proxyMapById[sourceId] : undefined)
+);
+
+export const getActiveRepresentationId = createSelector(
+  [getActiveSourceId, getSourceToRepresentationMap],
+  (sourceId, sourceToRepresentation) => ((sourceId && sourceToRepresentation) ? sourceToRepresentation[sourceId] : undefined)
+);
+
+export const getActiveRepresentation = createSelector(
+  [getActiveRepresentationId, getProxyMapById],
+  (id, proxyMapById) => ((id && proxyMapById) ? proxyMapById[id] : undefined)
+);
+
+export const getActiveView = createSelector(
+  [getActiveViewId, getProxyMapById],
+  (viewId, proxyMapById) => ((viewId && proxyMapById) ? proxyMapById[viewId] : undefined)
+);
+
+export const getRenderViewSettingsProxy = createSelector(
+  [getRenderViewSettingsProxyId, getProxyMapById],
+  (id, map) => (map ? map[id] : undefined)
+);
+
+
+export const getRenderViewSettingsPropertyGroup = createSelector(
+  [getRenderViewSettingsProxy, isRenderViewSettingsCollapsed],
+  (proxy, collapsed) => (proxy ? Object.assign({ name: 'Global Settings', collapsed }, proxy) : undefined)
+);
+
+export const getSourcePropertyGroup = createSelector(
+  [getActiveSource, isSourceCollapsed],
+  (proxy, collapsed) => (proxy ? Object.assign({ name: 'Source', collapsed }, proxy) : undefined)
+);
+
+export const getRepresentationPropertyGroup = createSelector(
+  [getActiveRepresentation, isRepresentationCollapsed],
+  (proxy, collapsed) => (proxy ? Object.assign({ name: 'Representation', collapsed }, proxy) : undefined)
+);
+
+export const getViewPropertyGroup = createSelector(
+  [getActiveView, isViewCollapsed],
+  (proxy, collapsed) => (proxy ? Object.assign({ name: 'View', collapsed }, proxy) : undefined)
+);
+
+export const getAvailableList = createSelector(
+  [getAvailableSources, getAvailableFilters, hasSource],
+  (sources, filters, addFilter) => {
+    const list = sources.map(name => ({ name, icon: 'source' }));
+    if (addFilter) {
+      return list.concat(filters.map(name => ({ name, icon: 'filter' })));
+    }
+    return list;
+  }
+);

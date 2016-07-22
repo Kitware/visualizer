@@ -124,3 +124,47 @@
 .button:hover {
     color: #000;
 }
+
+.networkIdle {
+  padding-right: 5px;
+  position: relative;
+  top: -1px;
+}
+
+@keyframes redTransition {
+  0% { opacity: 1; }
+  50% { opacity: 0.25; }
+  100% { opacity: 1; }
+}
+
+@keyframes greenTransition {
+  0% { opacity: 1;}
+  50% { opacity: 0.25; }
+  100% { opacity: 1; }
+}
+
+@keyframes blueTransition {
+  0% { opacity: 1; }
+  50% { opacity: 0.25; }
+  100% { opacity: 1; }
+}
+
+.networkActive {
+  padding-right: 5px;
+  position: relative;
+  top: -1px;
+}
+
+.networkActive :global(.pvw_1) {
+  animation: redTransition 0.3s ease infinite;
+}
+
+.networkActive :global(.pvw_2) {
+  animation: greenTransition 0.3s ease infinite;
+  animation-delay: 0.1s;
+}
+
+.networkActive :global(.pvw_3) {
+  animation: blueTransition 0.3s ease infinite;
+  animation-delay: 0.2s;
+}

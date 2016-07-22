@@ -1,6 +1,11 @@
 import React from 'react';
 import style from 'VisualizerStyle/InformationPanel.mcss';
 
+import { connect } from 'react-redux';
+import { selectors, actions, dispatch } from '../../../../redux';
+
+// ----------------------------------------------------------------------------
+
 function memoryToString(number) {
   var unitIdx = 0,
     currentValue = number;
@@ -14,14 +19,20 @@ function memoryToString(number) {
   return currentValue.toFixed(2) + units[unitIdx];
 }
 
-export default React.createClass({
+// ----------------------------------------------------------------------------
 
-  displayName: 'ParaViewWeb/FilterPanel',
+export const InformationPanel = React.createClass({
+
+  displayName: 'ParaViewWeb/InformationPanel',
 
   propTypes: {
     className: React.PropTypes.string,
-    proxyManager: React.PropTypes.object,
     visible: React.PropTypes.bool,
+
+    proxy: React.PropTypes.object,
+    timeStep: React.PropTypes.number,
+    timeValues: React.PropTypes.array,
+    setTimeStep: React.PropTypes.func,
   },
 
   getDefaultProps() {
@@ -33,43 +44,7 @@ export default React.createClass({
   getInitialState() {
     return {
       arrayIdx: 0,
-      proxy: {},
     };
-  },
-
-  componentWillMount() {
-    this.subscription = this.props.proxyManager.onActiveProxyChange(id => {
-      this.updateProxyData(id);
-    });
-    this.timeSubcription = this.props.proxyManager.onTimeChange((data, envelope) => {
-      this.forceUpdate();
-    });
-  },
-
-  componentWillUnmount() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-    }
-    if (this.timeSubcription) {
-      this.timeSubcription.unsubscribe();
-      this.timeSubcription = null;
-    }
-  },
-
-  updateProxyData(id) {
-    const hasProxy = this.props.proxyManager.hasActiveProxy();
-    if (hasProxy) {
-      this.props.proxyManager.getProxy(id)
-        .then(
-          proxy => {
-            const arrayIdx = 0;
-            this.setState({ proxy, arrayIdx });
-          },
-          err => {
-            console.log('Error fetching proxy', id, err);
-          });
-    }
   },
 
   updateArray(event) {
@@ -79,39 +54,32 @@ export default React.createClass({
 
   updateTime(event) {
     const timeIdx = event.target.value;
-    this.props.proxyManager.setTimeStep(Number(timeIdx))
-      .then(
-        ok => {
-          this.updateProxyData(this.state.proxy.id);
-        },
-        ko => {
-          console.log('Error update time', timeIdx, ko);
-        });
+    this.props.setTimeStep(Number(timeIdx));
   },
 
   render() {
     if (!this.props.visible) {
       return null;
     }
-    if (!this.props.proxyManager.hasActiveProxy()) {
+    if (!this.props.proxy) {
       return <center style={{ padding: '20px 10px' }}>You must select a Proxy in the Pipeline browser in order to look at its informations.</center>;
     }
 
-    const activeArray = this.state.proxy.data.arrays[this.state.arrayIdx];
+    const activeArray = this.props.proxy.data.arrays[this.state.arrayIdx % this.props.proxy.data.arrays.length];
 
     return (
       <div className={style.container}>
         <div className={style.line}>
           <i className={style.iconType}></i>
-          {this.state.proxy.data.type}
+          {this.props.proxy.data.type}
         </div>
         <div className={style.line}>
           <i className={style.iconConnectivity}></i>
-          {`${this.state.proxy.data.points} points / ${this.state.proxy.data.cells} cells`}
+          {`${this.props.proxy.data.points} points / ${this.props.proxy.data.cells} cells`}
         </div>
         <div className={style.line}>
           <i className={style.iconMemory}></i>
-          {memoryToString(this.state.proxy.data.memory)}
+          {memoryToString(this.props.proxy.data.memory)}
         </div>
         <div className={style.line}>
           <i className={style.iconBondingBox}></i>
@@ -119,26 +87,26 @@ export default React.createClass({
             <table className={style.table}>
               <tbody>
                 <tr>
-                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[0]} title="X min" /></td>
-                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[1]} title="X max" /></td>
+                  <td><input readOnly type="text" value={this.props.proxy.data.bounds[0]} title="X min" /></td>
+                  <td><input readOnly type="text" value={this.props.proxy.data.bounds[1]} title="X max" /></td>
                 </tr>
                 <tr>
-                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[2]} title="Y min" /></td>
-                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[3]} title="Y max" /></td>
+                  <td><input readOnly type="text" value={this.props.proxy.data.bounds[2]} title="Y min" /></td>
+                  <td><input readOnly type="text" value={this.props.proxy.data.bounds[3]} title="Y max" /></td>
                 </tr>
                 <tr>
-                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[4]} title="Z min" /></td>
-                  <td><input readOnly type="text" value={this.state.proxy.data.bounds[5]} title="Z max" /></td>
+                  <td><input readOnly type="text" value={this.props.proxy.data.bounds[4]} title="Z min" /></td>
+                  <td><input readOnly type="text" value={this.props.proxy.data.bounds[5]} title="Z max" /></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        {this.props.proxyManager.getTimeValues().length ?
+        {this.props.timeValues.length ?
           <div className={style.line}>
             <i className={style.iconTime}></i>
-            <select value={this.props.proxyManager.getTimeStep()} onChange={this.updateTime}>
-              {this.props.proxyManager.getTimeValues().map((t, idx) => <option key={idx} value={idx}>{t}</option>)}
+            <select value={this.props.timeStep} onChange={this.updateTime}>
+              {this.props.timeValues.map((t, idx) => <option key={idx} value={idx}>{t}</option>)}
             </select>
           </div> : null
         }
@@ -146,8 +114,8 @@ export default React.createClass({
           <div>
             <div className={style.line}>
               <i className={style.iconArray}></i>
-              <select value={this.state.arrayIdx} onChange={this.updateArray}>
-                {this.state.proxy.data.arrays.map((a, idx) => <option key={idx} value={idx}>{a.name}</option>)}
+              <select value={this.state.arrayIdx % this.props.proxy.data.arrays.length} onChange={this.updateArray}>
+                {this.props.proxy.data.arrays.map((a, idx) => <option key={idx} value={idx}>{a.name}</option>)}
               </select>
             </div>
             <div className={style.line}>
@@ -180,3 +148,20 @@ export default React.createClass({
       </div>);
   },
 });
+
+// Binding --------------------------------------------------------------------
+/* eslint-disable arrow-body-style */
+
+export default connect(
+  state => {
+    return {
+      proxy: selectors.proxies.getActiveSource(state),
+      timeStep: selectors.time.getTimeStep(state),
+      timeValues: selectors.time.getTimeValues(state),
+      setTimeStep(tIdx) {
+        dispatch(actions.time.applyTimeStep(tIdx, selectors.proxies.getActiveSourceId(state)));
+      },
+    };
+  }
+)(InformationPanel);
+

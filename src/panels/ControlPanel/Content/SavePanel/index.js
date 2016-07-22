@@ -2,41 +2,37 @@ import React                from 'react';
 import CollapsibleWidget    from 'paraviewweb/src/React/Widgets/CollapsibleWidget';
 import style                from 'VisualizerStyle/SavePanel.mcss';
 
-const DATASET_MAPPING = {
-  'AMR Dataset (Deprecated)': 'vtm',
-  'Composite Dataset': 'vtm',
-  'Hierarchical DataSet (Deprecated)': 'vtm',
-  'Image (Uniform Rectilinear Grid) with blanking': 'vti',
-  'Image (Uniform Rectilinear Grid)': 'vti',
-  'Multi-block Dataset': 'vtm',
-  'Multi-group Dataset': 'vtm',
-  'Multi-piece Dataset': 'vtm',
-  'Non-Overlapping AMR Dataset': 'vtm',
-  'Overlapping AMR Dataset': 'vtm',
-  'Point Set': 'vts',
-  'Polygonal Mesh': 'vtp',
-  'Rectilinear Grid': 'vtr',
-  'Structured (Curvilinear) Grid': 'vts',
-  'Structured Grid': 'vts',
-  Table: 'csv',
-  'Unstructured Grid': 'vtu',
-};
+import ImageProviders from '../../../../ImageProviders';
+import { connect } from 'react-redux';
+import { selectors, actions, dispatch } from '../../../../redux';
 
-export default React.createClass({
+// ----------------------------------------------------------------------------
+
+export const SavePanel = React.createClass({
 
   displayName: 'ParaViewWeb/SavePanel',
 
   propTypes: {
     className: React.PropTypes.string,
-    goTo: React.PropTypes.func,
-    proxyManager: React.PropTypes.object,
     renderer: React.PropTypes.object,
     visible: React.PropTypes.bool,
+
+    proxy: React.PropTypes.object,
+    statuses: React.PropTypes.object,
+    paths: React.PropTypes.object,
+
+    collapsableState: React.PropTypes.object,
+
+    saveData: React.PropTypes.func,
+    updateSavePath: React.PropTypes.func,
+
+    updateCollapsableState: React.PropTypes.func,
   },
 
   getDefaultProps() {
     return {
       visible: true,
+      proxy: null,
     };
   },
 
@@ -45,51 +41,26 @@ export default React.createClass({
       url: '',
       width: '500',
       height: '500',
-      proxyId: '',
-      screenshotPath: 'server-images/savedScreen.png',
-      statePath: 'server-state/savedState.pvsm',
-      datasetPath: 'server-data/savedDataset.vtk',
-      screenMessage: '',
-      datasetMessage: '',
-      stateMessage: '',
     };
   },
 
   componentWillMount() {
-    this.activeSubscription = this.props.proxyManager.onActiveProxyChange(proxyId => {
-      if (this.props.proxyManager.hasActiveProxy()) {
-        this.props.proxyManager.getProxy(proxyId)
-          .then(proxy => {
-            const type = proxy.data.type;
-            this.updateDatasetFilename(type);
-            this.setState({ proxyId });
-          });
-      }
-    });
-  },
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.subscription && this.props.proxyManager.getImageProvider()) {
-      const provider = this.props.proxyManager.getImageProvider();
-      this.subscription = provider.onImageReady(data => {
-        const { url } = data;
-        this.setState({ url });
-      });
+    ImageProviders.onImageProvider(provider => {
       if (provider.getLastImageReadyEvent()) {
         const { url } = provider.getLastImageReadyEvent();
         this.setState({ url });
       }
-    }
+      this.subscription = provider.onImageReady(data => {
+        const { url } = data;
+        this.setState({ url });
+      });
+    });
   },
 
   componentWillUnmount() {
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = null;
-    }
-    if (this.activeSubscription) {
-      this.activeSubscription.unsubscribe();
-      this.activeSubscription = null;
     }
   },
 
@@ -99,6 +70,12 @@ export default React.createClass({
     this.setState({ [name]: value });
   },
 
+  updatePath(event) {
+    const name = event.target.name,
+      value = event.target.value;
+    this.props.updateSavePath(name, value);
+  },
+
   resetSize() {
     const image = new Image();
     image.src = this.refs.screenshot.src;
@@ -106,63 +83,33 @@ export default React.createClass({
     this.setState({ width, height });
   },
 
+  updateLocalScreenShotCollapsableState(isOpen) {
+    this.props.updateCollapsableState('localScreenShot', isOpen);
+  },
 
-  updateDatasetFilename(activeType) {
-    var xmlExt = DATASET_MAPPING[activeType] || 'vtk';
-    const datasetPath = this.state.datasetPath.replace(/\.[^\.]+$/, `.${xmlExt}`);
-    this.setState({ datasetPath });
+  updateScreenShotCollapsableState(isOpen) {
+    this.props.updateCollapsableState('screenshot', isOpen);
+  },
+
+  updateDataSetCollapsableState(isOpen) {
+    this.props.updateCollapsableState('dataset', isOpen);
+  },
+
+  updateStateCollapsableState(isOpen) {
+    this.props.updateCollapsableState('state', isOpen);
   },
 
   saveScreenShot() {
-    const { screenshotPath, width, height } = this.state;
-    var screenMessage = '';
-    this.setState({ screenMessage });
-    this.props.proxyManager.saveData(screenshotPath, { size: [width, height] })
-      .then(
-        ok => {
-          this.updateSuccessMessage('screenMessage');
-        },
-        err => {
-          screenMessage = err.message;
-          this.setState({ screenMessage });
-        });
+    const { width, height } = this.state;
+    this.props.saveData('screenshot', this.props.paths.screenshot, { size: [width, height] });
   },
 
   saveDataset() {
-    const { datasetPath, proxyId } = this.state;
-    var datasetMessage = '';
-    this.setState({ datasetMessage });
-    this.props.proxyManager.saveData(datasetPath, { proxyId })
-      .then(
-        ok => {
-          this.updateSuccessMessage('datasetMessage');
-        },
-        err => {
-          datasetMessage = err.message;
-          this.setState({ datasetMessage });
-        });
+    this.props.saveData('dataset', this.props.paths.dataset, { proxyId: this.props.proxy.id });
   },
 
   saveState() {
-    const { statePath } = this.state;
-    var stateMessage = '';
-    this.setState({ stateMessage });
-    this.props.proxyManager.saveData(statePath)
-      .then(
-        ok => {
-          this.updateSuccessMessage('stateMessage');
-        },
-        err => {
-          stateMessage = err.message;
-          this.setState({ stateMessage });
-        });
-  },
-
-  updateSuccessMessage(name) {
-    this.setState({ [name]: 'success' });
-    setTimeout(() => {
-      this.setState({ [name]: '' });
-    }, 3000);
+    this.props.saveData('state', this.props.paths.state);
   },
 
   render() {
@@ -172,10 +119,20 @@ export default React.createClass({
 
     return (
       <div className={[ this.props.className, style.container ].join(' ')}>
-        <CollapsibleWidget open subtitle="Local" title="Screenshot">
+        <CollapsibleWidget
+          open={!!this.props.collapsableState.localScreenShot}
+          subtitle="Local"
+          title="Screenshot"
+          onChange={this.updateLocalScreenShotCollapsableState}
+        >
           <img ref="screenshot" src={this.state.url} className={style.localImage} alt="" />
         </CollapsibleWidget>
-        <CollapsibleWidget open={false} subtitle="Remote" title="Screenshot">
+        <CollapsibleWidget
+          open={!!this.props.collapsableState.screenshot}
+          subtitle="Remote"
+          title="Screenshot"
+          onChange={this.updateScreenShotCollapsableState}
+        >
           <div className={style.line}>
             <i className={style.resizeIcon} onClick={this.resetSize}></i>
             <div className={style.group}>
@@ -198,57 +155,91 @@ export default React.createClass({
           </div>
           <div className={style.line}>
             <i
-              className={this.state.screenMessage === 'success'
-                ? style.saveIconSuccess : (this.state.screenMessage && this.state.screenMessage.length
+              className={this.props.statuses.screenshot === 'success'
+                ? style.saveIconSuccess : (this.props.statuses.screenshot && this.props.statuses.screenshot.length
                   ? style.saveIconError : style.saveIcon)}
-              title={this.state.screenMessage}
+              title={this.props.statuses.screenshot}
               onClick={this.saveScreenShot}
             ></i>
             <input
               type="text"
               className={style.input}
-              name="screenshotPath"
-              value={this.state.screenshotPath}
-              onChange={this.updateForm}
+              name="screenshot"
+              value={this.props.paths.screenshot}
+              onChange={this.updatePath}
             />
           </div>
         </CollapsibleWidget>
-        <CollapsibleWidget open={false} subtitle="Remote" title="Dataset" visible={this.props.proxyManager.hasActiveProxy()}>
+        <CollapsibleWidget
+          open={!!this.props.collapsableState.dataset}
+          subtitle="Remote"
+          title="Dataset"
+          visible={!!this.props.proxy}
+          onChange={this.updateDataSetCollapsableState}
+        >
           <div className={style.line}>
             <i
-              className={this.state.datasetMessage === 'success'
-                ? style.saveIconSuccess : (this.state.datasetMessage && this.state.datasetMessage.length
+              className={this.props.statuses.dataset === 'success'
+                ? style.saveIconSuccess : (this.props.statuses.dataset && this.props.statuses.dataset.length
                     ? style.saveIconError : style.saveIcon)}
-              title={this.state.datasetMessage}
+              title={this.props.statuses.dataset}
               onClick={this.saveDataset}
             ></i>
             <input
               type="text"
               className={style.input}
-              name="datasetPath"
-              value={this.state.datasetPath}
-              onChange={this.updateForm}
+              name="dataset"
+              value={this.props.paths.dataset}
+              onChange={this.updatePath}
             />
           </div>
         </CollapsibleWidget>
-        <CollapsibleWidget open={false} subtitle="Remote" title="State">
+        <CollapsibleWidget
+          open={!!this.props.collapsableState.state}
+          subtitle="Remote"
+          title="State"
+          onChange={this.updateStateCollapsableState}
+        >
           <div className={style.line}>
             <i
-              className={this.state.stateMessage === 'success'
-                ? style.saveIconSuccess : (this.state.stateMessage && this.state.stateMessage.length
+              className={this.props.statuses.state === 'success'
+                ? style.saveIconSuccess : (this.props.statuses.state && this.props.statuses.state.length
                     ? style.saveIconError : style.saveIcon)}
-              title={this.state.stateMessage}
+              title={this.props.statuses.state}
               onClick={this.saveState}
             ></i>
             <input
               type="text"
               className={style.input}
-              name="statePath"
-              value={this.state.statePath}
-              onChange={this.updateForm}
+              name="state"
+              value={this.props.paths.state}
+              onChange={this.updatePath}
             />
           </div>
         </CollapsibleWidget>
       </div>);
   },
 });
+
+// Binding --------------------------------------------------------------------
+/* eslint-disable arrow-body-style */
+
+export default connect(
+  state => {
+    return {
+      proxy: selectors.proxies.getActiveSource(state),
+      statuses: selectors.save.getStatuses(state),
+      paths: selectors.save.getPaths(state),
+      collapsableState: selectors.ui.getCollapsableState(state),
+      saveData(type, path, options) {
+        dispatch(actions.save.saveData(type, path, options));
+      },
+      updateSavePath(type, path) {
+        dispatch(actions.save.updateSavePath(type, path));
+      },
+      updateCollapsableState(name, isOpen) {
+        dispatch(actions.ui.updateCollapsableState(name, isOpen));
+      },
+    };
+  }
+)(SavePanel);

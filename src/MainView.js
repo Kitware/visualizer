@@ -1,16 +1,26 @@
 import React            from 'react';
 import VtkRenderer      from 'paraviewweb/src/React/Renderers/VtkRenderer';
+import SvgIconWidget    from 'paraviewweb/src/React/Widgets/SvgIconWidget';
 import style            from 'VisualizerStyle/MainView.mcss';
 import ControlPanel     from './panels/ControlPanel';
 import TimeController   from './panels/TimeController';
-import logo             from './logo.png';
+import logo             from './logo.svg';
 
-export default React.createClass({
+import network from './network';
+import ImageProviders from './ImageProviders';
+import { connect } from 'react-redux';
+import { selectors, actions, dispatch } from './redux';
+
+export const Visualizer = React.createClass({
 
   displayName: 'ParaViewWeb/Visualizer',
 
   propTypes: {
-    proxyManager: React.PropTypes.object,
+    resetCamera: React.PropTypes.func,
+    client: React.PropTypes.object,
+    connection: React.PropTypes.object,
+    session: React.PropTypes.object,
+    pendingCount: React.PropTypes.number,
   },
 
   getInitialState() {
@@ -20,43 +30,62 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.props.proxyManager.setImageProvider(this.refs.renderer.binaryImageStream);
+    ImageProviders.setImageProvider(this.refs.renderer.binaryImageStream);
   },
 
   toggleMenu() {
     this.setState({ menuVisible: !this.state.menuVisible });
   },
 
-  resetCamera() {
-    this.props.proxyManager.resetCamera();
-  },
-
   render() {
-    const { proxyManager } = this.props;
-
     return (
       <div className={style.container}>
         <div className={style.topBar}>
           <div className={style.title}>
             <div className={style.toggleMenu} onClick={this.toggleMenu}>
-              <img src={logo} alt="ParaViewWeb Visualizer" />
+              <SvgIconWidget
+                className={this.props.pendingCount ? style.networkActive : style.networkIdle}
+                height="34px"
+                width="34px"
+                icon={logo}
+                alt="ParaViewWeb Visualizer"
+              />
               Visualizer
             </div>
-            <ControlPanel
-              className={this.state.menuVisible ? style.menu : style.hiddenMenu}
-              proxyManager={proxyManager}
-            />
+            <ControlPanel className={this.state.menuVisible ? style.menu : style.hiddenMenu} />
           </div>
           <div className={style.buttons}>
-            <TimeController proxyManager={proxyManager} />
-            <i className={style.resetCameraButton} onClick={this.resetCamera}></i>
+            <TimeController />
+            <i className={style.resetCameraButton} onClick={this.props.resetCamera}></i>
           </div>
         </div>
         <VtkRenderer
           ref="renderer"
-          {...proxyManager.getNetworkAdapter()}
+          client={this.props.client}
+          connection={this.props.connection}
+          session={this.props.session}
           className={style.viewport}
         />
       </div>);
   },
 });
+
+// Binding --------------------------------------------------------------------
+/* eslint-disable arrow-body-style */
+
+export default connect(
+  state => {
+    const pendingCount = selectors.network.getPendingCount(state);
+    const client = network.getClient();
+    const connection = network.getConnection();
+    const session = connection.session;
+
+    return { client, connection, session, pendingCount };
+  },
+  () => {
+    return {
+      resetCamera: () => dispatch(actions.view.resetCamera()),
+    };
+  }
+)(Visualizer);
+

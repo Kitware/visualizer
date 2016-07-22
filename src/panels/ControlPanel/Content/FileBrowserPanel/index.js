@@ -1,15 +1,24 @@
 import React        from 'react';
-import FileBrowser  from 'paraviewweb/src/React/Widgets/FileBrowserWidget';
+import FileBrowserWidget  from 'paraviewweb/src/React/Widgets/FileBrowserWidget';
 
-export default React.createClass({
+import { connect } from 'react-redux';
+import { selectors, actions, dispatch } from '../../../../redux';
 
-  displayName: 'ParaViewWeb/FilterPanel',
+// ----------------------------------------------------------------------------
+
+export const FileBrowser = React.createClass({
+
+  displayName: 'ParaViewWeb/FileBrowser',
 
   propTypes: {
     className: React.PropTypes.string,
-    goTo: React.PropTypes.func,
-    proxyManager: React.PropTypes.object,
     visible: React.PropTypes.bool,
+    fileListing: React.PropTypes.object,
+    activePath: React.PropTypes.string,
+
+    fetchServerDirectory: React.PropTypes.func,
+    storeActiveDirectory: React.PropTypes.func,
+    openFiles: React.PropTypes.func,
   },
 
   getDefaultProps() {
@@ -18,69 +27,32 @@ export default React.createClass({
     };
   },
 
-  getInitialState() {
-    return {
-      pathToList: '.',
-    };
-  },
-
-  componentWillMount() {
-    this.updateDiretoryListing(this.state.pathToList);
-  },
-
-  updateDiretoryListing(pathToList) {
-    this.props.proxyManager.listServerDirectory(pathToList)
-      .then(
-        fileListing => {
-          const { dirs, files, groups, path, label } = fileListing;
-          const fileLabels = files.map(i => i.label);
-          this.setState({ dirs, files: fileLabels, groups, path, label });
-        },
-        err => {
-          console.log('Error fetching sources', err);
-        });
-  },
-
   path(pathToList, path) {
     if (pathToList === path[0]) {
       pathToList = '.';
     }
-    this.setState({ pathToList });
-    this.updateDiretoryListing(pathToList);
+    this.props.storeActiveDirectory(pathToList);
+    this.props.fetchServerDirectory(pathToList);
   },
 
   directory(name) {
-    const pathToList = [].concat(this.state.path, name).join('/');
-    this.setState({ pathToList });
-    this.updateDiretoryListing(pathToList);
+    const pathToList = [].concat(this.props.fileListing.path, name).join('/');
+    this.props.storeActiveDirectory(pathToList);
+    this.props.fetchServerDirectory(pathToList);
   },
 
   group(name, files) {
-    const basePath = [].concat(this.state.path);
+    const basePath = [].concat(this.props.activePath);
     basePath.shift(); // Remove the front 'Home'
     const fullPathFiles = files.map(f => [].concat(basePath, f).join('/'));
-    this.props.proxyManager.open(fullPathFiles)
-      .then(
-        ok => {
-          this.props.goTo(0);
-        },
-        ko => {
-          console.log('ERROR group loading', ko);
-        });
+    this.props.openFiles(fullPathFiles);
   },
 
   file(name) {
-    const pathList = [].concat(this.state.path, name);
+    const pathList = [].concat(this.props.activePath, name);
     pathList.shift(); // Remove the front 'Home'
     const fullPath = pathList.join('/');
-    this.props.proxyManager.open(fullPath)
-      .then(
-        ok => {
-          this.props.goTo(0);
-        },
-        ko => {
-          console.log('ERROR file loading', ko);
-        });
+    this.props.openFiles(fullPath);
   },
 
   processAction(action, name, files) {
@@ -88,18 +60,44 @@ export default React.createClass({
   },
 
   render() {
-    if (!this.props.visible) {
+    if (!this.props.visible || !this.props.fileListing) {
       return null;
     }
 
     return (
-      <FileBrowser
+      <FileBrowserWidget
         className={this.props.className}
-        path={this.state.path}
-        directories={this.state.dirs}
-        groups={this.state.groups}
-        files={this.state.files}
+        path={this.props.fileListing.path}
+        directories={this.props.fileListing.dirs}
+        groups={this.props.fileListing.groups}
+        files={this.props.fileListing.files}
         onAction={this.processAction}
       />);
   },
 });
+
+// Binding --------------------------------------------------------------------
+/* eslint-disable arrow-body-style */
+
+export default connect(
+  state => {
+    return {
+      fileListing: selectors.files.getFileListing(state),
+      activePath: selectors.files.getActivePath(state),
+    };
+  },
+  () => {
+    return {
+      fetchServerDirectory: path => {
+        dispatch(actions.files.fetchServerDirectory(path));
+      },
+      storeActiveDirectory: path => {
+        dispatch(actions.files.storeActiveDirectory(path));
+      },
+      openFiles: files => {
+        dispatch(actions.proxies.openFiles(files));
+        dispatch(actions.ui.updateVisiblePanel(0));
+      },
+    };
+  }
+)(FileBrowser);
