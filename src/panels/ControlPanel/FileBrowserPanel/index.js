@@ -42,14 +42,14 @@ export const FileBrowser = React.createClass({
   },
 
   group(name, files) {
-    const basePath = [].concat(this.props.activePath);
+    const basePath = [].concat(this.props.activePath.split('/'));
     basePath.shift(); // Remove the front 'Home'
     const fullPathFiles = files.map(f => [].concat(basePath, f).join('/'));
     this.props.openFiles(fullPathFiles);
   },
 
   file(name) {
-    const pathList = [].concat(this.props.activePath, name);
+    const pathList = [].concat(this.props.activePath.split('/'), name);
     pathList.shift(); // Remove the front 'Home'
     const fullPath = pathList.join('/');
     this.props.openFiles(fullPath);
