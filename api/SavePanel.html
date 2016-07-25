@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>SavePanel | Visualizer</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://kitware.github.io/visualizer/api/SavePanel.html">
+  <!-- Alternative links -->
+  
+    
+      <link rel="alternative" hreflang="en" href="https://kitware.github.io/visualizer/api/SavePanel.html">
+    
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/visualizer/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/visualizer/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/visualizer/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/visualizer/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/visualizer/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/visualizer/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/visualizer/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/visualizer/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/visualizer/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/visualizer/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/visualizer/atom.xml" title="Visualizer">
+  <!-- Open Graph -->
+  <meta name="description" content="Sourceindex.jsimport React                from &apos;react&apos;;import CollapsibleWidget    from &apos;paraviewweb/src/React/Widgets/CollapsibleWidget&apos;;import style                from &apos;VisualizerStyle/SavePanel.mc">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SavePanel">
+<meta property="og:url" content="https://kitware.github.io/visualizer/api/SavePanel.html">
+<meta property="og:site_name" content="Visualizer">
+<meta property="og:description" content="Sourceindex.jsimport React                from &apos;react&apos;;import CollapsibleWidget    from &apos;paraviewweb/src/React/Widgets/CollapsibleWidget&apos;;import style                from &apos;VisualizerStyle/SavePanel.mc">
+<meta property="og:updated_time" content="2016-07-25T22:00:32.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SavePanel">
+<meta name="twitter:description" content="Sourceindex.jsimport React                from &apos;react&apos;;import CollapsibleWidget    from &apos;paraviewweb/src/React/Widgets/CollapsibleWidget&apos;;import style                from &apos;VisualizerStyle/SavePanel.mc">
+  <!-- Google Analytics -->
+  
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/visualizer/" id="logo">ParaViewWeb</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/visualizer/docs/" class="main-nav-link">Docs</a>
+      <a href="https://github.com/kitware/visualizer" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div id="content" class="wrapper">
+    <div id="content-inner">
+      <article class="article-container" itemscope itemtype="http://schema.org/Article">
+        <div class="article-inner">
+          <div class="article">
+            <div class="inner">
+              <header class="article-header">
+                <h1 class="article-title" itemprop="name">SavePanel</h1>
+              </header>
+              <div class="article-content" itemprop="articleBody">
+                <h1 id="Source" class="article-heading"><a href="#Source" class="headerlink" title="Source"></a>Source<a class="article-anchor" href="#Source" aria-hidden="true"></a></h1><figure class="highlight js"><figcaption><span>index.js</span></figcaption><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React                <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"><span class="keyword">import</span> CollapsibleWidget    <span class="keyword">from</span> <span class="string">'paraviewweb/src/React/Widgets/CollapsibleWidget'</span>;</div><div class="line"><span class="keyword">import</span> style                <span class="keyword">from</span> <span class="string">'VisualizerStyle/SavePanel.mcss'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> ImageProviders <span class="keyword">from</span> <span class="string">'../../../ImageProviders'</span>;</div><div class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</div><div class="line"><span class="keyword">import</span> &#123; selectors, actions, dispatch &#125; <span class="keyword">from</span> <span class="string">'../../../redux'</span>;</div><div class="line"></div><div class="line"><span class="comment">// ----------------------------------------------------------------------------</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> SavePanel = React.createClass(&#123;</div><div class="line"></div><div class="line">  displayName: <span class="string">'ParaViewWeb/SavePanel'</span>,</div><div class="line"></div><div class="line">  propTypes: &#123;</div><div class="line">    className: React.PropTypes.string,</div><div class="line">    renderer: React.PropTypes.object,</div><div class="line">    visible: React.PropTypes.bool,</div><div class="line"></div><div class="line">    proxy: React.PropTypes.object,</div><div class="line">    statuses: React.PropTypes.object,</div><div class="line">    paths: React.PropTypes.object,</div><div class="line"></div><div class="line">    collapsableState: React.PropTypes.object,</div><div class="line"></div><div class="line">    saveData: React.PropTypes.func,</div><div class="line">    updateSavePath: React.PropTypes.func,</div><div class="line"></div><div class="line">    updateCollapsableState: React.PropTypes.func,</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  getDefaultProps() &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      visible: <span class="literal">true</span>,</div><div class="line">      proxy: <span class="literal">null</span>,</div><div class="line">    &#125;;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  getInitialState() &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      url: <span class="string">''</span>,</div><div class="line">      width: <span class="string">'500'</span>,</div><div class="line">      height: <span class="string">'500'</span>,</div><div class="line">    &#125;;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  componentWillMount() &#123;</div><div class="line">    ImageProviders.onImageProvider(provider =&gt; &#123;</div><div class="line">      <span class="keyword">if</span> (provider.getLastImageReadyEvent()) &#123;</div><div class="line">        <span class="keyword">const</span> &#123; url &#125; = provider.getLastImageReadyEvent();</div><div class="line">        <span class="keyword">this</span>.setState(&#123; url &#125;);</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">this</span>.subscription = provider.onImageReady(data =&gt; &#123;</div><div class="line">        <span class="keyword">const</span> &#123; url &#125; = data;</div><div class="line">        <span class="keyword">this</span>.setState(&#123; url &#125;);</div><div class="line">      &#125;);</div><div class="line">    &#125;);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  componentWillUnmount() &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.subscription) &#123;</div><div class="line">      <span class="keyword">this</span>.subscription.unsubscribe();</div><div class="line">      <span class="keyword">this</span>.subscription = <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  updateForm(event) &#123;</div><div class="line">    <span class="keyword">const</span> name = event.target.name,</div><div class="line">      value = event.target.value;</div><div class="line">    <span class="keyword">this</span>.setState(&#123; [name]: value &#125;);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  updatePath(event) &#123;</div><div class="line">    <span class="keyword">const</span> name = event.target.name,</div><div class="line">      value = event.target.value;</div><div class="line">    <span class="keyword">this</span>.props.updateSavePath(name, value);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  resetSize() &#123;</div><div class="line">    <span class="keyword">const</span> image = <span class="keyword">new</span> Image();</div><div class="line">    image.src = <span class="keyword">this</span>.refs.screenshot.src;</div><div class="line">    <span class="keyword">const</span> &#123; width, height &#125; = image;</div><div class="line">    <span class="keyword">this</span>.setState(&#123; width, height &#125;);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  updateLocalScreenShotCollapsableState(isOpen) &#123;</div><div class="line">    <span class="keyword">this</span>.props.updateCollapsableState(<span class="string">'localScreenShot'</span>, isOpen);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  updateScreenShotCollapsableState(isOpen) &#123;</div><div class="line">    <span class="keyword">this</span>.props.updateCollapsableState(<span class="string">'screenshot'</span>, isOpen);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  updateDataSetCollapsableState(isOpen) &#123;</div><div class="line">    <span class="keyword">this</span>.props.updateCollapsableState(<span class="string">'dataset'</span>, isOpen);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  updateStateCollapsableState(isOpen) &#123;</div><div class="line">    <span class="keyword">this</span>.props.updateCollapsableState(<span class="string">'state'</span>, isOpen);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  saveScreenShot() &#123;</div><div class="line">    <span class="keyword">const</span> &#123; width, height &#125; = <span class="keyword">this</span>.state;</div><div class="line">    <span class="keyword">this</span>.props.saveData(<span class="string">'screenshot'</span>, <span class="keyword">this</span>.props.paths.screenshot, &#123; size: [width, height] &#125;);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  saveDataset() &#123;</div><div class="line">    <span class="keyword">this</span>.props.saveData(<span class="string">'dataset'</span>, <span class="keyword">this</span>.props.paths.dataset, &#123; proxyId: <span class="keyword">this</span>.props.proxy.id &#125;);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  saveState() &#123;</div><div class="line">    <span class="keyword">this</span>.props.saveData(<span class="string">'state'</span>, <span class="keyword">this</span>.props.paths.state);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.props.visible) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div className=&#123;[ this.props.className, style.container ].join(' ')&#125;&gt;</div><div class="line">        &lt;CollapsibleWidget</div><div class="line">          open=&#123;!!this.props.collapsableState.localScreenShot&#125;</div><div class="line">          subtitle="Local"</div><div class="line">          title="Screenshot"</div><div class="line">          onChange=&#123;this.updateLocalScreenShotCollapsableState&#125;</div><div class="line">        &gt;</div><div class="line">          &lt;img ref="screenshot" src=&#123;this.state.url&#125; className=&#123;style.localImage&#125; alt="" /&gt;</div><div class="line">        &lt;/CollapsibleWidget&gt;</div><div class="line">        &lt;CollapsibleWidget</div><div class="line">          open=&#123;!!this.props.collapsableState.screenshot&#125;</div><div class="line">          subtitle="Remote"</div><div class="line">          title="Screenshot"</div><div class="line">          onChange=&#123;this.updateScreenShotCollapsableState&#125;</div><div class="line">        &gt;</div><div class="line">          &lt;div className=&#123;style.line&#125;&gt;</div><div class="line">            &lt;i className=&#123;style.resizeIcon&#125; onClick=&#123;this.resetSize&#125;&gt;&lt;/i&gt;</div><div class="line">            &lt;div className=&#123;style.group&#125;&gt;</div><div class="line">              &lt;input</div><div class="line">                type="number"</div><div class="line">                className=&#123;style.sizeInput&#125;</div><div class="line">                name="width"</div><div class="line">                value=&#123;this.state.width&#125;</div><div class="line">                onChange=&#123;this.updateForm&#125;</div><div class="line">              /&gt;</div><div class="line">              x</div><div class="line">              &lt;input</div><div class="line">                type="number"</div><div class="line">                className=&#123;style.sizeInput&#125;</div><div class="line">                name="height"</div><div class="line">                value=&#123;this.state.height&#125;</div><div class="line">                onChange=&#123;this.updateForm&#125;</div><div class="line">              /&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">          &lt;div className=&#123;style.line&#125;&gt;</div><div class="line">            &lt;i</div><div class="line">              className=&#123;this.props.statuses.screenshot === 'success'</div><div class="line">                ? style.saveIconSuccess : (this.props.statuses.screenshot &amp;&amp; this.props.statuses.screenshot.length</div><div class="line">                  ? style.saveIconError : style.saveIcon)&#125;</div><div class="line">              title=&#123;this.props.statuses.screenshot&#125;</div><div class="line">              onClick=&#123;this.saveScreenShot&#125;</div><div class="line">            &gt;&lt;/i&gt;</div><div class="line">            &lt;input</div><div class="line">              type="text"</div><div class="line">              className=&#123;style.input&#125;</div><div class="line">              name="screenshot"</div><div class="line">              value=&#123;this.props.paths.screenshot&#125;</div><div class="line">              onChange=&#123;this.updatePath&#125;</div><div class="line">            /&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/CollapsibleWidget&gt;</div><div class="line">        &lt;CollapsibleWidget</div><div class="line">          open=&#123;!!this.props.collapsableState.dataset&#125;</div><div class="line">          subtitle="Remote"</div><div class="line">          title="Dataset"</div><div class="line">          visible=&#123;!!this.props.proxy&#125;</div><div class="line">          onChange=&#123;this.updateDataSetCollapsableState&#125;</div><div class="line">        &gt;</div><div class="line">          &lt;div className=&#123;style.line&#125;&gt;</div><div class="line">            &lt;i</div><div class="line">              className=&#123;this.props.statuses.dataset === 'success'</div><div class="line">                ? style.saveIconSuccess : (this.props.statuses.dataset &amp;&amp; this.props.statuses.dataset.length</div><div class="line">                    ? style.saveIconError : style.saveIcon)&#125;</div><div class="line">              title=&#123;this.props.statuses.dataset&#125;</div><div class="line">              onClick=&#123;this.saveDataset&#125;</div><div class="line">            &gt;&lt;/i&gt;</div><div class="line">            &lt;input</div><div class="line">              type="text"</div><div class="line">              className=&#123;style.input&#125;</div><div class="line">              name="dataset"</div><div class="line">              value=&#123;this.props.paths.dataset&#125;</div><div class="line">              onChange=&#123;this.updatePath&#125;</div><div class="line">            /&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/CollapsibleWidget&gt;</div><div class="line">        &lt;CollapsibleWidget</div><div class="line">          open=&#123;!!this.props.collapsableState.state&#125;</div><div class="line">          subtitle="Remote"</div><div class="line">          title="State"</div><div class="line">          onChange=&#123;this.updateStateCollapsableState&#125;</div><div class="line">        &gt;</div><div class="line">          &lt;div className=&#123;style.line&#125;&gt;</div><div class="line">            &lt;i</div><div class="line">              className=&#123;this.props.statuses.state === 'success'</div><div class="line">                ? style.saveIconSuccess : (this.props.statuses.state &amp;&amp; this.props.statuses.state.length</div><div class="line">                    ? style.saveIconError : style.saveIcon)&#125;</div><div class="line">              title=&#123;this.props.statuses.state&#125;</div><div class="line">              onClick=&#123;this.saveState&#125;</div><div class="line">            &gt;&lt;/i&gt;</div><div class="line">            &lt;input</div><div class="line">              type="text"</div><div class="line">              className=&#123;style.input&#125;</div><div class="line">              name="state"</div><div class="line">              value=&#123;this.props.paths.state&#125;</div><div class="line">              onChange=&#123;this.updatePath&#125;</div><div class="line">            /&gt;</div><div class="line">          &lt;/div&gt;</div><div class="line">        &lt;/CollapsibleWidget&gt;</div><div class="line">      &lt;/div&gt;);</div><div class="line">  &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// Binding --------------------------------------------------------------------</div><div class="line">/* eslint-disable arrow-body-style */</div><div class="line"></div><div class="line">export default connect(</div><div class="line">  state =&gt; &#123;</div><div class="line">    return &#123;</div><div class="line">      proxy: selectors.proxies.getActiveSource(state),</div><div class="line">      statuses: selectors.save.getStatuses(state),</div><div class="line">      paths: selectors.save.getPaths(state),</div><div class="line">      collapsableState: selectors.ui.getCollapsableState(state),</div><div class="line">      saveData(type, path, options) &#123;</div><div class="line">        dispatch(actions.save.saveData(type, path, options));</div><div class="line">      &#125;,</div><div class="line">      updateSavePath(type, path) &#123;</div><div class="line">        dispatch(actions.save.updateSavePath(type, path));</div><div class="line">      &#125;,</div><div class="line">      updateCollapsableState(name, isOpen) &#123;</div><div class="line">        dispatch(actions.ui.updateCollapsableState(name, isOpen));</div><div class="line">      &#125;,</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">)(SavePanel);</div></pre></td></tr></table></figure>
+
+              </div>
+              <footer class="article-footer">
+                <time class="article-footer-updated" datetime="2016-07-25T22:00:32.067Z" itemprop="dateModified">Last updated: 2016-07-25</time>
+                <a href="PipelineBrowser.html" class="article-footer-prev" title="PipelineBrowser"><i class="fa fa-chevron-left"></i><span>Prev</span></a><a href="SettingPanel.html" class="article-footer-next" title="SettingPanel"><span>Next</span><i class="fa fa-chevron-right"></i></a>
+              </footer>
+              
+            </div>
+          </div>
+          <aside id="article-toc" role="navigation">
+            <div id="article-toc-inner">
+              <strong class="sidebar-title">Contents</strong>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Source"><span class="toc-text">Source</span></a></li></ol>
+              <a href="#" id="article-toc-top">Back to Top</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+      <aside id="sidebar" role="navigation">
+  <div class="inner"><strong class="sidebar-title">panels/ControlPanel</strong><a href="FileBrowserPanel.html" class="sidebar-link">FileBrowserPanel</a><a href="FilterPanel.html" class="sidebar-link">FilterPanel</a><a href="InformationPanel.html" class="sidebar-link">InformationPanel</a><a href="PipelineBrowser.html" class="sidebar-link">PipelineBrowser</a><a href="SavePanel.html" class="sidebar-link current">SavePanel</a><a href="SettingPanel.html" class="sidebar-link">SettingPanel</a><strong class="sidebar-title">panels/TimeController</strong><strong class="sidebar-title">redux/ducks</strong><strong class="sidebar-title">redux/selectors</strong></div>
+</aside>
+    </div>
+  </div>
+</div>
+
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://www.kitware.com" target="_blank">Kitware Inc.</a>
+    </div>
+    <div id="footer-links">
+      <a href="https://github.com/kitware/visualizer" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/visualizer/docs/" class="mobile-nav-link">Docs</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/kitware/visualizer" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+      <strong class="mobile-nav-title">panels/ControlPanel</strong><a href="FileBrowserPanel.html" class="mobile-nav-link">FileBrowserPanel</a><a href="FilterPanel.html" class="mobile-nav-link">FilterPanel</a><a href="InformationPanel.html" class="mobile-nav-link">InformationPanel</a><a href="PipelineBrowser.html" class="mobile-nav-link">PipelineBrowser</a><a href="SavePanel.html" class="mobile-nav-link current">SavePanel</a><a href="SettingPanel.html" class="mobile-nav-link">SettingPanel</a><strong class="mobile-nav-title">panels/TimeController</strong><strong class="mobile-nav-title">redux/ducks</strong><strong class="mobile-nav-title">redux/selectors</strong>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>English</span></span>
+    <select id="mobile-lang-select" data-canonical="api/SavePanel.html">
+      
+        <option value="en" selected>English</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- build:js build/js/main.js -->
+<script src="/visualizer/js/lang_select.js"></script>
+<script src="/visualizer/js/toc.js"></script>
+<script src="/visualizer/js/mobile_nav.js"></script>
+<!-- endbuild -->
+<script src="https://cdn.jsdelivr.net/retinajs/1.3.0/retina.min.js" async></script>
+
+
+
+</body>
+</html>
