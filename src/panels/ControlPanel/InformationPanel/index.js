@@ -2,7 +2,7 @@ import React from 'react';
 import style from 'VisualizerStyle/InformationPanel.mcss';
 
 import { connect } from 'react-redux';
-import { selectors, actions, dispatch } from '../../../../redux';
+import { selectors, actions, dispatch } from '../../../redux';
 
 // ----------------------------------------------------------------------------
 

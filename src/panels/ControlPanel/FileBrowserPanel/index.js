@@ -2,7 +2,7 @@ import React        from 'react';
 import FileBrowserWidget  from 'paraviewweb/src/React/Widgets/FileBrowserWidget';
 
 import { connect } from 'react-redux';
-import { selectors, actions, dispatch } from '../../../../redux';
+import { selectors, actions, dispatch } from '../../../redux';
 
 // ----------------------------------------------------------------------------
 

@@ -2,9 +2,9 @@ import React                from 'react';
 import CollapsibleWidget    from 'paraviewweb/src/React/Widgets/CollapsibleWidget';
 import style                from 'VisualizerStyle/SavePanel.mcss';
 
-import ImageProviders from '../../../../ImageProviders';
+import ImageProviders from '../../../ImageProviders';
 import { connect } from 'react-redux';
-import { selectors, actions, dispatch } from '../../../../redux';
+import { selectors, actions, dispatch } from '../../../redux';
 
 // ----------------------------------------------------------------------------
 

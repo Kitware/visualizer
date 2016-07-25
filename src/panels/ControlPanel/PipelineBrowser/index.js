@@ -5,7 +5,7 @@ import ProxyEditorWidget    from 'paraviewweb/src/React/Widgets/ProxyEditorWidge
 import style                from 'VisualizerStyle/PipelineBrowser.mcss';
 
 import { connect } from 'react-redux';
-import { selectors, actions, dispatch } from '../../../../redux';
+import { selectors, actions, dispatch } from '../../../redux';
 
 // ----------------------------------------------------------------------------
 

@@ -1,5 +1,10 @@
-import React                from 'react';
-import ControlPanelContent  from './Content';
+import React            from 'react';
+import FileBrowserPanel from './FileBrowserPanel';
+import FilterPanel      from './FilterPanel';
+import InformationPanel from './InformationPanel';
+import PipelineBrowser  from './PipelineBrowser';
+import SavePanel        from './SavePanel';
+import SettingPanel     from './SettingPanel';
 
 import style from 'VisualizerStyle/ToggleIcons.mcss';
 
@@ -67,10 +72,12 @@ export const ControlPanel = React.createClass({
           </div>
         </div>
         <div className={style.content} >
-          <ControlPanelContent
-            activeIdx={this.props.activeIdx}
-            onChange={this.props.updateActivePanel}
-          />
+          <PipelineBrowser  visible={this.props.activeIdx === 0} />
+          <FileBrowserPanel visible={this.props.activeIdx === 1} />
+          <FilterPanel      visible={this.props.activeIdx === 2} />
+          <SavePanel        visible={this.props.activeIdx === 3} />
+          <InformationPanel visible={this.props.activeIdx === 4} />
+          <SettingPanel     visible={this.props.activeIdx === 5} />
         </div>
       </div>);
   },

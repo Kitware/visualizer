@@ -3,7 +3,7 @@ import ActionList   from 'paraviewweb/src/React/Widgets/ActionListWidget';
 import style        from 'VisualizerStyle/ToggleIcons.mcss';
 
 import { connect } from 'react-redux';
-import { selectors, actions, dispatch } from '../../../../redux';
+import { selectors, actions, dispatch } from '../../../redux';
 
 const ICON_MAPPING = {
   source: style.sourceIcon,
