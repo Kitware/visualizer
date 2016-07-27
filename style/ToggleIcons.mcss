@@ -26,7 +26,7 @@
     right: 0;
     bottom: 0;
     border-radius: 0 5px 5px 0;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     background: linear-gradient(#eee 10px, hsla(0,0%,100%,0)) 0 0 / 100% 40px,
                 radial-gradient(at top, rgba(0,0,0,.3), transparent 70%) 0 0 / 100% 10px,
