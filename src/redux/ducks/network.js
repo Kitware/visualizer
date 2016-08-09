@@ -11,7 +11,7 @@ const NETWORK_ERROR = 'NETWORK_ERROR';
 const FREE_NETWORK_REQUESTS = 'FREE_NETWORK_REQUESTS';
 
 function now() {
-  return + new Date();
+  return +new Date();
 }
 
 // --- Reducer ----------------------------------------------------------------

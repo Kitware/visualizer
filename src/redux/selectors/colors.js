@@ -1,5 +1,5 @@
-import { getRootState } from '..';
 import { createSelector } from 'reselect';
+import { getRootState } from '..';
 import { getActiveSourceId, getActiveRepresentation, getActiveRepresentationId } from './proxies';
 
 // ----------------------------------------------------------------------------

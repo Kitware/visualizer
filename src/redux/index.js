@@ -1,7 +1,8 @@
+import { createStore } from 'redux';
+
 import actions from './actions';
 import reducers from './reducers';
 import selectors from './selectors';
-import { createStore } from 'redux';
 
 const store = createStore(reducers);
 

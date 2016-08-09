@@ -46,7 +46,7 @@ export const SettingPanel = React.createClass({
       return null;
     }
 
-    return  (
+    return (
       <div className={style.container}>
         <ProxyEditorWidget
           sections={this.props.sections}

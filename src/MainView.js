@@ -1,14 +1,16 @@
-import React            from 'react';
-import VtkRenderer      from 'paraviewweb/src/React/Renderers/VtkRenderer';
-import SvgIconWidget    from 'paraviewweb/src/React/Widgets/SvgIconWidget';
-import style            from 'VisualizerStyle/MainView.mcss';
-import ControlPanel     from './panels/ControlPanel';
-import TimeController   from './panels/TimeController';
-import logo             from './logo.svg';
+import React          from 'react';
+import VtkRenderer    from 'paraviewweb/src/React/Renderers/VtkRenderer';
+import SvgIconWidget  from 'paraviewweb/src/React/Widgets/SvgIconWidget';
+import { connect }    from 'react-redux';
+
+import style          from 'VisualizerStyle/MainView.mcss';
+
+import ControlPanel   from './panels/ControlPanel';
+import TimeController from './panels/TimeController';
+import logo           from './logo.svg';
 
 import network from './network';
 import ImageProviders from './ImageProviders';
-import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from './redux';
 
 export const Visualizer = React.createClass({
@@ -30,7 +32,7 @@ export const Visualizer = React.createClass({
   },
 
   componentDidMount() {
-    ImageProviders.setImageProvider(this.refs.renderer.binaryImageStream);
+    ImageProviders.setImageProvider(this.renderer.binaryImageStream);
   },
 
   toggleMenu() {
@@ -56,11 +58,11 @@ export const Visualizer = React.createClass({
           </div>
           <div className={style.buttons}>
             <TimeController />
-            <i className={style.resetCameraButton} onClick={this.props.resetCamera}></i>
+            <i className={style.resetCameraButton} onClick={this.props.resetCamera} />
           </div>
         </div>
         <VtkRenderer
-          ref="renderer"
+          ref={c => { this.renderer = c; }}
           client={this.props.client}
           connection={this.props.connection}
           session={this.props.session}
@@ -71,7 +73,6 @@ export const Visualizer = React.createClass({
 });
 
 // Binding --------------------------------------------------------------------
-/* eslint-disable arrow-body-style */
 
 export default connect(
   state => {
@@ -82,10 +83,8 @@ export default connect(
 
     return { client, connection, session, pendingCount };
   },
-  () => {
-    return {
-      resetCamera: () => dispatch(actions.view.resetCamera()),
-    };
-  }
+  () => ({
+    resetCamera: () => dispatch(actions.view.resetCamera()),
+  })
 )(Visualizer);
 

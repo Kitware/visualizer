@@ -1,11 +1,13 @@
-import * as network from './network';
-import MainView from './MainView';
+/* global document window */
 
-import { store, dispatch, actions } from './redux';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import network from './network';
+import MainView from './MainView';
+
+import { store, dispatch, actions } from './redux';
 import behaviorOnChange from './behavior';
 
 require('normalize.css');
@@ -49,7 +51,7 @@ function start() {
   // Mount UI
   const container = document.querySelector('.content');
   ReactDOM.unmountComponentAtNode(container);
-  return ReactDOM.render(<Provider store={store}><MainView /></Provider>, container);
+  ReactDOM.render(<Provider store={store}><MainView /></Provider>, container);
 }
 
 export function connect(config = {}) {
