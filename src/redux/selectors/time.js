@@ -1,7 +1,9 @@
+import { getRootState } from '..';
+
 // ----------------------------------------------------------------------------
 // Pure state selection
 // ----------------------------------------------------------------------------
 
-export const isAnimationPlaying = state => !!state.time.playing;
-export const getTimeStep = state => state.time.index;
-export const getTimeValues = state => state.time.values;
+export const isAnimationPlaying = state => !!getRootState(state).time.playing;
+export const getTimeStep = state => getRootState(state).time.index;
+export const getTimeValues = state => getRootState(state).time.values;

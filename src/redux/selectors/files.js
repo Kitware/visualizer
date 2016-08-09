@@ -1,11 +1,12 @@
+import { getRootState } from '..';
 import { createSelector } from 'reselect';
 
 // ----------------------------------------------------------------------------
 // Pure state selection
 // ----------------------------------------------------------------------------
 
-export const getActivePath = state => state.files.activePath;
-export const getFileListings = state => state.files.listings;
+export const getActivePath = state => getRootState(state).files.activePath;
+export const getFileListings = state => getRootState(state).files.listings;
 
 // ----------------------------------------------------------------------------
 // Composite selector

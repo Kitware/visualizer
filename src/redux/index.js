@@ -13,6 +13,13 @@ function dispatch(action) {
   return store.dispatch(currentAction);
 }
 
+let rootStateAccessor = state => state;
+const getRootState = (state) => rootStateAccessor(state);
+
+export function updateVisualizerRootState(fn) {
+  rootStateAccessor = fn;
+}
+
 export default store;
 
 export {
@@ -20,4 +27,5 @@ export {
   dispatch,
   selectors,
   store,
+  getRootState,
 };
