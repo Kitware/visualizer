@@ -11,27 +11,26 @@
   "dependencies": {
     "commander": "2.9.0",
     "open": "0.0.5",
-    "shelljs": "0.6.0"
+    "shelljs": "0.7.3"
   },
   "devDependencies": {
     "ws": "0.8.1",
-    "axios": "0.9.0",
-    "font-awesome": "4.5.0",
-    "gl-matrix": "2.3.1",
+    "font-awesome": "4.6.3",
+    "gl-matrix": "2.3.2",
     "hammerjs": "2.0.8",
 
     "monologue.js": "0.3.5",
     "mout": "1.0.0",
-    "normalize.css": "4.1.1",
-    "paraviewweb": "1.15.2",
-    "react": "15.2.1",
-    "react-dom": "15.2.1",
+    "normalize.css": "4.2.0",
+    "paraviewweb": "2.0.3",
+    "react": "15.3.0",
+    "react-dom": "15.3.0",
     "react-redux": "4.4.5",
     "redux": "3.5.2",
     "reselect": "2.5.3",
 
-    "kw-web-suite": "2.0.1",
-    "kw-doc": "1.0.12"
+    "kw-web-suite": "2.1.0",
+    "kw-doc": "1.0.13"
   },
   "scripts": {
     "build": "fix-autobahn && webpack",
