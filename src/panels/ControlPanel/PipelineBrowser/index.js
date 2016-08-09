@@ -128,7 +128,7 @@ export const PipelineBrowser = React.createClass({
         <div className={style.pipelineContainer}>
           <PipelineWidget
             nodes={this.props.pipeline.sources}
-            actives={[ this.props.source ? this.props.source.id : '0' ]}
+            actives={[this.props.source ? this.props.source.id : '0']}
             onChange={this.handleChange}
             enableDelete
             width="295"

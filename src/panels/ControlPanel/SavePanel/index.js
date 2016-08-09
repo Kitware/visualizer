@@ -1,9 +1,10 @@
-import React                from 'react';
-import CollapsibleWidget    from 'paraviewweb/src/React/Widgets/CollapsibleWidget';
-import style                from 'VisualizerStyle/SavePanel.mcss';
+/* global Image */
+import React             from 'react';
+import { connect }       from 'react-redux';
+import CollapsibleWidget from 'paraviewweb/src/React/Widgets/CollapsibleWidget';
+import style             from 'VisualizerStyle/SavePanel.mcss';
 
 import ImageProviders from '../../../ImageProviders';
-import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../../redux';
 
 // ----------------------------------------------------------------------------
@@ -78,7 +79,7 @@ export const SavePanel = React.createClass({
 
   resetSize() {
     const image = new Image();
-    image.src = this.refs.screenshot.src;
+    image.src = this.screenshot.src;
     const { width, height } = image;
     this.setState({ width, height });
   },
@@ -118,14 +119,14 @@ export const SavePanel = React.createClass({
     }
 
     return (
-      <div className={[ this.props.className, style.container ].join(' ')}>
+      <div className={[this.props.className, style.container].join(' ')}>
         <CollapsibleWidget
           open={!!this.props.collapsableState.localScreenShot}
           subtitle="Local"
           title="Screenshot"
           onChange={this.updateLocalScreenShotCollapsableState}
         >
-          <img ref="screenshot" src={this.state.url} className={style.localImage} alt="" />
+          <img ref={c => { this.screenshot = c; }} src={this.state.url} className={style.localImage} alt="" />
         </CollapsibleWidget>
         <CollapsibleWidget
           open={!!this.props.collapsableState.screenshot}
@@ -134,7 +135,7 @@ export const SavePanel = React.createClass({
           onChange={this.updateScreenShotCollapsableState}
         >
           <div className={style.line}>
-            <i className={style.resizeIcon} onClick={this.resetSize}></i>
+            <i className={style.resizeIcon} onClick={this.resetSize} />
             <div className={style.group}>
               <input
                 type="number"
@@ -160,7 +161,7 @@ export const SavePanel = React.createClass({
                   ? style.saveIconError : style.saveIcon)}
               title={this.props.statuses.screenshot}
               onClick={this.saveScreenShot}
-            ></i>
+            />
             <input
               type="text"
               className={style.input}
@@ -184,7 +185,7 @@ export const SavePanel = React.createClass({
                     ? style.saveIconError : style.saveIcon)}
               title={this.props.statuses.dataset}
               onClick={this.saveDataset}
-            ></i>
+            />
             <input
               type="text"
               className={style.input}
@@ -207,7 +208,7 @@ export const SavePanel = React.createClass({
                     ? style.saveIconError : style.saveIcon)}
               title={this.props.statuses.state}
               onClick={this.saveState}
-            ></i>
+            />
             <input
               type="text"
               className={style.input}

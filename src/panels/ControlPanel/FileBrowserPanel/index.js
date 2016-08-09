@@ -28,11 +28,9 @@ export const FileBrowser = React.createClass({
   },
 
   path(pathToList, path) {
-    if (pathToList === path[0]) {
-      pathToList = '.';
-    }
-    this.props.storeActiveDirectory(pathToList);
-    this.props.fetchServerDirectory(pathToList);
+    const reqPath = (pathToList === path[0]) ? '.' : pathToList;
+    this.props.storeActiveDirectory(reqPath);
+    this.props.fetchServerDirectory(reqPath);
   },
 
   directory(name) {

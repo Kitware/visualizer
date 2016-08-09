@@ -20,7 +20,7 @@ export default function reducer(state = initialState, action) {
     case TIME_STORE: {
       let { index, values } = action;
       values = values || state.values;
-      index = index % values.length;
+      index %= values.length;
       return Object.assign({}, state, { index, values });
     }
 

@@ -70,19 +70,19 @@ export const InformationPanel = React.createClass({
     return (
       <div className={style.container}>
         <div className={style.line}>
-          <i className={style.iconType}></i>
+          <i className={style.iconType} />
           {this.props.proxy.data.type}
         </div>
         <div className={style.line}>
-          <i className={style.iconConnectivity}></i>
+          <i className={style.iconConnectivity} />
           {`${this.props.proxy.data.points} points / ${this.props.proxy.data.cells} cells`}
         </div>
         <div className={style.line}>
-          <i className={style.iconMemory}></i>
+          <i className={style.iconMemory} />
           {memoryToString(this.props.proxy.data.memory)}
         </div>
         <div className={style.line}>
-          <i className={style.iconBondingBox}></i>
+          <i className={style.iconBondingBox} />
           <div>
             <table className={style.table}>
               <tbody>
@@ -104,7 +104,7 @@ export const InformationPanel = React.createClass({
         </div>
         {this.props.timeValues.length ?
           <div className={style.line}>
-            <i className={style.iconTime}></i>
+            <i className={style.iconTime} />
             <select value={this.props.timeStep} onChange={this.updateTime}>
               {this.props.timeValues.map((t, idx) => <option key={idx} value={idx}>{t}</option>)}
             </select>
@@ -113,13 +113,13 @@ export const InformationPanel = React.createClass({
         {activeArray ?
           <div>
             <div className={style.line}>
-              <i className={style.iconArray}></i>
+              <i className={style.iconArray} />
               <select value={this.state.arrayIdx % this.props.proxy.data.arrays.length} onChange={this.updateArray}>
                 {this.props.proxy.data.arrays.map((a, idx) => <option key={idx} value={idx}>{a.name}</option>)}
               </select>
             </div>
             <div className={style.line}>
-              <i className={style.iconArrayType}></i>
+              <i className={style.iconArrayType} />
               {`${activeArray.location} / ${activeArray.type}(${activeArray.size})`}
             </div>
 
@@ -127,7 +127,7 @@ export const InformationPanel = React.createClass({
               <table className={style.table}>
                 <thead>
                   <tr>
-                    <th><i className={style.iconRange}></i></th>
+                    <th><i className={style.iconRange} /></th>
                     <th>Min</th>
                     <th>Max</th>
                   </tr>

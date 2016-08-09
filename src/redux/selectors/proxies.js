@@ -1,26 +1,27 @@
 import { createSelector } from 'reselect';
+import access from './stateAccessor';
 
 // ----------------------------------------------------------------------------
 // Pure state selection
 // ----------------------------------------------------------------------------
 
-export const hasSource = state => state.active.source && state.active.source !== '0';
+export const hasSource = state => access(state).active.source && access(state).active.source !== '0';
 
-export const getActiveSourceId = state => state.active.source;
-export const getProxyMapById = state => state.proxies.proxies;
-export const getPipeline = state => state.proxies.pipeline;
-export const getSourceToRepresentationMap = state => state.proxies.sourceToRepresentation;
-export const getActiveViewId = state => state.proxies.pipeline.view;
+export const getActiveSourceId = state => access(state).active.source;
+export const getProxyMapById = state => access(state).proxies.proxies;
+export const getPipeline = state => access(state).proxies.pipeline;
+export const getSourceToRepresentationMap = state => access(state).proxies.sourceToRepresentation;
+export const getActiveViewId = state => access(state).proxies.pipeline.view;
 
-export const getAvailableSources = state => state.proxies.available.sources;
-export const getAvailableFilters = state => state.proxies.available.filters;
+export const getAvailableSources = state => access(state).proxies.available.sources;
+export const getAvailableFilters = state => access(state).proxies.available.filters;
 
-export const isSourceCollapsed = state => state.ui.collapsableState.Source;
-export const isRepresentationCollapsed = state => state.ui.collapsableState.Representation;
-export const isViewCollapsed = state => state.ui.collapsableState.View;
-export const isRenderViewSettingsCollapsed = state => state.ui.collapsableState['Global Settings'];
+export const isSourceCollapsed = state => access(state).ui.collapsableState.Source;
+export const isRepresentationCollapsed = state => access(state).ui.collapsableState.Representation;
+export const isViewCollapsed = state => access(state).ui.collapsableState.View;
+export const isRenderViewSettingsCollapsed = state => access(state).ui.collapsableState['Global Settings'];
 
-export const getRenderViewSettingsProxyId = state => state.proxies.settings.RenderViewSettings;
+export const getRenderViewSettingsProxyId = state => access(state).proxies.settings.RenderViewSettings;
 
 // ----------------------------------------------------------------------------
 // Composite selector

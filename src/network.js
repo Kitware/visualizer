@@ -1,4 +1,4 @@
-import ParaViewWebClient from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
+import { createClient } from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
 import SmartConnect from 'paraviewweb/src/IO/WebSocket/SmartConnect';
 
 var connection = null,
@@ -21,7 +21,7 @@ const customProtocols = {
 
 function start(conn) {
   connection = conn;
-  client = ParaViewWebClient.createClient(conn, [
+  client = createClient(conn, [
     'ColorManager',
     'FileListing',
     'MouseHandler',
@@ -36,28 +36,28 @@ function start(conn) {
   }
 }
 
-export function exit(timeout = 60) {
+function exit(timeout = 60) {
   if (connection) {
     connection.destroy(timeout);
     connection = null;
   }
 }
 
-export function connect(config = {}) {
+function connect(config = {}) {
   smartConnect = new SmartConnect(config);
   smartConnect.onConnectionReady(start);
   smartConnect.connect();
 }
 
-export function getClient() {
+function getClient() {
   return client;
 }
 
-export function getConnection() {
+function getConnection() {
   return connection;
 }
 
-export function onReady(callback) {
+function onReady(callback) {
   if (client && client.session.isOpen) {
     callback();
   } else {

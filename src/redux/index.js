@@ -1,11 +1,14 @@
+import { createStore } from 'redux';
+
 import actions from './actions';
 import reducers from './reducers';
 import selectors from './selectors';
-import { createStore } from 'redux';
 
-const store = createStore(reducers);
+export { actions, reducers, selectors };
 
-function dispatch(action) {
+export const store = createStore(reducers);
+
+export function dispatch(action) {
   var currentAction = action;
   while (typeof currentAction === 'function') {
     currentAction = action(dispatch, store.getState);
@@ -14,10 +17,3 @@ function dispatch(action) {
 }
 
 export default store;
-
-export {
-  actions,
-  dispatch,
-  selectors,
-  store,
-};

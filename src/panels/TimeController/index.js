@@ -46,19 +46,19 @@ export const TimeController = React.createClass({
       return null;
     }
 
-    const timeSize = `${this.props.values.length}`.length * 2 + 1;
+    const timeSize = (`${this.props.values.length}`.length * 2) + 1;
     const timeClass = style[`time${timeSize}`];
 
     return (
       <div className={style.container}>
         {
           this.props.playing
-          ? <i className={style.stopButton} onClick={this.togglePlay}></i>
-          : <i className={style.playButton} onClick={this.togglePlay}></i>
+          ? <i className={style.stopButton} onClick={this.togglePlay} />
+          : <i className={style.playButton} onClick={this.togglePlay} />
         }
-        <i onClick={this.previous} className={style.previousButton}></i>
+        <i onClick={this.previous} className={style.previousButton} />
         <input className={timeClass} type="text" readOnly value={`${this.props.index + 1}/${this.props.values.length}`} />
-        <i onClick={this.next} className={style.nextButton}></i>
+        <i onClick={this.next} className={style.nextButton} />
       </div>);
   },
 });
