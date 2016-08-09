@@ -1,9 +1,9 @@
-import { getRootState } from '..';
+import access from './stateAccessor';
 
 // ----------------------------------------------------------------------------
 // Pure state selection
 // ----------------------------------------------------------------------------
 
-export const isAnimationPlaying = state => !!getRootState(state).time.playing;
-export const getTimeStep = state => getRootState(state).time.index;
-export const getTimeValues = state => getRootState(state).time.values;
+export const isAnimationPlaying = state => !!access(state).time.playing;
+export const getTimeStep = state => access(state).time.index;
+export const getTimeValues = state => access(state).time.values;

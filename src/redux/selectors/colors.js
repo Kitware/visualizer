@@ -1,15 +1,15 @@
 import { createSelector } from 'reselect';
-import { getRootState } from '..';
+import access from './stateAccessor';
 import { getActiveSourceId, getActiveRepresentation, getActiveRepresentationId } from './proxies';
 
 // ----------------------------------------------------------------------------
 // Pure state selection
 // ----------------------------------------------------------------------------
 
-export const getPiecewiseMap = state => getRootState(state).colors.piecewiseFunctions;
-export const getPresetsImages = state => getRootState(state).colors.presetImages;
-export const getScalarBarImages = state => getRootState(state).colors.images;
-export const getScalarBarRanges = state => getRootState(state).colors.ranges;
+export const getPiecewiseMap = state => access(state).colors.piecewiseFunctions;
+export const getPresetsImages = state => access(state).colors.presetImages;
+export const getScalarBarImages = state => access(state).colors.images;
+export const getScalarBarRanges = state => access(state).colors.ranges;
 
 // ----------------------------------------------------------------------------
 // Composite selector

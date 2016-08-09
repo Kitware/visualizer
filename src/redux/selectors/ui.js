@@ -1,8 +1,8 @@
-import { getRootState } from '..';
+import access from './stateAccessor';
 
 // ----------------------------------------------------------------------------
 // Pure state selection
 // ----------------------------------------------------------------------------
 
-export const getCollapsableState = state => getRootState(state).ui.collapsableState;
-export const getVisiblePanel = state => getRootState(state).ui.visiblePanel;
+export const getCollapsableState = state => access(state).ui.collapsableState;
+export const getVisiblePanel = state => access(state).ui.visiblePanel;

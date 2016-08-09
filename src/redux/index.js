@@ -4,9 +4,11 @@ import actions from './actions';
 import reducers from './reducers';
 import selectors from './selectors';
 
-const store = createStore(reducers);
+export { actions, reducers, selectors };
 
-function dispatch(action) {
+export const store = createStore(reducers);
+
+export function dispatch(action) {
   var currentAction = action;
   while (typeof currentAction === 'function') {
     currentAction = action(dispatch, store.getState);
@@ -14,19 +16,4 @@ function dispatch(action) {
   return store.dispatch(currentAction);
 }
 
-let rootStateAccessor = state => state;
-const getRootState = (state) => rootStateAccessor(state);
-
-export function updateVisualizerRootState(fn) {
-  rootStateAccessor = fn;
-}
-
 export default store;
-
-export {
-  actions,
-  dispatch,
-  selectors,
-  store,
-  getRootState,
-};

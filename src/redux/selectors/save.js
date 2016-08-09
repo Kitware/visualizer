@@ -1,8 +1,8 @@
-import { getRootState } from '..';
+import access from './stateAccessor';
 
 // ----------------------------------------------------------------------------
 // Pure state selection
 // ----------------------------------------------------------------------------
 
-export const getPaths = state => getRootState(state).save.paths;
-export const getStatuses = state => getRootState(state).save.statuses;
+export const getPaths = state => access(state).save.paths;
+export const getStatuses = state => access(state).save.statuses;
