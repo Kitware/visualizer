@@ -6,14 +6,20 @@ import selectors from './selectors';
 
 export { actions, reducers, selectors };
 
-export const store = createStore(reducers);
+let activeStore = createStore(reducers);
 
 export function dispatch(action) {
   var currentAction = action;
   while (typeof currentAction === 'function') {
-    currentAction = action(dispatch, store.getState);
+    currentAction = action(dispatch, activeStore.getState);
   }
-  return store.dispatch(currentAction);
+  return activeStore.dispatch(currentAction);
 }
 
-export default store;
+export function setVisualizerActiveStore(otherStore) {
+  activeStore = otherStore;
+}
+
+export function getActiveStore() {
+  return activeStore;
+}
