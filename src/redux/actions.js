@@ -8,12 +8,17 @@ import * as time    from './ducks/time';
 import * as view    from './ducks/view';
 import * as ui      from './ducks/ui';
 
+function resetVisualizerState() {
+  return { type: 'RESET_VISUALIZER_STATE' };
+}
+
 export default {
   active,
   colors,
   files,
   network,
   proxies,
+  resetVisualizerState,
   save,
   time,
   view,

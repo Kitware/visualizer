@@ -77,6 +77,10 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { piecewiseFunctionsToPush });
     }
 
+    case 'RESET_VISUALIZER_STATE': {
+      return initialState;
+    }
+
     default:
       return state;
   }

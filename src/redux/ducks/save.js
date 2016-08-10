@@ -62,6 +62,10 @@ export default function proxiesReducer(state = initialState, action) {
       return Object.assign({}, state, { paths });
     }
 
+    case 'RESET_VISUALIZER_STATE': {
+      return initialState;
+    }
+
     default:
       return state;
   }

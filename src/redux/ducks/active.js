@@ -20,6 +20,10 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { [action.name]: action.id });
     }
 
+    case 'RESET_VISUALIZER_STATE': {
+      return initialState;
+    }
+
     default:
       return state;
   }

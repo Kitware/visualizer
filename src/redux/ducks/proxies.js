@@ -76,6 +76,10 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { proxies });
     }
 
+    case 'RESET_VISUALIZER_STATE': {
+      return initialState;
+    }
+
     default:
       return state;
   }
