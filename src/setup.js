@@ -1,5 +1,6 @@
 import { getActiveStore, dispatch, actions } from './redux';
 import behaviorOnChange from './behavior';
+import stateAccessor from './redux/selectors/stateAccessor';
 
 export default function setup(session) {
   // Keep track of any server notification
@@ -7,7 +8,7 @@ export default function setup(session) {
     const index = args[0].timeStep;
     setImmediate(() => {
       dispatch(actions.time.storeTime(index));
-      const state = getActiveStore().getState();
+      const state = stateAccessor(getActiveStore().getState());
       if (state.active.source && state.active.source !== '0') {
         // Update proxy data for info tab...
         // FIXME implement a lighter implementation on the server side...
@@ -31,7 +32,7 @@ export default function setup(session) {
 
   // Attach default behavior
   getActiveStore().subscribe(() => {
-    const state = getActiveStore().getState();
+    const state = stateAccessor(getActiveStore().getState());
     behaviorOnChange(state, dispatch);
   });
 }
