@@ -22,15 +22,15 @@
     "monologue.js": "0.3.5",
     "mout": "1.0.0",
     "normalize.css": "4.2.0",
-    "paraviewweb": "2.0.6",
-    "react": "15.3.0",
-    "react-dom": "15.3.0",
+    "paraviewweb": "2.2.28",
+    "react": "15.3.2",
+    "react-dom": "15.3.2",
     "react-redux": "4.4.5",
     "redux": "3.5.2",
     "reselect": "2.5.3",
 
-    "kw-web-suite": "2.1.0",
-    "kw-doc": "1.0.13"
+    "kw-web-suite": "2.1.1",
+    "kw-doc": "1.0.15"
   },
   "scripts": {
     "build": "fix-autobahn && webpack",
