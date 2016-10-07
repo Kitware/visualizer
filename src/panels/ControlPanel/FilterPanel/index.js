@@ -47,10 +47,10 @@ export const FilterPanel = React.createClass({
 /* eslint-disable arrow-body-style */
 
 export default connect(
-  state => {
+  (state) => {
     return {
       list: selectors.proxies.getAvailableList(state).map(i => ({ name: i.name, icon: ICON_MAPPING[i.icon] })),
-      applyFilter: name => {
+      applyFilter: (name) => {
         dispatch(actions.proxies.createProxy(name, selectors.proxies.getActiveSourceId(state)));
         dispatch(actions.ui.updateVisiblePanel(0));
       },

@@ -71,7 +71,7 @@ export default function reducer(state = initialState, action) {
 
     case REMOVE_SERVER_PIECE_WISE_FUNCTION: {
       const piecewiseFunctionsToPush = Object.assign({}, state.piecewiseFunctionsToPush);
-      action.arrayNames.forEach(name => {
+      action.arrayNames.forEach((name) => {
         delete piecewiseFunctionsToPush[name];
       });
       return Object.assign({}, state, { piecewiseFunctionsToPush });
@@ -121,17 +121,17 @@ export function removePendingServerOpacityPoints(arrayNames) {
 // --- Async actions ---
 
 export function fetchRepresentationColorMap(representationId, sampling = 512) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest('Fetch color map image');
     network.getClient()
       .ColorManager
       .getLutImage(representationId, sampling)
       .then(
-        ok => {
+        (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
           dispatch(storeLookupTableImage(representationId, ok.image));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -140,18 +140,18 @@ export function fetchRepresentationColorMap(representationId, sampling = 512) {
 
 export function applyColorBy(representationId, colorMode, arrayLocation = 'POINTS', arrayName = '',
   vectorComponent = 0, vectorMode = 'Magnitude', rescale = false) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest(`Color by ${arrayName}`);
     network.getClient()
       .ColorManager
       .colorBy(representationId, colorMode, arrayLocation, arrayName, vectorMode, vectorComponent, rescale)
       .then(
-        ok => {
+        (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
           dispatch(externalActions.proxies.fetchProxy(representationId));
           dispatch(fetchRepresentationColorMap(representationId));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -159,17 +159,17 @@ export function applyColorBy(representationId, colorMode, arrayLocation = 'POINT
 }
 
 export function showScalarBar(sourceId, show) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest('Toggle scalar bar');
     network.getClient()
       .ColorManager
       .setScalarBarVisibilities({ [sourceId]: show })
       .then(
-        ok => {
+        (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
           dispatch(storeScalarBarVisibilies(ok));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -177,17 +177,17 @@ export function showScalarBar(sourceId, show) {
 }
 
 export function applyPreset(representationId, presetName) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest(`Apply preset ${presetName}`);
     network.getClient()
       .ColorManager
       .selectColorMap(representationId, presetName)
       .then(
-        ok => {
+        (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
           dispatch(storePresetMapping(representationId, presetName));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -195,17 +195,17 @@ export function applyPreset(representationId, presetName) {
 }
 
 export function fetchColorMapImages(sampling = 512) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest('Fetch all preset images');
     network.getClient()
       .ColorManager
       .listColorMapImages(sampling)
       .then(
-        presetImages => {
+        (presetImages) => {
           dispatch(externalActions.network.success(netRequest.id, presetImages));
           dispatch(storePresetImages(presetImages));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -213,18 +213,18 @@ export function fetchColorMapImages(sampling = 512) {
 }
 
 export function rescaleTransferFunction(options) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest('Fetch all preset images');
     network.getClient()
       .ColorManager
       .rescaleTransferFunction(options)
       .then(
-        ok => {
+        (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
           // FIXME get repId instead of sourceId
           // dispatch(storeLookupTableRange(options.proxyId, ok.range));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -232,17 +232,17 @@ export function rescaleTransferFunction(options) {
 }
 
 export function fetchLookupTableScalarRange(sourceProxyId) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest('Fetch lookup table range');
     network.getClient()
       .ColorManager
       .getCurrentScalarRange(sourceProxyId)
       .then(
-        range => {
+        (range) => {
           dispatch(externalActions.network.success(netRequest.id, range));
           dispatch(storeLookupTableRange(sourceProxyId, range));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -250,16 +250,16 @@ export function fetchLookupTableScalarRange(sourceProxyId) {
 }
 
 export function applyOpacityPoints(arrayName, points) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest('Apply piecewise opacity function');
     network.getClient()
       .ColorManager
       .setOpacityFunctionPoints(arrayName, points)
       .then(
-        nothing => {
+        (nothing) => {
           dispatch(externalActions.network.success(netRequest.id));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -267,17 +267,17 @@ export function applyOpacityPoints(arrayName, points) {
 }
 
 export function fetchOpacityPoints(arrayName) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest('Fetch piecewise opacity function');
     network.getClient()
       .ColorManager
       .getOpacityFunctionPoints(arrayName)
       .then(
-        piecewise => {
+        (piecewise) => {
           dispatch(externalActions.network.success(netRequest.id, piecewise));
           dispatch(storePiecewiseFunction(arrayName, piecewise));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
     return netRequest;
@@ -288,7 +288,7 @@ export function pushPendingServerOpacityPoints() {
   return (dispatch, getState) => {
     const map = getState().colors.piecewiseFunctionsToPush;
     const arrayNames = Object.keys(map);
-    arrayNames.forEach(name => {
+    arrayNames.forEach((name) => {
       dispatch(applyOpacityPoints(name, map[name]));
     });
     return removePendingServerOpacityPoints(arrayNames);

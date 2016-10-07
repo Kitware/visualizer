@@ -89,7 +89,7 @@ export const ControlPanel = React.createClass({
 /* eslint-disable arrow-body-style */
 
 export default connect(
-  state => {
+  (state) => {
     return {
       activeIdx: selectors.ui.getVisiblePanel(state),
       resetCamera() {

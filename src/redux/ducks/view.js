@@ -12,16 +12,16 @@ export default function reducer(state, action) {
 // --- Async actions ---
 
 export function resetCamera() {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest('Reset camera');
     network.getClient()
       .ViewPort
       .resetCamera()
       .then(
-        ok => {
+        (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;

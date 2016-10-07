@@ -58,11 +58,14 @@ export const Visualizer = React.createClass({
           </div>
           <div className={style.buttons}>
             <TimeController />
-            <i className={style.resetCameraButton} onClick={this.props.resetCamera} />
+            <i
+              className={style.resetCameraButton}
+              onClick={this.props.resetCamera}
+            />
           </div>
         </div>
         <VtkRenderer
-          ref={c => { this.renderer = c; }}
+          ref={c => (this.renderer = c)}
           client={this.props.client}
           connection={this.props.connection}
           session={this.props.session}
@@ -75,7 +78,7 @@ export const Visualizer = React.createClass({
 // Binding --------------------------------------------------------------------
 
 export default connect(
-  state => {
+  (state) => {
     const pendingCount = selectors.network.getPendingCount(state);
     const client = network.getClient();
     const connection = network.getConnection();

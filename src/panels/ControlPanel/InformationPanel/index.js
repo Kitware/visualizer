@@ -13,7 +13,7 @@ function memoryToString(number) {
 
   while (currentValue > 1000) {
     currentValue /= 1000;
-    unitIdx++;
+    unitIdx += 1;
   }
 
   return currentValue.toFixed(2) + units[unitIdx];
@@ -153,7 +153,7 @@ export const InformationPanel = React.createClass({
 /* eslint-disable arrow-body-style */
 
 export default connect(
-  state => {
+  (state) => {
     return {
       proxy: selectors.proxies.getActiveSource(state),
       timeStep: selectors.time.getTimeStep(state),

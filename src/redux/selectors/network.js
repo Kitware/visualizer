@@ -13,6 +13,6 @@ export const getPendingRequests = state => access(state).network.pending;
 
 export const getPendingCount = createSelector(
   [getPendingRequests],
-  (pending) => pending.length
+  pending => pending.length
 );
 

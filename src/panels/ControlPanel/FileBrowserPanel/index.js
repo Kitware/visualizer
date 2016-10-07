@@ -78,7 +78,7 @@ export const FileBrowser = React.createClass({
 /* eslint-disable arrow-body-style */
 
 export default connect(
-  state => {
+  (state) => {
     return {
       fileListing: selectors.files.getFileListing(state),
       activePath: selectors.files.getActivePath(state),
@@ -86,13 +86,13 @@ export default connect(
   },
   () => {
     return {
-      fetchServerDirectory: path => {
+      fetchServerDirectory: (path) => {
         dispatch(actions.files.fetchServerDirectory(path));
       },
-      storeActiveDirectory: path => {
+      storeActiveDirectory: (path) => {
         dispatch(actions.files.storeActiveDirectory(path));
       },
-      openFiles: files => {
+      openFiles: (files) => {
         dispatch(actions.proxies.openFiles(files));
         dispatch(actions.ui.updateVisiblePanel(0));
       },

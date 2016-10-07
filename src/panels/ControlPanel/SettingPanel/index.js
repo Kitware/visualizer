@@ -30,7 +30,7 @@ export const SettingPanel = React.createClass({
   applyChanges(changeSet) {
     const changeToPush = [],
       ids = {};
-    Object.keys(changeSet).forEach(key => {
+    Object.keys(changeSet).forEach((key) => {
       const [id, name] = key.split(':'),
         value = changeSet[key];
       ids[id] = true;
@@ -61,7 +61,7 @@ export const SettingPanel = React.createClass({
 /* eslint-disable arrow-body-style */
 
 export default connect(
-  state => {
+  (state) => {
     return {
       sections: [selectors.proxies.getRenderViewSettingsPropertyGroup(state)],
       fetchSettingProxy: () => {

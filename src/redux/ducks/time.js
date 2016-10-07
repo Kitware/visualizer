@@ -56,13 +56,13 @@ export function storeTimeAnimation(play) {
 // --- Async actions ---
 
 export function fetchTime() {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest('Fetch time values');
     network.getClient()
       .TimeHandler
       .getTimeValues()
       .then(
-        values => {
+        (values) => {
           dispatch(netActions.success(netRequest.id, values));
           if (values.length) {
             const netRequestTimeStep = netActions.createRequest('Fetch time step');
@@ -71,18 +71,18 @@ export function fetchTime() {
               .TimeHandler
               .getTimeStep()
               .then(
-                index => {
+                (index) => {
                   dispatch(netActions.success(netRequestTimeStep.id, index));
                   dispatch(storeTime(index, values));
                 },
-                err => {
+                (err) => {
                   dispatch(netActions.error(netRequestTimeStep.id, err));
                 });
           } else {
             dispatch(resetTime());
           }
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
 
@@ -91,20 +91,20 @@ export function fetchTime() {
 }
 
 export function applyTimeStep(index, proxyIdToUpdate) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest('Apply time step');
     network.getClient()
       .TimeHandler
       .setTimeStep(index)
       .then(
-        ok => {
+        (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
           dispatch(storeTime(index));
           if (proxyIdToUpdate && proxyIdToUpdate !== '0') {
             dispatch(fetchProxy(proxyIdToUpdate));
           }
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;
@@ -112,16 +112,16 @@ export function applyTimeStep(index, proxyIdToUpdate) {
 }
 
 export function playTime(delatT = 0.01) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest('Start time animation');
     network.getClient()
       .TimeHandler
       .play(delatT)
       .then(
-        ok => {
+        (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     dispatch(storeTimeAnimation(true));
@@ -130,17 +130,17 @@ export function playTime(delatT = 0.01) {
 }
 
 export function stopTime() {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest('Stop time animation');
     network.getClient()
       .TimeHandler
       .stop()
       .then(
-        ok => {
+        (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
           dispatch(storeTimeAnimation(false));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;

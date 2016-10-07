@@ -5,7 +5,7 @@ const listeners = {};
 function setImageProvider(provider, key) {
   providers[key || DEFAULT_IMAGE_PROVIDER] = provider;
   const listenersToNotify = listeners[key || DEFAULT_IMAGE_PROVIDER] || [];
-  listenersToNotify.forEach(cb => {
+  listenersToNotify.forEach((cb) => {
     if (cb) {
       cb(provider);
     }

@@ -46,12 +46,12 @@ export const SavePanel = React.createClass({
   },
 
   componentWillMount() {
-    ImageProviders.onImageProvider(provider => {
+    ImageProviders.onImageProvider((provider) => {
       if (provider.getLastImageReadyEvent()) {
         const { url } = provider.getLastImageReadyEvent();
         this.setState({ url });
       }
-      this.subscription = provider.onImageReady(data => {
+      this.subscription = provider.onImageReady((data) => {
         const { url } = data;
         this.setState({ url });
       });
@@ -126,7 +126,7 @@ export const SavePanel = React.createClass({
           title="Screenshot"
           onChange={this.updateLocalScreenShotCollapsableState}
         >
-          <img ref={c => { this.screenshot = c; }} src={this.state.url} className={style.localImage} alt="" />
+          <img ref={c => (this.screenshot = c)} src={this.state.url} className={style.localImage} alt="" />
         </CollapsibleWidget>
         <CollapsibleWidget
           open={!!this.props.collapsableState.screenshot}
@@ -226,7 +226,7 @@ export const SavePanel = React.createClass({
 /* eslint-disable arrow-body-style */
 
 export default connect(
-  state => {
+  (state) => {
     return {
       proxy: selectors.proxies.getActiveSource(state),
       statuses: selectors.save.getStatuses(state),

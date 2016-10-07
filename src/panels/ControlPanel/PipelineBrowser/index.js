@@ -55,14 +55,14 @@ export const PipelineBrowser = React.createClass({
   applyChanges(changeSet) {
     const changeToPush = [],
       ids = {};
-    Object.keys(changeSet).forEach(key => {
+    Object.keys(changeSet).forEach((key) => {
       const [id, name] = key.split(':'),
         value = changeSet[key];
       ids[id] = true;
       changeToPush.push({ id, name, value });
     });
     const owners = [];
-    ['source', 'representation', 'view'].forEach(name => {
+    ['source', 'representation', 'view'].forEach((name) => {
       if (this.props[name]) {
         owners.push(this.props[name].id);
       }
@@ -81,7 +81,7 @@ export const PipelineBrowser = React.createClass({
       }
       case 'visibility': {
         const { idMapOfSourceToRep } = this.props;
-        const changeSet = event.changeSet.map(node => {
+        const changeSet = event.changeSet.map((node) => {
           const id = idMapOfSourceToRep[node.id],
             name = 'Visibility',
             value = node.visible ? 1 : 0;
@@ -107,7 +107,7 @@ export const PipelineBrowser = React.createClass({
     // Ensure proxy refresh when editing them
     if (event.type === 'propertyChange') {
       const owners = [];
-      ['source', 'representation', 'view'].forEach(name => {
+      ['source', 'representation', 'view'].forEach((name) => {
         if (this.props[name]) {
           owners.push(this.props[name].id);
         }
@@ -175,7 +175,7 @@ export const PipelineBrowser = React.createClass({
 /* eslint-disable arrow-body-style */
 
 export default connect(
-  state => {
+  (state) => {
     const props = {
       opacityPoints: selectors.colors.getPiecewisePoints(state),
       idMapOfSourceToRep: selectors.proxies.getSourceToRepresentationMap(state),
@@ -199,10 +199,10 @@ export default connect(
           owners.forEach(id => dispatch(actions.proxies.fetchProxy(id)));
         }
       },
-      deleteProxy: id => {
+      deleteProxy: (id) => {
         dispatch(actions.proxies.deleteProxy(id));
       },
-      setActiveSource: id => {
+      setActiveSource: (id) => {
         dispatch(actions.active.activate(id, 'source'));
       },
       updateScalarRange: ({ options }) => {
@@ -225,7 +225,7 @@ export default connect(
       },
       setOpacityPoints(points) {
         const serverFormat = [];
-        points.forEach(p => {
+        points.forEach((p) => {
           serverFormat.push(p.x);
           serverFormat.push(p.y);
           serverFormat.push(p.x2 || 0.5);

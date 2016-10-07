@@ -17,7 +17,7 @@ export const getScalarBarRanges = state => access(state).colors.ranges;
 
 export const getColorByArray = createSelector(
   [getActiveRepresentation],
-  (representation) => (representation ? representation.colorBy.array[1] : undefined)
+  representation => (representation ? representation.colorBy.array[1] : undefined)
 );
 
 export const getPiecewisePoints = createSelector(

@@ -96,7 +96,8 @@ export default function reducer(state = initialState, action) {
 // --- Pure actions ---
 
 export function createRequest(message = 'no description') {
-  const id = `${uniqueRequestId++}`;
+  const id = `${uniqueRequestId}`;
+  uniqueRequestId += 1;
   return { type: NETWORK_REQUEST, id, message, start: now() };
 }
 

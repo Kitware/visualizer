@@ -42,7 +42,7 @@ export default function reducer(state = initialState, action) {
     case PIPELINE_STORE: {
       const pipeline = action.pipeline;
       const sourceToRepresentation = {};
-      pipeline.sources.forEach(proxy => {
+      pipeline.sources.forEach((proxy) => {
         sourceToRepresentation[proxy.id] = proxy.rep;
       });
       return Object.assign({}, state, { pipeline, sourceToRepresentation });
@@ -61,12 +61,12 @@ export default function reducer(state = initialState, action) {
 
     case UPDATE_PROPERTIES: {
       const changeMap = {};
-      action.properties.forEach(prop => {
+      action.properties.forEach((prop) => {
         changeMap[propertyKey(prop)] = prop;
       });
 
       const proxies = Object.assign({}, state.proxies);
-      action.proxies.forEach(id => {
+      action.proxies.forEach((id) => {
         const proxProps = proxies[id].properties;
         if (proxProps) {
           const properties = proxProps.map(prop => changeMap[propertyKey(prop)] || prop);
@@ -116,15 +116,15 @@ export function updateProxyProperties(proxies, properties) {
 // --- Async actions ---
 
 export function fetchPipeline() {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest('Fetch pipeline');
     network.getClient().ProxyManager.list()
       .then(
-        pipeline => {
+        (pipeline) => {
           dispatch(netActions.success(netRequest.id, pipeline));
           dispatch(storePipeline(pipeline));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;
@@ -132,19 +132,19 @@ export function fetchPipeline() {
 }
 
 export function createProxy(name, parentProxy) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest(`Create proxy ${name}`);
     network.getClient().ProxyManager
       .create(name, parentProxy)
       .then(
-        proxy => {
+        (proxy) => {
           dispatch(netActions.success(netRequest.id, proxy));
           dispatch(storeProxy(proxy));
           dispatch(activeActions.activate(proxy.id, activeActions.TYPE_SOURCE));
           dispatch(fetchPipeline());
           dispatch(timeActions.fetchTime());
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
 
@@ -153,17 +153,17 @@ export function createProxy(name, parentProxy) {
 }
 
 export function deleteProxy(proxyId) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest(`Delete proxy ${proxyId}`);
     network.getClient().ProxyManager.delete(proxyId)
       .then(
-        parent => {
+        (parent) => {
           dispatch(netActions.success(netRequest.id, parent));
           dispatch(fetchPipeline());
           dispatch(timeActions.fetchTime());
           dispatch(activeActions.activate(parent.id, 'source'));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;
@@ -171,16 +171,16 @@ export function deleteProxy(proxyId) {
 }
 
 export function fetchProxy(proxyId) {
-  return dispatch => {
+  return (dispatch) => {
     const needUI = true; // FIXME
     const netRequest = netActions.createRequest(`Fetch proxy ${proxyId}`);
     network.getClient().ProxyManager.get(proxyId, needUI)
       .then(
-        proxy => {
+        (proxy) => {
           dispatch(netActions.success(netRequest.id, proxy));
           dispatch(storeProxy(proxy));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;
@@ -189,16 +189,16 @@ export function fetchProxy(proxyId) {
 
 // Another possible one 'RenderViewInteractionSettings'
 export function fetchSettingProxy(name = 'RenderViewSettings') {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest(`Fetch setting proxy ${name}`);
     network.getClient().ProxyManager.findProxyId('settings', name)
       .then(
-        proxyId => {
+        (proxyId) => {
           dispatch(netActions.success(netRequest.id, proxyId));
           dispatch(storeSettingProxy(name, proxyId));
           dispatch(fetchProxy(proxyId));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;
@@ -206,16 +206,16 @@ export function fetchSettingProxy(name = 'RenderViewSettings') {
 }
 
 export function fetchAvailableProxies() {
-  return dispatch => {
+  return (dispatch) => {
     // Sources
     const netRequest = netActions.createRequest('Fetch available sources');
     network.getClient().ProxyManager.availableSources()
       .then(
-        sources => {
+        (sources) => {
           dispatch(netActions.success(netRequest.id, sources));
           dispatch(storeAvailableSources(sources));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
 
@@ -224,11 +224,11 @@ export function fetchAvailableProxies() {
     dispatch(netFilterRequest);
     network.getClient().ProxyManager.availableFilters()
       .then(
-        filters => {
+        (filters) => {
           dispatch(netActions.success(netFilterRequest.id, filters));
           dispatch(storeAvailableFilters(filters));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netFilterRequest.id, err));
         });
     return netRequest;
@@ -236,15 +236,15 @@ export function fetchAvailableProxies() {
 }
 
 export function applyChangeSet(propertyChangeSet, propsOwners = []) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest('Apply property edits');
     network.getClient().ProxyManager.update(propertyChangeSet)
       .then(
-        resp => {
+        (resp) => {
           dispatch(netActions.success(netRequest.id, resp));
           dispatch(updateProxyProperties(propsOwners, propertyChangeSet));
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;
@@ -252,13 +252,13 @@ export function applyChangeSet(propertyChangeSet, propsOwners = []) {
 }
 
 export function openFiles(files) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = netActions.createRequest(`Open files ${files}`);
     network.getClient()
       .ProxyManager
       .open(files)
       .then(
-        req => {
+        (req) => {
           if (req.success) {
             dispatch(netActions.success(netRequest.id, req));
             // dispatch(fetchProxy(req.id)); // => new active fetch...
@@ -269,7 +269,7 @@ export function openFiles(files) {
             dispatch(netActions.error(netRequest.id, req));
           }
         },
-        err => {
+        (err) => {
           dispatch(netActions.error(netRequest.id, err));
         });
     return netRequest;

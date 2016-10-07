@@ -62,19 +62,19 @@ export function storeActiveDirectory(activePath) {
 // --- Async actions ---
 
 export function fetchServerDirectory(pathToList) {
-  return dispatch => {
+  return (dispatch) => {
     const netRequest = externalActions.network.createRequest('Fetch server directory listing');
     network.getClient()
       .FileListing
       .listServerDirectory(pathToList)
       .then(
-        listing => {
+        (listing) => {
           dispatch(externalActions.network.success(netRequest.id, listing));
           const { dirs, files, groups, path, label } = listing;
           const fileLabels = files.map(i => i.label);
           dispatch(storeDirectoryListing(pathToList, { dirs, files: fileLabels, groups, path, label }));
         },
-        err => {
+        (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
         });
 
