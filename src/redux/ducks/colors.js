@@ -1,6 +1,7 @@
 import network from '../../network';
 import * as netActions from './network';
 import * as proxiesActions from './proxies';
+import localPresetImages from '../../presets.json';
 
 const externalActions = {
   network: netActions,
@@ -194,14 +195,20 @@ export function applyPreset(representationId, presetName) {
   };
 }
 
-export function fetchColorMapImages(sampling = 512) {
+export function fetchColorMapImages(sampling = 512, local = true) {
   return (dispatch) => {
+    if (local) {
+      return storePresetImages(localPresetImages);
+    }
+
     const netRequest = externalActions.network.createRequest('Fetch all preset images');
     network.getClient()
       .ColorManager
       .listColorMapImages(sampling)
       .then(
         (presetImages) => {
+          // Useful to update local presets
+          // console.log(JSON.stringify(presetImages));
           dispatch(externalActions.network.success(netRequest.id, presetImages));
           dispatch(storePresetImages(presetImages));
         },
