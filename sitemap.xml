@@ -2,93 +2,121 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://kitware.github.io/visualizer/api/SavePanel.html</loc>
+    <loc>https://kitware.github.io/visualizer/api/SettingPanel.html</loc>
     
-    <lastmod>2016-10-26T21:27:53.648Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/visualizer/api/FilterPanel.html</loc>
-    
-    <lastmod>2016-10-26T21:27:53.648Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/visualizer/api/InformationPanel.html</loc>
-    
-    <lastmod>2016-10-26T21:27:53.648Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.924Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/api/PipelineBrowser.html</loc>
     
-    <lastmod>2016-10-26T21:27:53.648Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.924Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/visualizer/api/SettingPanel.html</loc>
+    <loc>https://kitware.github.io/visualizer/api/SavePanel.html</loc>
     
-    <lastmod>2016-10-26T21:27:53.648Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.924Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/api/FilterPanel.html</loc>
+    
+    <lastmod>2016-10-26T22:50:17.920Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/api/InformationPanel.html</loc>
+    
+    <lastmod>2016-10-26T22:50:17.920Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/api/FileBrowserPanel.html</loc>
     
-    <lastmod>2016-10-26T21:27:53.644Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.920Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/docs/guides/python_launcher.html</loc>
+    
+    <lastmod>2016-10-26T22:50:17.908Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/index.html</loc>
     
-    <lastmod>2016-10-26T21:27:53.636Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/visualizer/docs/troubleshooting.html</loc>
-    
-    <lastmod>2016-10-26T21:27:53.636Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/visualizer/docs/tools.html</loc>
-    
-    <lastmod>2016-10-26T21:27:53.636Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.908Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/docs/index.html</loc>
     
-    <lastmod>2016-10-26T21:27:53.636Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.908Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/visualizer/docs/contributing.html</loc>
+    <loc>https://kitware.github.io/visualizer/docs/tools.html</loc>
     
-    <lastmod>2016-10-26T21:27:53.632Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.908Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/docs/troubleshooting.html</loc>
+    
+    <lastmod>2016-10-26T22:50:17.908Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/docs/guides/multi_user_setup.html</loc>
+    
+    <lastmod>2016-10-26T22:50:17.908Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/api/index.html</loc>
     
-    <lastmod>2016-10-26T21:27:53.632Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.904Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/docs/guides/apache_front_end.html</loc>
+    
+    <lastmod>2016-10-26T22:50:17.904Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/docs/guides/launching_examples.html</loc>
+    
+    <lastmod>2016-10-26T22:50:17.904Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/docs/contributing.html</loc>
+    
+    <lastmod>2016-10-26T22:50:17.904Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/visualizer/2016/04/29/kw-doc/</loc>
     
-    <lastmod>2016-10-26T21:27:53.624Z</lastmod>
+    <lastmod>2016-10-26T22:50:17.892Z</lastmod>
     
   </url>
   
