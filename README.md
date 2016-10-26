@@ -37,7 +37,7 @@ $ Visualizer
     -h, --help                       output usage information
     -V, --version                    output the version number
     -p, --port [8080]                Start web server with given port
-    -d, --data [directory/http]      Data directory to serve
+    -d, --data [directory]           Data directory to serve
     -s, --server-only                Do not open the web browser
 
     --paraview [path]                Provide the ParaView root path to use
