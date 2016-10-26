@@ -9,7 +9,14 @@
 
 ### Goal ###
 
-Provide a Web based interface to ParaView 5.0.1+.
+Provide a Web based interface to ParaView similar to the ParaView Desktop Qt client. 
+
+## Pre-requisit 
+
+You need ParaView 5.2+ application which can be downloaded [here](http://www.paraview.org/download/).
+
+To install ParaViewWeb-Visualizer for your command line environment,
+you will need to have [Node](https://nodejs.org/en/) which should have [NPM](https://www.npmjs.com/).
 
 ## Installation
 
@@ -61,9 +68,11 @@ $ Visualizer
 ```
 
 Before you commit, please run:
+
 ```sh
 $ npm run build:release
 ```
+
 This creates a minified version of the visualizer JavaScript code in dist/Visualizer.js
 which should be added to your commit.
 
