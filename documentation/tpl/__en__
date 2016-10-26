@@ -19,8 +19,19 @@ page:
 sidebar:
   docs:
     getting_started: Getting Started
+    basic_usage: Basic Usage
+    roadmap: Roadmap
+    releases: Releases
+    import: Import
+    tools: Developer guide
     overview: Overview
+    setup: Setup
     miscellaneous: Miscellaneous
-    tools: Tools
     troubleshooting: Troubleshooting
     contributing: Contributing
+    pvw_server: Server
+    multi_user_setup: Multi-user setup
+    apache_front_end: Using Apache
+    launchers: Launchers
+    python_launcher: Python
+    launching_examples: Examples

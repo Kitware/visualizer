@@ -5,3 +5,9 @@ docs:
     tools: /visualizer/docs/tools.html
     troubleshooting: /visualizer/docs/troubleshooting.html
     contributing: /visualizer/docs/contributing.html
+  pvw_server:
+    multi_user_setup: /visualizer/docs/guides/multi_user_setup.html
+    apache_front_end: /visualizer/docs/guides/apache_front_end.html
+  launchers:
+    python_launcher: /visualizer/docs/guides/python_launcher.html
+    launching_examples: /visualizer/docs/guides/launching_examples.html

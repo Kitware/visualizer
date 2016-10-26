@@ -15,6 +15,12 @@ The ParaViewWeb Visualizer aims to provide a ParaView like application for your 
 
 It only takes few minutes to set up ParaView Visualizer. If you encounter a problem and can't find the solution here, please [submit a GitHub issue](https://github.com/kitware/visualizer/issues).
 
+ParaView Visualizer require ParaView 5.2+ which can be downloaded [here](http://www.paraview.org/download/) which also bundle the ParaView Visualizer application along.
+
+Although using ParaView Visualizer from the command line via [Node](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/) could be easier for trying it out.
+
+In order to install and execute the Visualizer application on your system from your command line environment, just run the following commands assuming [Node](https://nodejs.org/en/) is available on your system:
+
 ```sh
 $ npm install -g pvw-visualizer
 $ Visualizer --paraview /Applications/paraview.app --data ~/Desktop
@@ -26,7 +32,14 @@ For production usage, ParaView Visualizer should be deployed within your Web ins
 2) Enable the client to start a new ParaView process on the server side (Cluster). We provide a generic launcher implementation using Python which could be replaced with something more appropriate to your infrastructure. 
 3) Configure your network to forward the WebSocket connection to the proper backend host running the ParaView server.
 
-For better rendering performances, the ParaView server should run on a GPU machine. 
+For better rendering performances, the ParaView server should run on a GPU machine.
+
+Addition information on those setup are available here:
+
+- [Multi user setup](/visualizer/docs/guides/multi_user_setup.html)
+- [Apache as front-end](/visualizer/docs/guides/apache_front_end.html)
+- [Launcher configuration](/visualizer/docs/guides/python_launcher.html)
+- [More launcher setup examples](/visualizer/docs/guides/launching_examples.html)
 
 ### Requirements
 
@@ -58,27 +71,17 @@ You may encounter some problems when compiling. Please install Xcode from App St
 
 The best way to install Node.js is with [nvm](https://github.com/creationix/nvm).
 
-cURL:
-
-``` bash
-$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-```
-
-Wget:
-
-``` bash
-$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
-```
-
 Once nvm is installed, restart the terminal and run the following command to install Node.js.
 
 ``` bash
-$ nvm install 4
+$ nvm install 6
 ```
 
-Alternatively, download and run [the installer](http://nodejs.org/).
+Alternatively, download and run [node](http://nodejs.org/).
 
 ### Install pvw-visualizer
+
+This would be usefull if you want to embbed Visualizer within your application or use some Visualizer components. 
 
 ``` bash
 $ npm install pvw-visualizer --save
@@ -90,4 +93,6 @@ $ npm install pvw-visualizer --save
 $ git clone https://github.com/kitware/visualizer.git
 $ cd visualizer
 $ npm install
+$ npm link
+$ Visualizer [...]
 ```
