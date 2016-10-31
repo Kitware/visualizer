@@ -1,13 +1,12 @@
 #! /usr/bin/env node
 
 var fs = require('fs'),
+    shell = require('shelljs'),
     path = require('path'),
     program = require('commander'),
     paraview = process.env.PARAVIEW_HOME,
     pkg = require('../package.json'),
-    version = /semantically-release/.test(pkg.version) ? 'development version' : pkg.version;;
-
-require('shelljs/global');
+    version = /semantically-release/.test(pkg.version) ? 'development version' : pkg.version;
 
 program
   .version(version)
@@ -19,10 +18,19 @@ program
 
   .parse(process.argv);
 
+// Try to find a paraview directory inside /Applications or /opt
+const pvPossibleBasePath = [];
+['/Applications', '/opt', '/usr/local/opt/'].forEach(function (directoryPath) {
+  shell.ls(directoryPath).forEach(function (fileName) {
+    if (fileName.toLowerCase().indexOf('paraview') !== -1) {
+      pvPossibleBasePath.push(path.join(directoryPath, fileName));
+    }
+  });
+});
 
 if(!paraview) {
     paraview = [];
-    [ program.paraview, '/Applications/paraview.app/Contents', '/opt/paraview'].forEach(function(directory){
+    [program.paraview].concat(pvPossibleBasePath).forEach(function(directory){
         try {
             if(fs.statSync(directory).isDirectory()) {
                 paraview.push(directory);
@@ -33,12 +41,12 @@ if(!paraview) {
     });
 }
 
-if (!process.argv.slice(2).length) {
+if (!process.argv.slice(2).length || paraview.length === 0) {
     program.outputHelp();
     process.exit(0);
 }
 
-var pvPythonExecs = find(paraview).filter(function(file) { return file.match(/pvpython$/) || file.match(/pvpython.exe$/); });
+var pvPythonExecs = shell.find(paraview).filter(function(file) { return file.match(/pvpython$/) || file.match(/pvpython.exe$/); });
 if(pvPythonExecs.length < 1) {
     console.log('Could not find pvpython in your ParaView HOME directory ($PARAVIEW_HOME)');
     program.outputHelp();
@@ -55,8 +63,8 @@ if(pvPythonExecs.length < 1) {
     console.log('| Execute:');
     console.log('| $', cmdLine.join('\n|\t'));
     console.log('===============================================================================\n');
-    exec(cmdLine.join(' '), {async:true}).stdout.on('data', function(data) {
-        if(data.indexOf('Starting factory') !== -1) {
+    shell.exec(cmdLine.join(' '), { async: true }).stdout.on('data', function(data) {
+        if (data.indexOf('Starting factory') !== -1) {
             // Open browser if asked
             if (!program.serverOnly) {
                 require('open')('http://localhost:' + program.port);
