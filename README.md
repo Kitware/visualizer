@@ -1,4 +1,4 @@
-## [Visualizer](http://kitware.github.io/Visualizer/)
+## [Visualizer](http://kitware.github.io/visualizer/)
 
 [![Build Status](https://travis-ci.org/Kitware/visualizer.svg)](https://travis-ci.org/Kitware/visualizer)
 [![Dependency Status](https://david-dm.org/kitware/visualizer.svg)](https://david-dm.org/kitware/pvw-visualizer)
