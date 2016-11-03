@@ -45,7 +45,7 @@ if(!paraview) {
     });
 }
 
-if (!process.argv.slice(2).length || !program.help) {
+if (!process.argv.slice(2).length || !program.help || paraview.length === 0) {
     program.outputHelp();
     process.exit(0);
 }
