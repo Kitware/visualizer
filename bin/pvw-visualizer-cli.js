@@ -8,6 +8,10 @@ var fs = require('fs'),
     pkg = require('../package.json'),
     version = /semantically-release/.test(pkg.version) ? 'development version' : pkg.version;
 
+function quotePath(str) {
+  return '"' + str + '"';
+}
+
 program
   .version(version)
   .option('-p, --port [8080]', 'Start web server with given port', 8080)
@@ -41,7 +45,7 @@ if(!paraview) {
     });
 }
 
-if (!process.argv.slice(2).length || paraview.length === 0) {
+if (!process.argv.slice(2).length || !program.help) {
     program.outputHelp();
     process.exit(0);
 }
@@ -52,11 +56,11 @@ if(pvPythonExecs.length < 1) {
     program.outputHelp();
 } else {
     const cmdLine = [
-        pvPythonExecs[0], '-dr',
-        path.normalize(path.join(__dirname, '../server/pvw-visualizer.py')),
-        '--content', path.normalize(path.join(__dirname, '../dist')),
+        quotePath(pvPythonExecs[0]), '-dr',
+        quotePath(path.normalize(path.join(__dirname, '../server/pvw-visualizer.py'))),
+        '--content', quotePath(path.normalize(path.join(__dirname, '../dist'))),
         '--port', program.port,
-        '--data', program.data,
+        '--data', quotePath(program.data),
     ];
 
     console.log('\n===============================================================================');
