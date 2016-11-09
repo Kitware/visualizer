@@ -36,10 +36,10 @@ For better rendering performances, the ParaView server should run on a GPU machi
 
 Addition information on those setup are available here:
 
-- [Multi user setup](/visualizer/docs/guides/multi_user_setup.html)
-- [Apache as front-end](/visualizer/docs/guides/apache_front_end.html)
-- [Launcher configuration](/visualizer/docs/guides/python_launcher.html)
-- [More launcher setup examples](/visualizer/docs/guides/launching_examples.html)
+- [Multi user setup](multi_user_setup.html)
+- [Apache as front-end](apache_front_end.html)
+- [Launcher configuration](python_launcher.html)
+- [More launcher setup examples](launching_examples.html)
 
 ### Requirements
 

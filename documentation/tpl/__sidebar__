@@ -1,13 +1,13 @@
 docs:
   getting_started:
-    overview: /visualizer/docs/index.html
+    overview: index.html
   miscellaneous:
-    tools: /visualizer/docs/tools.html
-    troubleshooting: /visualizer/docs/troubleshooting.html
-    contributing: /visualizer/docs/contributing.html
+    tools: tools.html
+    troubleshooting: troubleshooting.html
+    contributing: contributing.html
   pvw_server:
-    multi_user_setup: /visualizer/docs/guides/multi_user_setup.html
-    apache_front_end: /visualizer/docs/guides/apache_front_end.html
+    multi_user_setup: multi_user_setup.html
+    apache_front_end: apache_front_end.html
   launchers:
-    python_launcher: /visualizer/docs/guides/python_launcher.html
-    launching_examples: /visualizer/docs/guides/launching_examples.html
+    python_launcher: python_launcher.html
+    launching_examples: launching_examples.html

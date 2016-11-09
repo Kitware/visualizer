@@ -16,7 +16,7 @@ The launcher has several specific tasks, all with the common goal of allowing cl
 
 ## Configuration of the launcher
 
-The launcher provides a great deal of flexibility, which can be leveraged by customizing its configuration file.  In this guide, as in the [Apache as a front end](/paraviewweb/docs/guides/apache_front_end.html) guide, we assume you are using Apache as the front end, and we also assume the directory you have chosen for the mapping file is `<MAPPING-FILE-DIR>`.  The Following is an example configuration file:
+The launcher provides a great deal of flexibility, which can be leveraged by customizing its configuration file.  In this guide, as in the [Apache as a front end](apache_front_end.html) guide, we assume you are using Apache as the front end, and we also assume the directory you have chosen for the mapping file is `<MAPPING-FILE-DIR>`.  The Following is an example configuration file:
 
 __launcher.config__
 
@@ -91,7 +91,7 @@ $ ./bin/vtkpython Wrapping/Python/vtk/web/launcher.py launcher.config
 - The `apps` section gives the command lines required to start any of the visualization processes the launcher will be capable of starting.  We recommend always providing the `-dr` argument to `pvpython` so that it never tries to load any saved preferences it might find.
 
 - The `configuration` section gives several important values:
-  - `sessionURL` gives the url needed to communicate with the visualization processes.  In the case of the Apache front end, Apache will recognize this url and re-write it so that Apache websocket forwarding can send the packets to the correct running process on the back end.  This `sessionURL` value needs to match what is expected by the Apache RewriteRule (given in the Apache virtual host configuration).  See the [Apache as a front end](/visualizer/docs/guides/apache_front_end.html) guide for details.
+  - `sessionURL` gives the url needed to communicate with the visualization processes.  In the case of the Apache front end, Apache will recognize this url and re-write it so that Apache websocket forwarding can send the packets to the correct running process on the back end.  This `sessionURL` value needs to match what is expected by the Apache RewriteRule (given in the Apache virtual host configuration).  See the [Apache as a front end](apache_front_end.html) guide for details.
   - `proxy_file` gives the location of the mapping file that the launcher and front end will use to communicate about which session ids get mapped to which port.  The location of this file must concur with the Apache RewriteMap value (given in the Apache virtual host configuration).
 
 - `sessionData` is designed to allow you to specify that certain arbitrary key/value pairs should be included in the data returned to the client upon successful creation of the session.  In the example launcher config file above, we have added a key called `updir` with a value of `/Home` to the `sessionData` segment.  This will cause the launcher to perform normal substitutions on the on the value (in this case, none are needed as the value is simply `/Home`), and then include `"updir": "/Home"` in the response when sessions are successfully created for clients.
