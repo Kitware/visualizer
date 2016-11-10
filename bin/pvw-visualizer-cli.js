@@ -20,6 +20,13 @@ program
 
   .option('--paraview [path]', 'Provide the ParaView root path to use\n')
 
+  .option('--load-file [fileToLoad]', 'File to load using data base path as root')
+  .option('--exclude-regex [excludeRegex]', 'Regular expression for file filtering')
+  .option('--group-regex [groupRegex]', 'Regular expression for grouping files')
+  .option('--plugins [pluginList]', 'List of fully qualified path names to plugin objects to load')
+  .option('--proxies [proxyFile]', 'Path to a file with json text containing filters to load')
+  .option('--no-auto-readers', 'If provided, disables ability to use non-configured readers')
+
   .parse(process.argv);
 
 // Try to find a paraview directory inside /Applications or /opt
@@ -62,6 +69,30 @@ if(pvPythonExecs.length < 1) {
         '--port', program.port,
         '--data', quotePath(program.data),
     ];
+
+    if (program.loadFile) {
+      cmdLine.push('--load-file');
+      cmdLine.push(program.loadFile);
+    }
+
+    if (program.excludeRegex) {
+      cmdLine.push('--exclude-regex');
+      cmdLine.push(program.excludeRegex);
+    }
+
+    if (program.groupRegex) {
+      cmdLine.push('--group-regex');
+      cmdLine.push(program.groupRegex);
+    }
+
+    if (program.plugins) {
+      cmdLine.push('--plugins');
+      cmdLine.push(program.plugins);
+    }
+
+    if (!program.autoReaders) {
+      cmdLine.push('--no-auto-readers');
+    }
 
     console.log('\n===============================================================================');
     console.log('| Execute:');
