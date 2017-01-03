@@ -33,7 +33,7 @@
     "kw-web-suite": "2.2.1",
     "kw-doc": "1.0.15",
 
-    "paraviewweb": "2.2.54"
+    "paraviewweb": "2.2.60"
   },
   "scripts": {
     "build": "fix-autobahn && webpack",
