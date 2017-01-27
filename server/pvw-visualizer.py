@@ -120,6 +120,9 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
     proxies = None
     allReaders = True
     saveDataDir = os.getcwd()
+    viewportScale=1.0
+    viewportMaxWidth=2560
+    viewportMaxHeight=1440
 
     @staticmethod
     def add_arguments(parser):
@@ -137,22 +140,28 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
         parser.add_argument("--proxies", default=None, help="Path to a file with json text containing filters to load", dest="proxies")
         parser.add_argument("--no-auto-readers", help="If provided, disables ability to use non-configured readers", action="store_true", dest="no_auto_readers")
         parser.add_argument("--save-data-dir", default='', help="Server directory under which all data will be saved", dest="saveDataDir")
+        parser.add_argument("--viewport-scale", default=1.0, type=float, help="Viewport scaling factor", dest="viewportScale")
+        parser.add_argument("--viewport-max-width", default=2560, type=int, help="Viewport maximum size in width", dest="viewportMaxWidth")
+        parser.add_argument("--viewport-max-height", default=1440, type=int, help="Viewport maximum size in height", dest="viewportMaxHeight")
 
     @staticmethod
     def configure(args):
-        _VisualizerServer.authKey         = args.authKey
-        _VisualizerServer.dataDir         = args.path
-        _VisualizerServer.dsHost          = args.dsHost
-        _VisualizerServer.dsPort          = args.dsPort
-        _VisualizerServer.rsHost          = args.rsHost
-        _VisualizerServer.rsPort          = args.rsPort
-        _VisualizerServer.rcPort          = args.reverseConnectPort
-        _VisualizerServer.excludeRegex    = args.exclude
-        _VisualizerServer.groupRegex      = args.group
-        _VisualizerServer.plugins         = args.plugins
-        _VisualizerServer.proxies         = args.proxies
-        _VisualizerServer.colorPalette    = args.palettes
-        _VisualizerServer.allReaders      = not args.no_auto_readers
+        _VisualizerServer.authKey           = args.authKey
+        _VisualizerServer.dataDir           = args.path
+        _VisualizerServer.dsHost            = args.dsHost
+        _VisualizerServer.dsPort            = args.dsPort
+        _VisualizerServer.rsHost            = args.rsHost
+        _VisualizerServer.rsPort            = args.rsPort
+        _VisualizerServer.rcPort            = args.reverseConnectPort
+        _VisualizerServer.excludeRegex      = args.exclude
+        _VisualizerServer.groupRegex        = args.group
+        _VisualizerServer.plugins           = args.plugins
+        _VisualizerServer.proxies           = args.proxies
+        _VisualizerServer.colorPalette      = args.palettes
+        _VisualizerServer.viewportScale     = args.viewportScale
+        _VisualizerServer.viewportMaxWidth  = args.viewportMaxWidth
+        _VisualizerServer.viewportMaxHeight = args.viewportMaxHeight
+        _VisualizerServer.allReaders        = not args.no_auto_readers
 
         # If no save directory is provided, default it to the data directory
         if args.saveDataDir == '':
@@ -171,7 +180,7 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebProxyManager(allowedProxiesFile=_VisualizerServer.proxies, baseDir=_VisualizerServer.dataDir, fileToLoad=_VisualizerServer.fileToLoad, allowUnconfiguredReaders=_VisualizerServer.allReaders))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebColorManager(pathToColorMaps=_VisualizerServer.colorPalette))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebMouseHandler())
-        self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPort())
+        self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPort(_VisualizerServer.viewportScale, _VisualizerServer.viewportMaxWidth, _VisualizerServer.viewportMaxHeight))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPortImageDelivery())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPortGeometryDelivery())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebTimeHandler())

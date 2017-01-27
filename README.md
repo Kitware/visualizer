@@ -34,13 +34,22 @@ $ Visualizer
 
   Options:
 
-    -h, --help                       output usage information
-    -V, --version                    output the version number
-    -p, --port [8080]                Start web server with given port
-    -d, --data [directory]           Data directory to serve
-    -s, --server-only                Do not open the web browser
+    -h, --help                      output usage information
+    -V, --version                   output the version number
+    -p, --port [8080]               Start web server with given port
+    -d, --data [directory]          Data directory to serve
+    -s, --server-only               Do not open the web browser
 
-    --paraview [path]                Provide the ParaView root path to use
+    --paraview [path]               Provide the ParaView root path to use
+
+    --load-file [fileToLoad]        File to load using data base path as root
+    --exclude-regex [excludeRegex]  Regular expression for file filtering
+    --group-regex [groupRegex]      Regular expression for grouping files
+    --plugins [pluginList]          List of fully qualified path names to plugin objects to load
+    --proxies [proxyFile]           Path to a file with json text containing filters to load
+    --no-auto-readers               If provided, disables ability to use non-configured readers
+
+    --viewport [1x2560x1440]        Configure viewport {scale}x{maxWidth}x{maxHeight}
 ```
 
 ## Development

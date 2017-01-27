@@ -25,7 +25,9 @@ program
   .option('--group-regex [groupRegex]', 'Regular expression for grouping files')
   .option('--plugins [pluginList]', 'List of fully qualified path names to plugin objects to load')
   .option('--proxies [proxyFile]', 'Path to a file with json text containing filters to load')
-  .option('--no-auto-readers', 'If provided, disables ability to use non-configured readers')
+  .option('--no-auto-readers', 'If provided, disables ability to use non-configured readers\n')
+
+  .option('--viewport [1x2560x1440]', 'Configure viewport {scale}x{maxWidth}x{maxHeight}')
 
   .parse(process.argv);
 
@@ -92,6 +94,15 @@ if(pvPythonExecs.length < 1) {
 
     if (!program.autoReaders) {
       cmdLine.push('--no-auto-readers');
+    }
+
+    if (program.viewport) {
+      var viewport = program.viewport.split('x');
+      var options = ['--viewport-scale', '--viewport-max-width', '--viewport-max-height'];
+      while (viewport.length) {
+        cmdLine.push(options.shift());
+        cmdLine.push(viewport.shift());
+      }
     }
 
     console.log('\n===============================================================================');
