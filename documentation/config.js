@@ -13,6 +13,7 @@ module.exports = {
     url: 'https://kitware.github.io/visualizer',
     root: '/visualizer/',
     github: 'kitware/visualizer',
+    google_analytics: 'UA-90338862-5',
   },
   copy: [],
 };
