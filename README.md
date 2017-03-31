@@ -11,9 +11,9 @@
 
 Provide a Web based interface to ParaView similar to the ParaView Desktop Qt client. 
 
-## Pre-requisit 
+## Pre-requisite 
 
-You need ParaView 5.2+ application which can be downloaded [here](http://www.paraview.org/download/).
+You will need ParaView 5.2+, which can be downloaded [here](http://www.paraview.org/download/).
 
 To install ParaViewWeb-Visualizer for your command line environment,
 you will need to have [Node](https://nodejs.org/en/) which should have [NPM](https://www.npmjs.com/).
@@ -58,6 +58,7 @@ To start developing pvw-visualizer, execute the following commands:
 
 ```sh
 $ git clone https://github.com/Kitware/visualizer.git
+$ cd visualizer
 $ npm install
 $ npm run build
 $ npm link
@@ -96,6 +97,6 @@ getting started guide, advanced documentation, and API descriptions.
 
 #### Getting Involved
 
-Fork our repository and do great things. At [Kitware](http://www.kitware.com),
+Fork our repository and [do great things](https://kitware.github.io/visualizer/docs/contributing.html). At [Kitware](http://www.kitware.com),
 we've been contributing to open-source software for 15 years and counting, and
 want to make **Visualizer** useful to as many people as possible.

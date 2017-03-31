@@ -1,7 +1,7 @@
 title: Contributing
 ---
 
-We welcome you to join the development of ParaView Visualizer. This document will help you through the process.
+We welcome your contributions to the development of ParaView Visualizer. This document will help you with the process.
 
 ## Before You Start
 
@@ -13,7 +13,7 @@ Please follow the coding style:
 
 ## Workflow
 
-1. Fork [kitware/visualizer].
+1. Fork [kitware/visualizer](https://github.com/kitware/visualizer).
 2. Clone the repository to your computer and install dependencies.
 
     {% code %}
@@ -46,8 +46,8 @@ Please follow the coding style:
 
 ## Notice
 
-- Don't modify version number in `package.json`.
-- Your pull request will only get merged when tests passed. Don't forget to run tests before submission.
+- Don't modify the version number in `package.json`. It is modified automatically.
+- Your pull request will only get merged when tests have passed. Don't forget to run tests before submission.
 
     {% code %}
     $ npm test

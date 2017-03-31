@@ -1,21 +1,21 @@
 title: Documentation
 ---
 
-The ParaView Visualizer is a Web application that aims to enable scientific visualization on the Web using a ParaView backend for data processing and rendering.
+The ParaView Visualizer is a Web application that enables scientific visualization on the Web using a ParaView backend for data processing and rendering.
 
-If you encounter any problems when using ParaView Visualizer, you can find the solutions in [Troubleshooting](troubleshooting.html) or ask me on [GitHub](https://github.com/kitware/visualizer/issues) or [Mailing list](http://www.paraview.org/mailman/listinfo/paraview). If you can't find the answer, please report it on GitHub.
+If you encounter any problems when using ParaView Visualizer, you can find the solutions in [Troubleshooting](troubleshooting.html) or ask us on [GitHub](https://github.com/kitware/visualizer/issues) or [Mailing list](http://www.paraview.org/mailman/listinfo/paraview).
 
 ## What is ParaView Visualizer?
 
-ParaView Visualizer is a standalone application that leverage ParaView capabilities on the backend to produce interactive visualizations over the Web. The Visualizer application can be used locally as a command line tool (demo-mode) or remotely when properly deployed.
+ParaView Visualizer is a standalone application that leverages ParaView capabilities on the backend to produce interactive visualizations over the Web. The Visualizer application can be used locally as a command line tool (demo-mode) or remotely when properly deployed.
 
-The ParaViewWeb Visualizer aims to provide a ParaView like application for your browser.
+The ParaViewWeb Visualizer aims to provide a ParaView-like application for your browser.
 
 ## Installation
 
 It only takes few minutes to set up ParaView Visualizer. If you encounter a problem and can't find the solution here, please [submit a GitHub issue](https://github.com/kitware/visualizer/issues).
 
-ParaView Visualizer require ParaView 5.2+ which can be downloaded [here](http://www.paraview.org/download/) which also bundle the ParaView Visualizer application along.
+ParaView Visualizer requires ParaView 5.2+ which can be downloaded [here](http://www.paraview.org/download/). ParaView bundles the ParaView Visualizer application.
 
 Although using ParaView Visualizer from the command line via [Node](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/) could be easier for trying it out.
 
@@ -26,15 +26,15 @@ $ npm install -g pvw-visualizer
 $ Visualizer --paraview /Applications/paraview.app --data ~/Desktop
 ```
 
-For production usage, ParaView Visualizer should be deployed within your Web insfrastructure following the proper requirements: 
+For production usage, ParaView Visualizer should be deployed within your Web infrastructure following the proper requirements: 
 
 1) Serve the Visualizer application to the client (Static content: JS + HTML) using any kind of Web server (Apache, Nginx, Tomcat, Node...).
 2) Enable the client to start a new ParaView process on the server side (Cluster). We provide a generic launcher implementation using Python which could be replaced with something more appropriate to your infrastructure. 
 3) Configure your network to forward the WebSocket connection to the proper backend host running the ParaView server.
 
-For better rendering performances, the ParaView server should run on a GPU machine.
+For better rendering performance, the ParaView server should run on a GPU machine.
 
-Addition information on those setup are available here:
+Addition information on alternate setups are available here:
 
 - [Multi user setup](multi_user_setup.html)
 - [Apache as front-end](apache_front_end.html)
@@ -57,7 +57,7 @@ $ npm install pvw-visualizer --save
 If not, please follow the following instructions to install all the requirements.
 
 {% note warn For Mac users %}
-You may encounter some problems when compiling. Please install Xcode from App Store first. After Xcode is installed, open Xcode and go to **Preferences -> Download -> Command Line Tools -> Install** to install command line tools.
+You may encounter some problems when compiling. Please install Xcode from the App Store first. After Xcode is installed, open Xcode and go to **Preferences -> Download -> Command Line Tools -> Install** to install command line tools.
 {% endnote %}
 
 ### Install Git
@@ -81,7 +81,7 @@ Alternatively, download and run [node](http://nodejs.org/).
 
 ### Install pvw-visualizer
 
-This would be usefull if you want to embbed Visualizer within your application or use some Visualizer components. 
+This is useful if you want to embed Visualizer within your own application or just use some Visualizer components. 
 
 ``` bash
 $ npm install pvw-visualizer --save

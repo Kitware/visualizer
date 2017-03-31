@@ -198,6 +198,8 @@ export function applyPreset(representationId, presetName) {
 export function fetchColorMapImages(sampling = 512, local = true) {
   return (dispatch) => {
     if (local) {
+      // Warning - categorical color maps which are constant from 0-1 have been removed manually.
+      // If the file must be re-generated, these colormaps should be removed again.
       return storePresetImages(localPresetImages);
     }
 

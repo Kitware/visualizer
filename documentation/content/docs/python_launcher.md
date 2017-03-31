@@ -12,11 +12,11 @@ The launcher has several specific tasks, all with the common goal of allowing cl
 
 1. starting a new process for the user
 1. generating a unique key for that session
-1. communicating that unique key back to both the client and the front end so that the front end knows how to forward subsequent session requests to the correct visualiation process
+1. communicating that unique key back to both the client and the front end so that the front end knows how to forward subsequent session requests to the correct visualization process
 
 ## Configuration of the launcher
 
-The launcher provides a great deal of flexibility, which can be leveraged by customizing its configuration file.  In this guide, as in the [Apache as a front end](apache_front_end.html) guide, we assume you are using Apache as the front end, and we also assume the directory you have chosen for the mapping file is `<MAPPING-FILE-DIR>`.  The Following is an example configuration file:
+The launcher provides a great deal of flexibility, which can be leveraged by customizing its configuration file.  In this guide, as in the [Apache as a front end](apache_front_end.html) guide, we assume you are using Apache as the front end, and we also assume the directory you have chosen for the mapping file is `<MAPPING-FILE-DIR>`.  The following is an example configuration file:
 
 __launcher.config__
 
@@ -95,7 +95,7 @@ $ ./bin/vtkpython Wrapping/Python/vtk/web/launcher.py launcher.config
   - `proxy_file` gives the location of the mapping file that the launcher and front end will use to communicate about which session ids get mapped to which port.  The location of this file must concur with the Apache RewriteMap value (given in the Apache virtual host configuration).
 
 - `sessionData` is designed to allow you to specify that certain arbitrary key/value pairs should be included in the data returned to the client upon successful creation of the session.  In the example launcher config file above, we have added a key called `updir` with a value of `/Home` to the `sessionData` segment.  This will cause the launcher to perform normal substitutions on the on the value (in this case, none are needed as the value is simply `/Home`), and then include `"updir": "/Home"` in the response when sessions are successfully created for clients.
-  - Note, however, that the in the `configuration` section of the launcher config file, the `fields` key denotes a list of keys that will be used as a filter when deciding which data should be returned by the server in response to the client's JSON payload.  In other words, if you want a key/value pair returned to the client when the session has been successfully started, make sure to include the key name of this desired pair in the `fields` list of the `configuration` section.  In the example launcher config above, therefore, we have added the key `updir` to the `fields` filter list so that the `"updir":"/Home"` key pair will actually be returned to the client, instead of filtered out.
+  - Note, however, that in the `configuration` section of the launcher config file, the `fields` key denotes a list of keys that will be used as a filter when deciding which data should be returned by the server in response to the client's JSON payload.  In other words, if you want a key/value pair returned to the client when the session has been successfully started, make sure to include the key name of this desired pair in the `fields` list of the `configuration` section.  In the example launcher config above, therefore, we have added the key `updir` to the `fields` filter list so that the `"updir":"/Home"` key pair will actually be returned to the client, instead of filtered out.
 
 - `resources` is a list of host/port-range combinations that the launcher will keep track of and assign to incoming client requests.  The launcher will take the hosts and associated port ranges for each host and create a master list of available "resources" it can assign to clients.  For example if `resources` are given as follows:
 
