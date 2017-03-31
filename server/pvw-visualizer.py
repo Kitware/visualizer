@@ -2,7 +2,7 @@ r"""
     This module is a ParaViewWeb server application.
     The following command line illustrates how to use it::
 
-        $ pvpython -dr .../pv_web_visualizer.py --data /.../path-to-your-data-directory
+        $ pvpython -dr .../pvw-visualizer.py --data /.../path-to-your-data-directory
 
         --data
              Path used to list that directory on the server and let the client choose a
