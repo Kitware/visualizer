@@ -7,8 +7,8 @@ import network from './ducks/network';
 import proxies from './ducks/proxies';
 import save    from './ducks/save';
 import time    from './ducks/time';
-// import view    from './ducks/view';
 import ui      from './ducks/ui';
+import view    from './ducks/view';
 
 export default combineReducers({
   active,
@@ -18,6 +18,6 @@ export default combineReducers({
   proxies,
   save,
   time,
-  // view, // <= empty reducer no need
   ui,
+  view,
 });

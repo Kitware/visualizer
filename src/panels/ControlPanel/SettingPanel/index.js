@@ -1,11 +1,21 @@
 import React                from 'react';
 import ProxyEditorWidget    from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
+import CheckboxProperty     from 'paraviewweb/src/React/Properties/CheckboxProperty';
 import style                from 'VisualizerStyle/SettingPanel.mcss';
 
 import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../../redux';
 
 // ----------------------------------------------------------------------------
+
+const LOCAL_RENDERING_PROPS = {
+  data: { value: true, id: 'remoteRenderingCheckbox' },
+  show: () => true,
+  ui: {
+    label: 'Remote Rendering',
+    componentLabels: [''],
+    help: 'Uncheck for local rendering.  If doing local rendering, all the geometry and the used data arrays will be sent to the browser.' },
+};
 
 export const SettingPanel = React.createClass({
 
@@ -19,6 +29,8 @@ export const SettingPanel = React.createClass({
     fetchSettingProxy: React.PropTypes.func,
     applyChangeSet: React.PropTypes.func,
     updateCollapsableState: React.PropTypes.func,
+    isRemoteRenderingEnabled: React.PropTypes.bool,
+    updateRemoteRendering: React.PropTypes.func,
   },
 
   getDefaultProps() {
@@ -41,13 +53,23 @@ export const SettingPanel = React.createClass({
     this.props.fetchSettingProxy();
   },
 
+  remoteRenderingBoxChecked() {
+    this.props.updateRemoteRendering(!this.props.isRemoteRenderingEnabled);
+  },
+
   render() {
     if (!this.props.visible) {
       return null;
     }
 
+    const checkboxProps = Object.assign({}, LOCAL_RENDERING_PROPS, {
+      onChange: this.remoteRenderingBoxChecked,
+    });
+    checkboxProps.data.value = this.props.isRemoteRenderingEnabled;
+
     return (
       <div className={style.container}>
+        <CheckboxProperty {...checkboxProps} />
         <ProxyEditorWidget
           sections={this.props.sections}
           onApply={this.applyChanges}
@@ -72,6 +94,10 @@ export default connect(
       },
       updateCollapsableState(name, isOpen) {
         dispatch(actions.ui.updateCollapsableState(name, isOpen));
+      },
+      isRemoteRenderingEnabled: selectors.view.getRemoteRenderingState(state),
+      updateRemoteRendering(isRemote) {
+        dispatch(actions.view.setRemoteRendering(isRemote));
       },
     };
   }

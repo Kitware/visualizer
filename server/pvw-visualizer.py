@@ -182,7 +182,7 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebMouseHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPort(_VisualizerServer.viewportScale, _VisualizerServer.viewportMaxWidth, _VisualizerServer.viewportMaxHeight))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPortImageDelivery())
-        self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPortGeometryDelivery())
+        self.registerVtkWebProtocol(pv_protocols.ParaViewWebLocalRendering())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebTimeHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebSelectionHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebWidgetManager())
