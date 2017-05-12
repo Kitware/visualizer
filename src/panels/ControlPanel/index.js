@@ -92,9 +92,6 @@ export default connect(
   (state) => {
     return {
       activeIdx: selectors.ui.getVisiblePanel(state),
-      resetCamera() {
-        dispatch(actions.view.resetCamera());
-      },
       updateActivePanel(idx) {
         dispatch(actions.ui.updateVisiblePanel(idx));
       },
