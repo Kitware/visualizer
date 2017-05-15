@@ -262,6 +262,10 @@ export function openFiles(files) {
           if (req.success) {
             dispatch(netActions.success(netRequest.id, req));
             // dispatch(fetchProxy(req.id)); // => new active fetch...
+            if (req.view) {
+              // After opening a state file, we may get a new view id here
+              dispatch(activeActions.activate(req.view, activeActions.TYPE_VIEW));
+            }
             dispatch(activeActions.activate(req.id, activeActions.TYPE_SOURCE));
             dispatch(fetchPipeline());
             dispatch(timeActions.fetchTime());
