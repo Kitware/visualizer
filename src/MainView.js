@@ -134,8 +134,7 @@ export const Visualizer = React.createClass({
           viewIdUpdated={this.props.updateActiveViewId}
           resizeOnWindowResize
           clearOneTimeUpdatersOnUnmount
-          clearInstanceCacheOnUnMount
-          clearArrayCacheOnUnMount
+          clearInstanceCacheOnUnmount
         />
       </div>);
   },
