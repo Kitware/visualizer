@@ -36,6 +36,7 @@ export const Visualizer = React.createClass({
   getInitialState() {
     return {
       menuVisible: true,
+      isRendererBusy: false,
     };
   },
 
@@ -94,6 +95,10 @@ export const Visualizer = React.createClass({
     }
   },
 
+  busyStatusUpdated(status) {
+    this.setState({ isRendererBusy: status });
+  },
+
   render() {
     const Renderer = this.props.remoteRendering ? VtkRenderer : VtkGeometryRenderer;
     return (
@@ -102,7 +107,7 @@ export const Visualizer = React.createClass({
           <div className={style.title}>
             <div className={style.toggleMenu} onClick={this.toggleMenu}>
               <SvgIconWidget
-                className={this.props.pendingCount ? style.networkActive : style.networkIdle}
+                className={this.props.pendingCount || this.state.isRendererBusy ? style.networkActive : style.networkIdle}
                 height="34px"
                 width="34px"
                 icon={logo}
@@ -132,6 +137,7 @@ export const Visualizer = React.createClass({
           className={style.viewport}
           onImageReady={this.props.provideOnImageReady ? this.localImageReady : null}
           viewIdUpdated={this.props.updateActiveViewId}
+          onBusyChange={this.busyStatusUpdated}
           resizeOnWindowResize
           clearOneTimeUpdatersOnUnmount
           clearInstanceCacheOnUnmount
