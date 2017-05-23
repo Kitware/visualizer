@@ -2,17 +2,22 @@ import network from '../../network';
 import * as netActions from './network';
 
 const REMOTE_RENDERING = 'REMOTE_RENDERING';
+const REMOTE_FPS = 'REMOTE_FPS';
 
 // --- Reducer ----------------------------------------------------------------
 
 export const initialState = {
   remote: true,
+  remoteFps: false,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case REMOTE_RENDERING: {
       return Object.assign({}, state, { remote: action.remote });
+    }
+    case REMOTE_FPS: {
+      return Object.assign({}, state, { remoteFps: action.remoteFps });
     }
 
     default:
@@ -24,6 +29,10 @@ export default function reducer(state = initialState, action) {
 
 export function setRemoteRendering(remote) {
   return { type: REMOTE_RENDERING, remote };
+}
+
+export function setRemoteFps(remoteFps) {
+  return { type: REMOTE_FPS, remoteFps };
 }
 
 // --- Async actions ---

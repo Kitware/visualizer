@@ -5,7 +5,9 @@ import access from './stateAccessor';
 // ----------------------------------------------------------------------------
 
 export const getRemoteRenderingState = state => access(state).view.remote;
+export const getRemoteFpsState = state => access(state).view.remoteFps;
 
 export default {
   getRemoteRenderingState,
+  getRemoteFpsState,
 };
