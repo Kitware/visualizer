@@ -74,6 +74,10 @@ ParaView Visualizer use **Redux** for managing its internal state which is descr
         dataset: false,
         state: false,
       }
+    },
+    view: {
+      remote: true,
+      remoteFps: false,
     }
 }
 ```

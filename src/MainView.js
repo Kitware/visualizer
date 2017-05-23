@@ -28,6 +28,7 @@ export const Visualizer = React.createClass({
     session: React.PropTypes.object,
     pendingCount: React.PropTypes.number,
     remoteRendering: React.PropTypes.bool,
+    remoteFps: React.PropTypes.bool,
     viewId: React.PropTypes.string,
     provideOnImageReady: React.PropTypes.bool,
     updateActiveViewId: React.PropTypes.func,
@@ -138,6 +139,7 @@ export const Visualizer = React.createClass({
           onImageReady={this.props.provideOnImageReady ? this.localImageReady : null}
           viewIdUpdated={this.props.updateActiveViewId}
           onBusyChange={this.busyStatusUpdated}
+          showFPS={this.props.remoteFps}
           resizeOnWindowResize
           clearOneTimeUpdatersOnUnmount
           clearInstanceCacheOnUnmount
@@ -155,10 +157,11 @@ export default connect(
     const connection = network.getConnection();
     const session = connection.session;
     const remoteRendering = selectors.view.getRemoteRenderingState(state);
+    const remoteFps = selectors.view.getRemoteFpsState(state);
     const viewId = selectors.active.getActiveView(state);
     const provideOnImageReady = selectors.ui.getVisiblePanel(state) === 3;  // SavePanel visible
 
-    return { client, connection, session, pendingCount, remoteRendering, viewId, provideOnImageReady };
+    return { client, connection, session, pendingCount, remoteRendering, remoteFps, viewId, provideOnImageReady };
   },
   () => ({
     resetCamera: () => dispatch(actions.view.resetCamera()),

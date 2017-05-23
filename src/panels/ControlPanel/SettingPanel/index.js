@@ -17,6 +17,16 @@ const LOCAL_RENDERING_PROPS = {
     help: 'Uncheck for local rendering.  If doing local rendering, all the geometry and the used data arrays will be sent to the browser.' },
 };
 
+const SHOW_FPS_PROPS = {
+  data: { value: false, id: 'showRemoteFpsCheckbox' },
+  show: () => true,
+  ui: {
+    label: 'Show Remote FPS',
+    componentLabels: [''],
+    help: 'Check to show effective frame rate (in black text) while in remote rendering mode.',
+  },
+};
+
 export const SettingPanel = React.createClass({
 
   displayName: 'ParaViewWeb/SettingPanel',
@@ -31,6 +41,8 @@ export const SettingPanel = React.createClass({
     updateCollapsableState: React.PropTypes.func,
     isRemoteRenderingEnabled: React.PropTypes.bool,
     updateRemoteRendering: React.PropTypes.func,
+    showRemoteRenderingFps: React.PropTypes.bool,
+    updateRemoteRenderingFps: React.PropTypes.func,
   },
 
   getDefaultProps() {
@@ -57,6 +69,10 @@ export const SettingPanel = React.createClass({
     this.props.updateRemoteRendering(!this.props.isRemoteRenderingEnabled);
   },
 
+  remoteRenderingShowFpsBoxChecked() {
+    this.props.updateRemoteRenderingFps(!this.props.showRemoteRenderingFps);
+  },
+
   render() {
     if (!this.props.visible) {
       return null;
@@ -67,9 +83,15 @@ export const SettingPanel = React.createClass({
     });
     checkboxProps.data.value = this.props.isRemoteRenderingEnabled;
 
+    const fpsCheckboxProps = Object.assign({}, SHOW_FPS_PROPS, {
+      onChange: this.remoteRenderingShowFpsBoxChecked,
+    });
+    fpsCheckboxProps.data.value = this.props.showRemoteRenderingFps;
+
     return (
       <div className={style.container}>
         <CheckboxProperty {...checkboxProps} />
+        <CheckboxProperty {...fpsCheckboxProps} />
         <ProxyEditorWidget
           sections={this.props.sections}
           onApply={this.applyChanges}
@@ -98,6 +120,10 @@ export default connect(
       isRemoteRenderingEnabled: selectors.view.getRemoteRenderingState(state),
       updateRemoteRendering(isRemote) {
         dispatch(actions.view.setRemoteRendering(isRemote));
+      },
+      showRemoteRenderingFps: selectors.view.getRemoteFpsState(state),
+      updateRemoteRenderingFps(showFps) {
+        dispatch(actions.view.setRemoteFps(showFps));
       },
     };
   }
