@@ -2,14 +2,14 @@ import React               from 'react';
 
 import VtkRenderer         from 'paraviewweb/src/React/Renderers/VtkRenderer';
 import VtkGeometryRenderer from 'paraviewweb/src/React/Renderers/VtkGeometryRenderer';
-import SvgIconWidget       from 'paraviewweb/src/React/Widgets/SvgIconWidget';
+import InlineSvgIconWidget from 'paraviewweb/src/React/Widgets/InlineSvgIconWidget';
 import { connect }         from 'react-redux';
 
 import style               from 'VisualizerStyle/MainView.mcss';
 
 import ControlPanel        from './panels/ControlPanel';
 import TimeController      from './panels/TimeController';
-import logo                from './logo.svg';
+import logo                from './logo.isvg';
 
 import network from './network';
 import ImageProviders from './ImageProviders';
@@ -107,7 +107,7 @@ export const Visualizer = React.createClass({
         <div className={style.topBar}>
           <div className={style.title}>
             <div className={style.toggleMenu} onClick={this.toggleMenu}>
-              <SvgIconWidget
+              <InlineSvgIconWidget
                 className={this.props.pendingCount || this.state.isRendererBusy ? style.networkActive : style.networkIdle}
                 height="34px"
                 width="34px"

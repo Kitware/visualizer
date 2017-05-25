@@ -131,6 +131,33 @@
   top: -1px;
 }
 
+:global(.logo-container-outer) {
+  stroke: none;
+  stroke-width: 1;
+  fill: none;
+}
+
+:global(.logo-container-inner) {
+  stroke-width: 2;
+  stroke: #ffffff;
+}
+
+.networkActive :global(.logo-container-inner) {
+  stroke: #aaaaaa;
+}
+
+.networkIdle :global(.pvw_1) {
+  fill: #ffffff;
+}
+
+.networkIdle :global(.pvw_2) {
+  fill: #ffffff;
+}
+
+.networkIdle :global(.pvw_3) {
+  fill: #ffffff;
+}
+
 @keyframes redTransition {
   0% { opacity: 1; }
   50% { opacity: 0.25; }
@@ -157,14 +184,17 @@
 
 .networkActive :global(.pvw_1) {
   animation: redTransition 0.3s ease infinite;
+  fill: #aaaaaa;
 }
 
 .networkActive :global(.pvw_2) {
   animation: greenTransition 0.3s ease infinite;
   animation-delay: 0.1s;
+  fill: #aaaaaa;
 }
 
 .networkActive :global(.pvw_3) {
   animation: blueTransition 0.3s ease infinite;
   animation-delay: 0.2s;
+  fill: #aaaaaa;
 }
