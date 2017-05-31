@@ -1,5 +1,5 @@
 import { createClient } from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
-import SmartConnect from 'paraviewweb/src/IO/WebSocket/SmartConnect';
+import SmartConnect from 'wslink/SmartConnect';
 
 var connection = null,
   client = null,

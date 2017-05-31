@@ -34,7 +34,8 @@
     "kw-doc": "1.0.15",
 
     "paraviewweb": "2.4.3",
-    "vtk.js": "3.0.1"
+    "vtk.js": "3.0.1",
+    "wslink": "file:../wslink/client"
   },
   "scripts": {
     "build": "fix-autobahn && webpack",
