@@ -35,12 +35,12 @@
 
     "paraviewweb": "2.4.3",
     "vtk.js": "3.0.1",
-    "wslink": "file:../wslink/client"
+    "wslink": "0.1.0"
   },
   "scripts": {
     "build": "fix-autobahn && webpack",
     "build:debug": "fix-autobahn && webpack --display-modules",
-    "build:release": "export NODE_ENV=production && fix-autobahn && webpack -p",
+    "build:release": "(export NODE_ENV=production|| set NODE_ENV=production) && fix-autobahn && webpack -p",
 
     "doc"           : "kw-doc -c ./documentation/config.js",
     "doc:www"       : "kw-doc -c ./documentation/config.js -s",

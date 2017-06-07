@@ -82,7 +82,7 @@ r"""
 import os
 
 # import paraview modules.
-from paraview.web import wslink      as pv_wslink
+from paraview.web import pv_wslink
 from paraview.web import protocols as pv_protocols
 
 # import RPC annotation
@@ -181,7 +181,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebColorManager(pathToColorMaps=_VisualizerServer.colorPalette))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebMouseHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPort(_VisualizerServer.viewportScale, _VisualizerServer.viewportMaxWidth, _VisualizerServer.viewportMaxHeight))
-        self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPortImageDelivery())
+        self.registerVtkWebProtocol(pv_protocols.ParaViewWebPublishImageDelivery())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebLocalRendering())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebTimeHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebSelectionHandler())

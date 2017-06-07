@@ -3,6 +3,7 @@ import React               from 'react';
 import VtkRenderer         from 'paraviewweb/src/React/Renderers/VtkRenderer';
 import VtkGeometryRenderer from 'paraviewweb/src/React/Renderers/VtkGeometryRenderer';
 import InlineSvgIconWidget from 'paraviewweb/src/React/Widgets/InlineSvgIconWidget';
+import WslinkImageStream   from 'paraviewweb/src/IO/WebSocket/WslinkImageStream';
 import { connect }         from 'react-redux';
 
 import style               from 'VisualizerStyle/MainView.mcss';
@@ -43,6 +44,7 @@ export const Visualizer = React.createClass({
 
   componentWillMount() {
     this.needsSetImageProvider = true;
+    this.wslinkImageProvider = WslinkImageStream.newInstance({ client: this.props.client });
   },
 
   componentDidMount() {
@@ -140,6 +142,7 @@ export const Visualizer = React.createClass({
           viewIdUpdated={this.props.updateActiveViewId}
           onBusyChange={this.busyStatusUpdated}
           showFPS={this.props.remoteFps}
+          imageStream={this.props.remoteRendering ? this.wslinkImageProvider : null}
           resizeOnWindowResize
           clearOneTimeUpdatersOnUnmount
           clearInstanceCacheOnUnmount
