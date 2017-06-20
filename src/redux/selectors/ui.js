@@ -5,4 +5,5 @@ import access from './stateAccessor';
 // ----------------------------------------------------------------------------
 
 export const getCollapsableState = state => access(state).ui.collapsableState;
+export const getGroupCollapsedState = state => access(state).ui.collapsableState.collapsibleGroups;
 export const getVisiblePanel = state => access(state).ui.visiblePanel;

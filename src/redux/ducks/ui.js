@@ -2,6 +2,7 @@
 
 const UPDATE_VISIBLE_PANEL = 'UPDATE_VISIBLE_PANEL';
 const UPDATE_COLLAPSABLE_STATE = 'UPDATE_COLLAPSABLE_STATE';
+const UPDATE_GROUP_COLLAPSED_STATE = 'UPDATE_GROUP_COLLAPSED_STATE';
 
 // --- Reducer ----------------------------------------------------------------
 
@@ -19,6 +20,8 @@ export const initialState = {
     Representation: true,  // Closed
     View: true,            // Closed
     RenderViewSettingsCollapsed: false, // Open
+
+    collapsibleGroups: {},
   },
 };
 
@@ -31,6 +34,12 @@ export default function reducer(state = initialState, action) {
 
     case UPDATE_COLLAPSABLE_STATE: {
       const collapsableState = Object.assign({}, state.collapsableState, { [action.name]: action.open });
+      return Object.assign({}, state, { collapsableState });
+    }
+
+    case UPDATE_GROUP_COLLAPSED_STATE: {
+      const groupState = Object.assign({}, state.collapsableState.collapsibleGroups, { [action.name]: action.open });
+      const collapsableState = Object.assign({}, state.collapsableState, { collapsibleGroups: groupState });
       return Object.assign({}, state, { collapsableState });
     }
 
@@ -51,6 +60,13 @@ export function updateVisiblePanel(index) {
   return { type: UPDATE_VISIBLE_PANEL, index };
 }
 
-export function updateCollapsableState(name, open) {
-  return { type: UPDATE_COLLAPSABLE_STATE, name, open };
+export function updateCollapsableState(name, open, collapseType) {
+  switch (collapseType) {
+    case 'ProxyEditorPropertyWidget': {
+      return { type: UPDATE_GROUP_COLLAPSED_STATE, name, open };
+    }
+
+    default:
+      return { type: UPDATE_COLLAPSABLE_STATE, name, open };
+  }
 }

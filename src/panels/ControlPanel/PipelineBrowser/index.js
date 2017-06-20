@@ -209,8 +209,8 @@ export default connect(
         dispatch(actions.colors.rescaleTransferFunction(options));
         dispatch(actions.colors.fetchLookupTableScalarRange(selectors.proxies.getActiveSourceId(state)));
       },
-      updateCollapsableState(name, isOpen) {
-        dispatch(actions.ui.updateCollapsableState(name, isOpen));
+      updateCollapsableState(name, isOpen, collapseType) {
+        dispatch(actions.ui.updateCollapsableState(name, isOpen, collapseType));
       },
       scalarBar: ({ source, visible }) => {
         dispatch(actions.colors.showScalarBar(source, visible));
