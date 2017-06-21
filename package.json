@@ -33,8 +33,8 @@
     "kw-web-suite": "2.2.1",
     "kw-doc": "1.0.15",
 
-    "paraviewweb": "2.3.2",
-    "vtk.js": "2.24.0"
+    "paraviewweb": "2.4.1",
+    "vtk.js": "3.0.0"
   },
   "scripts": {
     "build": "fix-autobahn && webpack",
