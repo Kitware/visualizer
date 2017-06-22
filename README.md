@@ -7,13 +7,25 @@
 ![npm-version-requirement](https://img.shields.io/badge/npm->=3.0.0-brightgreen.svg)
 ![node-version-requirement](https://img.shields.io/badge/node->=5.0.0-brightgreen.svg)
 
-### Goal ###
+## Goal
 
 Provide a Web based interface to ParaView similar to the ParaView Desktop Qt client. 
 
+## Documentation
+
+See the [documentation](https://kitware.github.io/visualizer) for a getting
+started guide, advanced documentation, and API descriptions.
+
 ## Pre-requisite 
 
-You will need ParaView 5.2+, which can be downloaded [here](http://www.paraview.org/download/).
+You will need ParaView, which can be downloaded [here](http://www.paraview.org/download/).  The
+table below indicates which versions work together.
+
+| ParaView |              Visualizer             | Visualizer in PV binary |
+|:--------:|:-----------------------------------:|:-----------------------:|
+| 5.2      | <= 2.0.17                           | 2.0.16                  |
+| 5.3      | broken on Linux, otherwise <=2.0.20 | 2.0.18                  |
+| 5.4      | <=2.2.0                             | 2.1.4                   |
 
 To install ParaViewWeb-Visualizer for your command line environment,
 you will need to have [Node](https://nodejs.org/en/) which should have [NPM](https://www.npmjs.com/).
@@ -85,11 +97,6 @@ $ npm run build:release
 
 This creates a minified version of the visualizer JavaScript code in dist/Visualizer.js
 which should be added to your commit.
-
-## Documentation
-
-See the [documentation](https://kitware.github.io/visualizer) for a
-getting started guide, advanced documentation, and API descriptions.
 
 #### Licensing
 

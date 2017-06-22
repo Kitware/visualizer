@@ -47,7 +47,10 @@ ParaView Visualizer use **Redux** for managing its internal state which is descr
       playing: false,
     },
     files: {
-      path: result
+      listings: {
+        path: listing,
+      },
+      activePath: path,
     },
     colors: {
       ranges: {
@@ -64,7 +67,25 @@ ParaView Visualizer use **Redux** for managing its internal state which is descr
       },
       presetImages: {
         name: 'base64/img...'
-      }
+      },
+      piecewiseFunctions: {
+        arrayName: points,
+      },
+      piecewiseFunctionsToPush: {
+        arrayName: points, // server side format
+      },
+    },
+    save: {
+      statuses: {
+        screenshot: 'pending' | 'success' | 'error',
+        state: 'pending' | 'success' | 'error',
+        dataset: 'pending' | 'success' | 'error',
+      },
+      paths: {
+        screenshot: 'server-images/savedScreen.png',
+        state: 'server-state/savedState.pvsm',
+        dataset: 'server-data/savedDataset.vtk',
+      },
     },
     ui: {  
       visiblePanel: 0, // Pipeline Browser
@@ -73,20 +94,37 @@ ParaView Visualizer use **Redux** for managing its internal state which is descr
         screenshot: false,
         dataset: false,
         state: false,
+
+        Source: false,         // Open
+        Representation: true,  // Closed
+        View: true,            // Closed
+        RenderViewSettingsCollapsed: false, // Open
+
+        collapsibleGroups: {
+          '596:DataAxesGrid': true,   // Open (FIXME: meaning should eventually match above)
+          '317:PolarAxesGrid': false, // Closed
+        },
       }
     },
     view: {
-      remote: true,
-      remoteFps: false,
+      remote: true,       // doing remote rendering (false means local via vtk.js)
+      remoteFps: false,   // show remote rendering statistics 
     }
 }
 ```
 
 ## Actions
 
-active
-colors
-files
-network
-proxies
-time
+Actions are defined in file within the `src/redux/ducks/` directory:
+
+| Actions file |                           Purpose                            |
+|:------------:|--------------------------------------------------------------|
+| active       | Active source, representation and view                       |
+| colors       | Scalar bars, lookup table preset, piecewise functions, etc   |
+| files        | Server side directory listings and files                     |
+| network      | Network requests (rpc calls) and their state                 |
+| proxies      | Pipeline (sources, filters) as well as representation        |
+| save         | Saved data locations and success/failure/pending status      |
+| time         | Available time step values and current time index            |
+| ui           | Panel visibility and collapsible state of property grouping  |
+| view         | Local vs. remote rendering, rendering performance            |

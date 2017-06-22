@@ -1,6 +1,7 @@
 docs:
   getting_started:
     overview: index.html
+    version_compatibility: compatibility.html
   miscellaneous:
     tools: tools.html
     troubleshooting: troubleshooting.html
