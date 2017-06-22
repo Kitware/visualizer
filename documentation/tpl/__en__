@@ -30,6 +30,7 @@ sidebar:
     troubleshooting: Troubleshooting
     contributing: Contributing
     pvw_server: Server
+    version_compatibility: Version Compatibility
     multi_user_setup: Multi-user setup
     apache_front_end: Using Apache
     launchers: Launchers
