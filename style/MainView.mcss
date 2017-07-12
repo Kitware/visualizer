@@ -80,6 +80,7 @@
     transition: opacity 0.5s;
     opacity: .75;
     overflow: hidden;
+    user-select: none;
 }
 
 
