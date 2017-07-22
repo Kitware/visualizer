@@ -35,7 +35,7 @@
 
     "paraviewweb": "2.4.3",
     "vtk.js": "3.0.1",
-    "wslink": "0.1.0"
+    "wslink": "0.1.3"
   },
   "scripts": {
     "build": "fix-autobahn && webpack",
