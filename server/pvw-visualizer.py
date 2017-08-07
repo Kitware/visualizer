@@ -181,7 +181,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebColorManager(pathToColorMaps=_VisualizerServer.colorPalette))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebMouseHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPort(_VisualizerServer.viewportScale, _VisualizerServer.viewportMaxWidth, _VisualizerServer.viewportMaxHeight))
-        self.registerVtkWebProtocol(pv_protocols.ParaViewWebPublishImageDelivery())
+        self.registerVtkWebProtocol(pv_protocols.ParaViewWebPublishImageDelivery(decode=False))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebLocalRendering())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebTimeHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebSelectionHandler())
@@ -191,6 +191,9 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
 
         # Update authentication key to use
         self.updateSecret(_VisualizerServer.authKey)
+
+        # tell the C++ web app to use no encoding. ParaViewWebPublishImageDelivery must be set to decode=False to match.
+        self.getApplication().SetImageEncoding(0);
 
         # Disable interactor-based render calls
         simple.GetRenderView().EnableRenderOnInteraction = 0
