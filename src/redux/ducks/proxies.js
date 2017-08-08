@@ -216,6 +216,7 @@ export function fetchAvailableProxies() {
           dispatch(storeAvailableSources(sources));
         },
         (err) => {
+          console.error('ERROR Fetching sources', err);
           dispatch(netActions.error(netRequest.id, err));
         });
 

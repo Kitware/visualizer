@@ -1,5 +1,5 @@
 import { createClient } from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
-import SmartConnect from 'paraviewweb/src/IO/WebSocket/SmartConnect';
+import SmartConnect from 'wslink/src/SmartConnect';
 
 var connection = null,
   client = null,
@@ -29,6 +29,7 @@ function start(conn) {
     'ProxyManager',
     'TimeHandler',
     'ViewPort',
+    'VtkImageDelivery',
     'VtkGeometryDelivery',
   ], customProtocols);
 
@@ -45,7 +46,7 @@ function exit(timeout = 60) {
 }
 
 function connect(config = {}) {
-  smartConnect = new SmartConnect(config);
+  smartConnect = SmartConnect.newInstance({ config });
   smartConnect.onConnectionReady(start);
   smartConnect.connect();
 }

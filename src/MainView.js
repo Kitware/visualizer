@@ -140,6 +140,7 @@ export const Visualizer = React.createClass({
           viewIdUpdated={this.props.updateActiveViewId}
           onBusyChange={this.busyStatusUpdated}
           showFPS={this.props.remoteFps}
+          oldImageStream={!this.props.remoteRendering}
           resizeOnWindowResize
           clearOneTimeUpdatersOnUnmount
           clearInstanceCacheOnUnmount

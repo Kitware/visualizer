@@ -82,14 +82,14 @@ r"""
 import os
 
 # import paraview modules.
-from paraview.web import wamp      as pv_wamp
+from paraview.web import pv_wslink
 from paraview.web import protocols as pv_protocols
 
 # import RPC annotation
-from autobahn.wamp import register as exportRpc
+from wslink import register as exportRpc
 
 from paraview import simple
-from vtk.web import server
+from wslink import server
 
 try:
     import argparse
@@ -102,10 +102,10 @@ except ImportError:
 # Create custom Pipeline Manager class to handle clients requests
 # =============================================================================
 
-class _VisualizerServer(pv_wamp.PVServerProtocol):
+class _VisualizerServer(pv_wslink.PVServerProtocol):
 
     dataDir = os.getcwd()
-    authKey = "vtkweb-secret"
+    authKey = "wslink-secret"
     dsHost = None
     dsPort = 11111
     rsHost = None
@@ -181,7 +181,7 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebColorManager(pathToColorMaps=_VisualizerServer.colorPalette))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebMouseHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPort(_VisualizerServer.viewportScale, _VisualizerServer.viewportMaxWidth, _VisualizerServer.viewportMaxHeight))
-        self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPortImageDelivery())
+        self.registerVtkWebProtocol(pv_protocols.ParaViewWebPublishImageDelivery(decode=False))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebLocalRendering())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebTimeHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebSelectionHandler())
@@ -191,6 +191,9 @@ class _VisualizerServer(pv_wamp.PVServerProtocol):
 
         # Update authentication key to use
         self.updateSecret(_VisualizerServer.authKey)
+
+        # tell the C++ web app to use no encoding. ParaViewWebPublishImageDelivery must be set to decode=False to match.
+        self.getApplication().SetImageEncoding(0);
 
         # Disable interactor-based render calls
         simple.GetRenderView().EnableRenderOnInteraction = 0

@@ -64,6 +64,7 @@ export default function reducer(state = initialState, action) {
           },
         });
       const error = state.error.concat(action.id);
+      console.error('network_error:', action.data);
       const pending = state.pending.filter(id => id !== action.id);
       return Object.assign({}, state, { requests, pending, error });
     }
