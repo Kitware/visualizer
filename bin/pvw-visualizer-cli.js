@@ -92,6 +92,11 @@ if(pvPythonExecs.length < 1) {
       cmdLine.push(program.plugins);
     }
 
+    if (program.proxies) {
+      cmdLine.push('--proxies');
+      cmdLine.push(program.proxies);
+    }
+
     if (!program.autoReaders) {
       cmdLine.push('--no-auto-readers');
     }
