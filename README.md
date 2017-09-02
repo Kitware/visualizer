@@ -26,6 +26,7 @@ table below indicates which versions work together.
 | 5.2      | <= 2.0.17                           | 2.0.16                  |
 | 5.3      | broken on Linux, otherwise <=2.0.20 | 2.0.18                  |
 | 5.4      | <=2.2.0                             | 2.1.4                   |
+| master   | 2.3+                                | 2.3.0                   |
 
 To install ParaViewWeb-Visualizer for your command line environment,
 you will need to have [Node](https://nodejs.org/en/) which should have [NPM](https://www.npmjs.com/).
