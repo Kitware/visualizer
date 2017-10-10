@@ -1,0 +1,24 @@
+{
+  "name": "pvw-visualizer-desktop",
+  "productName": "Visualizer",
+  "license": "BSD-3-Clause",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "electron": "1.4.1",
+    "shelljs": "0.7.4",
+    "electron-settings": "3.1.2",
+    "get-port": "3.2.0",
+    "about-window": "1.4.0"
+  },
+  "devDependencies": {
+    "electron-packager": "8.1.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build:all": "electron-packager . --all --icon ./icon.icns --out ./bin/ --overwrite",
+    "build:mac": "electron-packager . --darwin --icon ./icon.icns --out ./bin/ --overwrite",
+    "build:win": "electron-packager . --win32 --out ./bin/ --overwrite",
+    "build:linux": "electron-packager . --linux --out ./bin/ --overwrite"
+  }
+}
