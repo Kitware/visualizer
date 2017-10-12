@@ -32,6 +32,14 @@ function updateConfig(basepath) {
   }
   settings.set('paraview', config);
   if (config.pvbatch && config.visualizer && config.www) {
+    if (mainWindow) {
+      mainWindow.close();
+      mainWindow = null;
+    }
+    if (server) {
+      server.kill('SIGINT');
+      server = null;
+    }
     startServer();
   }
 }
@@ -84,20 +92,36 @@ function createMenu() {
 }
 
 function createWindow(portToUse = 8080) {
-  mainWindow = new BrowserWindow({ fullscreen: false, icon: `${__dirname}/src/icon.png` });
-  mainWindow.loadURL(`http://localhost:${portToUse}`);
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+  if (!mainWindow) {
+    mainWindow = new BrowserWindow({ fullscreen: false, icon: `${__dirname}/src/icon.png` });
+    mainWindow.loadURL(`http://localhost:${portToUse}`);
+    mainWindow.on('closed', () => {
+      mainWindow = null;
+    });
+  }
 }
 
 function startServer() {
   if (settings.get('paraview.pvbatch') && settings.get('paraview.visualizer')) {
     shelljs.env.PV_ALLOW_BATCH_INTERACTION = '1';
     getPort().then((port) => {
-      const cmd = `${settings.get('paraview.pvbatch')} ${settings.get('paraview.visualizer')} --content ${settings.get('paraview.www')} --data ${dataPath} --port ${port}`;
+      const cmd = [
+        `"${settings.get('paraview.pvbatch')}"`,
+        `"${settings.get('paraview.visualizer')}"`,
+        '--content',
+        `"${settings.get('paraview.www')}"`,
+        '--data',
+        `"${dataPath}"`,
+        '--port',
+        `${port}`,
+      ].join(' ');
       server = shelljs.exec(cmd, { async: true });
       server.stdout.on('data', (data) => {
+        if (data.indexOf('Starting factory') !== -1) {
+          createWindow(port);
+        }
+      });
+      server.stderr.on('data', (data) => {
         if (data.indexOf('Starting factory') !== -1) {
           createWindow(port);
         }
@@ -119,7 +143,7 @@ app.on('ready', () => {
 });
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+function exit() {
   if (server) {
     server.kill('SIGINT');
     server = null;
@@ -128,7 +152,8 @@ app.on('window-all-closed', () => {
     app.quit();
   }
   process.exit(0);
-});
+}
+app.on('window-all-closed', exit);
 
 app.on('activate', () => {
   if (mainWindow === null) {
