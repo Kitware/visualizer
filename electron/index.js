@@ -114,6 +114,8 @@ function startServer() {
         `"${dataPath}"`,
         '--port',
         `${port}`,
+        '--viewport-max-width', '1920',
+        '--viewport-max-height', '1080',
       ].join(' ');
       server = shelljs.exec(cmd, { async: true });
       server.stdout.on('data', (data) => {
