@@ -2,6 +2,7 @@ import React                from 'react';
 import ColorByWidget        from 'paraviewweb/src/React/Widgets/ColorByWidget';
 import PipelineWidget       from 'paraviewweb/src/React/Widgets/GitTreeWidget';
 import ProxyEditorWidget    from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
+
 import style                from 'VisualizerStyle/PipelineBrowser.mcss';
 
 import { connect } from 'react-redux';
@@ -159,6 +160,7 @@ export const PipelineBrowser = React.createClass({
                 onOpacityEditModeChange={this.props.onOpacityEditModeChange}
                 opacityEditorSize={[250, 90]}
                 hidePointControl
+                useGaussian
               />
             </ProxyEditorWidget>
           </div>)
@@ -187,6 +189,7 @@ export default connect(
       view: selectors.proxies.getViewPropertyGroup(state),
       lutImage: selectors.colors.getScalarBarImage(state),
       lutRange: selectors.colors.getScalarBarRange(state),
+      gaussians: selectors.colors.getPiecewiseGaussians(state),
 
       propertyChange: ({ changeSet, invalidatePipeline, owners }) => {
         dispatch(actions.proxies.applyChangeSet(changeSet, owners));
@@ -223,15 +226,18 @@ export default connect(
       updatePreset: ({ representation, preset }) => {
         dispatch(actions.colors.applyPreset(representation, preset));
       },
-      setOpacityPoints(points) {
+      setOpacityPoints(points, gaussians) {
         const serverFormat = [];
         points.forEach((p) => {
           serverFormat.push(p.x);
           serverFormat.push(p.y);
-          serverFormat.push(p.x2 || 0.5);
-          serverFormat.push(p.y2 || 0.5);
+          serverFormat.push(p.x2 || p.midpoint || 0.5);
+          serverFormat.push(p.y2 || p.sharpness || 0.5);
         });
         dispatch(actions.colors.storePiecewiseFunction(selectors.colors.getColorByArray(state), points, serverFormat));
+        if (gaussians) {
+          dispatch(actions.colors.storeGuassians(selectors.colors.getColorByArray(state), gaussians));
+        }
       },
       onOpacityEditModeChange(isEditing) {
         // Extract updates to push

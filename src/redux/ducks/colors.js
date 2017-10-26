@@ -16,6 +16,7 @@ const APPLY_PRESET = 'APPLY_PRESET';
 const ALL_PRESETS = 'ALL_PRESETS';
 const LUT_RANGE = 'LUT_RANGE';
 const UPDATE_PIECE_WISE_FUNCTION = 'UPDATE_PIECE_WISE_FUNCTION';
+const UPDATE_PIECE_WISE_GUASSIANS = 'UPDATE_PIECE_WISE_GUASSIANS';
 const REMOVE_SERVER_PIECE_WISE_FUNCTION = 'REMOVE_SERVER_PIECE_WISE_FUNCTION';
 
 // --- Reducer ----------------------------------------------------------------
@@ -28,6 +29,7 @@ export const initialState = {
   ranges: {},
   piecewiseFunctions: {},
   piecewiseFunctionsToPush: {},
+  piecewiseGaussians: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -68,6 +70,11 @@ export default function reducer(state = initialState, action) {
         return Object.assign({}, state, { piecewiseFunctions, piecewiseFunctionsToPush });
       }
       return Object.assign({}, state, { piecewiseFunctions });
+    }
+
+    case UPDATE_PIECE_WISE_GUASSIANS: {
+      const piecewiseGaussians = Object.assign({}, state.piecewiseGaussians, { [action.arrayName]: action.gaussians });
+      return Object.assign({}, state, { piecewiseGaussians });
     }
 
     case REMOVE_SERVER_PIECE_WISE_FUNCTION: {
@@ -113,6 +120,10 @@ export function storeLookupTableRange(sourceId, range) {
 
 export function storePiecewiseFunction(arrayName, points, serverSidePointsFormat) {
   return { type: UPDATE_PIECE_WISE_FUNCTION, arrayName, points, serverSidePointsFormat };
+}
+
+export function storeGuassians(arrayName, gaussians) {
+  return { type: UPDATE_PIECE_WISE_GUASSIANS, arrayName, gaussians };
 }
 
 export function removePendingServerOpacityPoints(arrayNames) {

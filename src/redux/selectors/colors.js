@@ -7,6 +7,7 @@ import { getActiveSourceId, getActiveRepresentation, getActiveRepresentationId }
 // ----------------------------------------------------------------------------
 
 export const getPiecewiseMap = state => access(state).colors.piecewiseFunctions;
+export const getGaussianMap = state => access(state).colors.piecewiseGaussians;
 export const getPresetsImages = state => access(state).colors.presetImages;
 export const getScalarBarImages = state => access(state).colors.images;
 export const getScalarBarRanges = state => access(state).colors.ranges;
@@ -33,4 +34,9 @@ export const getScalarBarImage = createSelector(
 export const getScalarBarRange = createSelector(
   [getActiveSourceId, getScalarBarRanges],
   (id, map) => map[id]
+);
+
+export const getPiecewiseGaussians = createSelector(
+  [getColorByArray, getGaussianMap],
+  (array, functions) => ((array && functions) ? functions[array] : undefined)
 );
