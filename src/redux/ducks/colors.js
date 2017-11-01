@@ -274,7 +274,7 @@ export function applyOpacityPoints(arrayName, points) {
     const netRequest = externalActions.network.createRequest('Apply piecewise opacity function');
     network.getClient()
       .ColorManager
-      .setOpacityFunctionPoints(arrayName, points)
+      .setOpacityFunctionPoints(arrayName, points, true)
       .then(
         (nothing) => {
           dispatch(externalActions.network.success(netRequest.id));
