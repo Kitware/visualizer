@@ -199,3 +199,7 @@
   animation-delay: 0.2s;
   fill: #aaaaaa;
 }
+
+input:focus {
+  outline-color: rgb(29, 147, 249);
+}
