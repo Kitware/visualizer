@@ -33,6 +33,7 @@ export const PipelineBrowser = React.createClass({
     lutRange: React.PropTypes.object,
     playing: React.PropTypes.bool,
     opacityPoints: React.PropTypes.array,
+    gaussians: React.PropTypes.array,
 
     // actions:
     deleteProxy: React.PropTypes.func,
@@ -161,6 +162,7 @@ export const PipelineBrowser = React.createClass({
                 opacityEditorSize={[250, 90]}
                 hidePointControl
                 useGaussian
+                gaussians={this.props.gaussians}
               />
             </ProxyEditorWidget>
           </div>)
