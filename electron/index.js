@@ -25,7 +25,7 @@ function findFile(basePath, fileName) {
 
 function updateConfig(basepath) {
   const config = {};
-  config.pvbatch = findFile(basepath[0], 'pvbatch');
+  config.pvbatch = findFile(basepath[0], 'pvpython');
   config.visualizer = findFile(basepath[0], 'pvw-visualizer.py');
   if (config.visualizer) {
     config.www = path.join(path.dirname(path.dirname(config.visualizer)), 'www');
@@ -107,6 +107,7 @@ function startServer() {
     getPort().then((port) => {
       const cmd = [
         `"${settings.get('paraview.pvbatch')}"`,
+        '--force-offscreen-rendering',
         `"${settings.get('paraview.visualizer')}"`,
         '--content',
         `"${settings.get('paraview.www')}"`,
