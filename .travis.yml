@@ -10,7 +10,7 @@ cache:
   directories:
     - node_modules
 node_js:
-  - "5.1"
+  - "8"
 env:
   - CXX=g++-4.8
 addons:
