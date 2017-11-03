@@ -66,14 +66,12 @@ export const SavePanel = React.createClass({
   },
 
   updateForm(event) {
-    const name = event.target.name,
-      value = event.target.value;
+    const { name, value } = event.target;
     this.setState({ [name]: value });
   },
 
   updatePath(event) {
-    const name = event.target.name,
-      value = event.target.value;
+    const { name, value } = event.target;
     this.props.updateSavePath(name, value);
   },
 
@@ -126,7 +124,7 @@ export const SavePanel = React.createClass({
           title="Screenshot"
           onChange={this.updateLocalScreenShotCollapsableState}
         >
-          <img ref={c => (this.screenshot = c)} src={this.state.url} className={style.localImage} alt="" />
+          <img ref={(c) => { this.screenshot = c; }} src={this.state.url} className={style.localImage} alt="" />
         </CollapsibleWidget>
         <CollapsibleWidget
           open={!!this.props.collapsableState.screenshot}
@@ -225,22 +223,20 @@ export const SavePanel = React.createClass({
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(
-  (state) => {
-    return {
-      proxy: selectors.proxies.getActiveSource(state),
-      statuses: selectors.save.getStatuses(state),
-      paths: selectors.save.getPaths(state),
-      collapsableState: selectors.ui.getCollapsableState(state),
-      saveData(type, path, options) {
-        dispatch(actions.save.saveData(type, path, options));
-      },
-      updateSavePath(type, path) {
-        dispatch(actions.save.updateSavePath(type, path));
-      },
-      updateCollapsableState(name, isOpen) {
-        dispatch(actions.ui.updateCollapsableState(name, isOpen));
-      },
-    };
-  }
-)(SavePanel);
+export default connect((state) => {
+  return {
+    proxy: selectors.proxies.getActiveSource(state),
+    statuses: selectors.save.getStatuses(state),
+    paths: selectors.save.getPaths(state),
+    collapsableState: selectors.ui.getCollapsableState(state),
+    saveData(type, path, options) {
+      dispatch(actions.save.saveData(type, path, options));
+    },
+    updateSavePath(type, path) {
+      dispatch(actions.save.updateSavePath(type, path));
+    },
+    updateCollapsableState(name, isOpen) {
+      dispatch(actions.ui.updateCollapsableState(name, isOpen));
+    },
+  };
+})(SavePanel);

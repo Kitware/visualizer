@@ -31,7 +31,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case ACTIVE_DIRECTORY: {
-      const activePath = action.activePath;
+      const { activePath } = action;
       return Object.assign({}, state, { activePath });
     }
 

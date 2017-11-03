@@ -104,27 +104,25 @@ export const SettingPanel = React.createClass({
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(
-  (state) => {
-    return {
-      sections: [selectors.proxies.getRenderViewSettingsPropertyGroup(state)],
-      fetchSettingProxy: () => {
-        dispatch(actions.proxies.fetchSettingProxy());
-      },
-      applyChangeSet: (changeSet) => {
-        dispatch(actions.proxies.applyChangeSet(changeSet));
-      },
-      updateCollapsableState(name, isOpen) {
-        dispatch(actions.ui.updateCollapsableState(name, isOpen));
-      },
-      isRemoteRenderingEnabled: selectors.view.getRemoteRenderingState(state),
-      updateRemoteRendering(isRemote) {
-        dispatch(actions.view.setRemoteRendering(isRemote));
-      },
-      showRemoteRenderingFps: selectors.view.getRemoteFpsState(state),
-      updateRemoteRenderingFps(showFps) {
-        dispatch(actions.view.setRemoteFps(showFps));
-      },
-    };
-  }
-)(SettingPanel);
+export default connect((state) => {
+  return {
+    sections: [selectors.proxies.getRenderViewSettingsPropertyGroup(state)],
+    fetchSettingProxy: () => {
+      dispatch(actions.proxies.fetchSettingProxy());
+    },
+    applyChangeSet: (changeSet) => {
+      dispatch(actions.proxies.applyChangeSet(changeSet));
+    },
+    updateCollapsableState(name, isOpen) {
+      dispatch(actions.ui.updateCollapsableState(name, isOpen));
+    },
+    isRemoteRenderingEnabled: selectors.view.getRemoteRenderingState(state),
+    updateRemoteRendering(isRemote) {
+      dispatch(actions.view.setRemoteRendering(isRemote));
+    },
+    showRemoteRenderingFps: selectors.view.getRemoteFpsState(state),
+    updateRemoteRenderingFps(showFps) {
+      dispatch(actions.view.setRemoteFps(showFps));
+    },
+  };
+})(SettingPanel);
