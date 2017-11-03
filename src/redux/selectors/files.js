@@ -14,5 +14,5 @@ export const getFileListings = state => access(state).files.listings;
 
 export const getFileListing = createSelector(
   [getActivePath, getFileListings],
-  (id, map) => map[id]
+  (id, map) => map[id],
 );

@@ -18,25 +18,25 @@ export const getScalarBarRanges = state => access(state).colors.ranges;
 
 export const getColorByArray = createSelector(
   [getActiveRepresentation],
-  representation => (representation && representation.colorBy.array ? representation.colorBy.array[1] : undefined)
+  representation => (representation && representation.colorBy.array ? representation.colorBy.array[1] : undefined),
 );
 
 export const getPiecewisePoints = createSelector(
   [getColorByArray, getPiecewiseMap],
-  (array, functions) => ((array && functions) ? functions[array] : undefined)
+  (array, functions) => ((array && functions) ? functions[array] : undefined),
 );
 
 export const getScalarBarImage = createSelector(
   [getActiveRepresentationId, getScalarBarImages],
-  (id, map) => map[id]
+  (id, map) => map[id],
 );
 
 export const getScalarBarRange = createSelector(
   [getActiveSourceId, getScalarBarRanges],
-  (id, map) => map[id]
+  (id, map) => map[id],
 );
 
 export const getPiecewiseGaussians = createSelector(
   [getColorByArray, getGaussianMap],
-  (array, functions) => ((array && functions) ? functions[array] : undefined)
+  (array, functions) => ((array && functions) ? functions[array] : undefined),
 );

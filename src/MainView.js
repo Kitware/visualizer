@@ -156,18 +156,20 @@ export default connect(
     const pendingCount = selectors.network.getPendingCount(state);
     const client = network.getClient();
     const connection = network.getConnection();
-    const session = connection.session;
+    const { session } = connection;
     const remoteRendering = selectors.view.getRemoteRenderingState(state);
     const remoteFps = selectors.view.getRemoteFpsState(state);
     const viewId = selectors.active.getActiveView(state);
-    const provideOnImageReady = selectors.ui.getVisiblePanel(state) === 3;  // SavePanel visible
+    const provideOnImageReady = selectors.ui.getVisiblePanel(state) === 3; // SavePanel visible
 
-    return { client, connection, session, pendingCount, remoteRendering, remoteFps, viewId, provideOnImageReady };
+    return {
+      client, connection, session, pendingCount, remoteRendering, remoteFps, viewId, provideOnImageReady,
+    };
   },
   () => ({
     resetCamera: () => dispatch(actions.view.resetCamera()),
     updateCamera: (viewId, focalPoint, viewUp, position) => dispatch(actions.view.updateCamera(viewId, focalPoint, viewUp, position)),
     updateActiveViewId: viewId => dispatch(actions.active.activate(viewId, actions.active.TYPE_VIEW)),
-  })
+  }),
 )(Visualizer);
 

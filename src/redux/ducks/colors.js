@@ -54,7 +54,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case ALL_PRESETS: {
-      const presetImages = action.presetImages;
+      const { presetImages } = action;
       return Object.assign({}, state, { presetImages });
     }
 
@@ -145,7 +145,8 @@ export function fetchRepresentationColorMap(representationId, sampling = 512) {
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        },
+      );
     return netRequest;
   };
 }

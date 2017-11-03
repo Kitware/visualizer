@@ -70,7 +70,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case FREE_NETWORK_REQUESTS: {
-      const size = action.size;
+      const { size } = action;
       const success = state.success.length > size ? [].concat(state.success) : state.success;
       const error = state.error.length > size ? [].concat(state.error) : state.error;
       const requests = Object.assign({}, state.requests);

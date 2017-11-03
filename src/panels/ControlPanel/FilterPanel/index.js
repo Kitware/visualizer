@@ -46,14 +46,12 @@ export const FilterPanel = React.createClass({
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(
-  (state) => {
-    return {
-      list: selectors.proxies.getAvailableList(state).map(i => ({ name: i.name, icon: ICON_MAPPING[i.icon] })),
-      applyFilter: (name) => {
-        dispatch(actions.proxies.createProxy(name, selectors.proxies.getActiveSourceId(state)));
-        dispatch(actions.ui.updateVisiblePanel(0));
-      },
-    };
-  }
-)(FilterPanel);
+export default connect((state) => {
+  return {
+    list: selectors.proxies.getAvailableList(state).map(i => ({ name: i.name, icon: ICON_MAPPING[i.icon] })),
+    applyFilter: (name) => {
+      dispatch(actions.proxies.createProxy(name, selectors.proxies.getActiveSourceId(state)));
+      dispatch(actions.ui.updateVisiblePanel(0));
+    },
+  };
+})(FilterPanel);

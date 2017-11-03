@@ -97,5 +97,5 @@ export default connect(
         dispatch(actions.ui.updateVisiblePanel(0));
       },
     };
-  }
+  },
 )(FileBrowser);

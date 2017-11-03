@@ -34,13 +34,13 @@ function propertyKey(prop) {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case PROXY_STORE: {
-      const proxy = action.proxy;
+      const { proxy } = action;
       const proxies = Object.assign({}, state.proxies, { [proxy.id]: proxy });
       return Object.assign({}, state, { proxies });
     }
 
     case PIPELINE_STORE: {
-      const pipeline = action.pipeline;
+      const { pipeline } = action;
       const sourceToRepresentation = {};
       pipeline.sources.forEach((proxy) => {
         sourceToRepresentation[proxy.id] = proxy.rep;

@@ -133,13 +133,12 @@ export const InformationPanel = React.createClass({
                   </tr>
                 </thead>
                 <tbody>
-                  {activeArray.range.map((range, idx) =>
+                  {activeArray.range.map((range, idx) => (
                     <tr key={idx}>
                       <td>{range.name.length ? range.name : 'Range'}</td>
                       <td><input readOnly type="text" value={range.min} /></td>
                       <td><input readOnly type="text" value={range.max} /></td>
-                    </tr>
-                  )}
+                    </tr>))}
                 </tbody>
               </table>
             </div>
@@ -152,16 +151,14 @@ export const InformationPanel = React.createClass({
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(
-  (state) => {
-    return {
-      proxy: selectors.proxies.getActiveSource(state),
-      timeStep: selectors.time.getTimeStep(state),
-      timeValues: selectors.time.getTimeValues(state),
-      setTimeStep(tIdx) {
-        dispatch(actions.time.applyTimeStep(tIdx, selectors.proxies.getActiveSourceId(state)));
-      },
-    };
-  }
-)(InformationPanel);
+export default connect((state) => {
+  return {
+    proxy: selectors.proxies.getActiveSource(state),
+    timeStep: selectors.time.getTimeStep(state),
+    timeValues: selectors.time.getTimeValues(state),
+    setTimeStep(tIdx) {
+      dispatch(actions.time.applyTimeStep(tIdx, selectors.proxies.getActiveSourceId(state)));
+    },
+  };
+})(InformationPanel);
 

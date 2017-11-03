@@ -52,7 +52,7 @@ export default function proxiesReducer(state = initialState, action) {
 
     case UPDATE_DATASET_FILENAME: {
       const xmlExt = DATASET_MAPPING[action.dataset] || 'vtk';
-      const dataset = state.paths.dataset.replace(/\.[^\.]+$/, `.${xmlExt}`);
+      const dataset = state.paths.dataset.replace(/\.[^.]+$/, `.${xmlExt}`);
       const paths = Object.assign({}, state.paths, { dataset });
       return Object.assign({}, state, { paths });
     }

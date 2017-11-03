@@ -1,55 +1,55 @@
-var path = require('path'),
-    webpack = require('webpack'),
-    loaders = require('./node_modules/paraviewweb/config/webpack.loaders.js'),
-    plugins = [];
+require('webpack');
+const path = require('path');
 
-if(process.env.NODE_ENV === 'production') {
-    console.log('==> Production build');
-    plugins.push(new webpack.DefinePlugin({
-        "process.env": {
-            NODE_ENV: JSON.stringify("production"),
-        },
-    }));
-}
+const linterRules = require('./config/rules-linter.js');
+const pvwRules = require('./config/rules-pvw.js');
+const vtkjsRules = require('./config/rules-vtkjs.js');
+const wslinkRules = require('./config/rules-wslink.js');
 
 module.exports = {
-  plugins: plugins,
-  entry: './src/app.js',
+  plugins: [],
+  entry: path.join(__dirname, './src/app.js'),
   output: {
-    path: './dist',
+    path: path.join(__dirname, './dist'),
     filename: 'Visualizer.js',
   },
   module: {
-        preLoaders: [{
-            test: /\.js$/,
-            loader: "eslint-loader",
-            exclude: /node_modules/,
-        }],
-        loaders: [
-            { test: require.resolve("./src/app.js"), loader: "expose?Visualizer" },
-        ].concat(loaders),
-    },
-    resolve: {
-        alias: {
-            PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
-            VisualizerStyle: path.resolve('./style'),
-        },
-    },
-    postcss: [
-        require('autoprefixer')({ browsers: ['last 2 versions'] }),
+    rules: [
+      {
+        test: require.resolve('./src/app.js'), loader: 'expose-loader?Visualizer',
+      }, {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: 'babel-loader',
+            options: {
+              presets: ['es2015', 'react'],
+            },
+          },
+        ],
+      },
+    ].concat(linterRules, pvwRules, vtkjsRules, wslinkRules),
+  },
+  resolve: {
+    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
+    modules: [
+      path.resolve(__dirname, 'node_modules'),
+      path.join(__dirname, './src'),
     ],
-    eslint: {
-        configFile: '.eslintrc.js',
+    alias: {
+      PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
+      VisualizerStyle: path.resolve('./style'),
     },
-    devServer: {
-        contentBase: './dist/',
-        port: 9999,
-        hot: true,
-        quiet: false,
-        noInfo: false,
-        stats: {
-            colors: true,
-        },
-        proxy: {},
+  },
+  devServer: {
+    contentBase: './dist/',
+    port: 9999,
+    hot: true,
+    quiet: false,
+    noInfo: false,
+    stats: {
+      colors: true,
     },
+    proxy: {},
+  },
 };

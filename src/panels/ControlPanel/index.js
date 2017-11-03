@@ -88,13 +88,11 @@ export const ControlPanel = React.createClass({
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(
-  (state) => {
-    return {
-      activeIdx: selectors.ui.getVisiblePanel(state),
-      updateActivePanel(idx) {
-        dispatch(actions.ui.updateVisiblePanel(idx));
-      },
-    };
-  }
-)(ControlPanel);
+export default connect((state) => {
+  return {
+    activeIdx: selectors.ui.getVisiblePanel(state),
+    updateActivePanel(idx) {
+      dispatch(actions.ui.updateVisiblePanel(idx));
+    },
+  };
+})(ControlPanel);

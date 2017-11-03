@@ -66,19 +66,17 @@ export const TimeController = React.createClass({
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(
-  state => ({
-    setTimeStep(index) {
-      dispatch(actions.time.applyTimeStep(index, state.active.source));
-    },
-    playTime() {
-      dispatch(actions.time.playTime());
-    },
-    stopTime() {
-      dispatch(actions.time.stopTime());
-    },
-    index: selectors.time.getTimeStep(state),
-    playing: selectors.time.isAnimationPlaying(state),
-    values: selectors.time.getTimeValues(state),
-  })
-)(TimeController);
+export default connect(state => ({
+  setTimeStep(index) {
+    dispatch(actions.time.applyTimeStep(index, state.active.source));
+  },
+  playTime() {
+    dispatch(actions.time.playTime());
+  },
+  stopTime() {
+    dispatch(actions.time.stopTime());
+  },
+  index: selectors.time.getTimeStep(state),
+  playing: selectors.time.isAnimationPlaying(state),
+  values: selectors.time.getTimeValues(state),
+}))(TimeController);

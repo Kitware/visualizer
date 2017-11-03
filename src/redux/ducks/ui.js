@@ -7,6 +7,7 @@ const UPDATE_GROUP_COLLAPSED_STATE = 'UPDATE_GROUP_COLLAPSED_STATE';
 // --- Reducer ----------------------------------------------------------------
 
 export const initialState = {
+  /* eslint-disable no-multi-spaces */
   visiblePanel: 0,         // PipelineBrowser
   collapsableState: {
     // Collapsable Widgets in SavePanel
@@ -22,6 +23,7 @@ export const initialState = {
     RenderViewSettingsCollapsed: false, // Open
 
     collapsibleGroups: {},
+    /* eslint-enable no-multi-spaces */
   },
 };
 
