@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>SettingPanel | Visualizer</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://kitware.github.io/visualizer/api/panels_ControlPanel_SettingPanel.html">
+  <!-- Alternative links -->
+  
+    
+      <link rel="alternative" hreflang="en" href="https://kitware.github.io/visualizer/api/panels_ControlPanel_SettingPanel.html">
+    
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/visualizer/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/visualizer/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/visualizer/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/visualizer/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/visualizer/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/visualizer/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/visualizer/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/visualizer/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/visualizer/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/visualizer/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/visualizer/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/visualizer/atom.xml" title="Visualizer">
+  <!-- Open Graph -->
+  <meta name="description" content="Sourceindex.jsimport React                from &apos;react&apos;;import ProxyEditorWidget    from &apos;paraviewweb/src/React/Widgets/ProxyEditorWidget&apos;;import CheckboxProperty     from &apos;paraviewweb/src/React/Proper">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SettingPanel">
+<meta property="og:url" content="https://kitware.github.io/visualizer/api/panels_ControlPanel_SettingPanel.html">
+<meta property="og:site_name" content="Visualizer">
+<meta property="og:description" content="Sourceindex.jsimport React                from &apos;react&apos;;import ProxyEditorWidget    from &apos;paraviewweb/src/React/Widgets/ProxyEditorWidget&apos;;import CheckboxProperty     from &apos;paraviewweb/src/React/Proper">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-11-03T18:59:42.405Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SettingPanel">
+<meta name="twitter:description" content="Sourceindex.jsimport React                from &apos;react&apos;;import ProxyEditorWidget    from &apos;paraviewweb/src/React/Widgets/ProxyEditorWidget&apos;;import CheckboxProperty     from &apos;paraviewweb/src/React/Proper">
+  <!-- Google Analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90338862-5', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/visualizer/" id="logo">ParaViewWeb</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/visualizer/docs/" class="main-nav-link">Docs</a>
+      <a href="https://github.com/kitware/visualizer" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div id="content" class="wrapper">
+    <div id="content-inner">
+      <article class="article-container" itemscope itemtype="http://schema.org/Article">
+        <div class="article-inner">
+          <div class="article">
+            <div class="inner">
+              <header class="article-header">
+                <h1 class="article-title" itemprop="name">SettingPanel</h1>
+              </header>
+              <div class="article-content" itemprop="articleBody">
+                <h1 id="Source" class="article-heading"><a href="#Source" class="headerlink" title="Source"></a>Source<a class="article-anchor" href="#Source" aria-hidden="true"></a></h1><figure class="highlight js"><figcaption><span>index.js</span></figcaption><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React                <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"><span class="keyword">import</span> ProxyEditorWidget    <span class="keyword">from</span> <span class="string">'paraviewweb/src/React/Widgets/ProxyEditorWidget'</span>;</div><div class="line"><span class="keyword">import</span> CheckboxProperty     <span class="keyword">from</span> <span class="string">'paraviewweb/src/React/Properties/CheckboxProperty'</span>;</div><div class="line"><span class="keyword">import</span> style                <span class="keyword">from</span> <span class="string">'VisualizerStyle/SettingPanel.mcss'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</div><div class="line"><span class="keyword">import</span> &#123; selectors, actions, dispatch &#125; <span class="keyword">from</span> <span class="string">'../../../redux'</span>;</div><div class="line"></div><div class="line"><span class="comment">// ----------------------------------------------------------------------------</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> LOCAL_RENDERING_PROPS = &#123;</div><div class="line">  data: &#123; <span class="attr">value</span>: <span class="literal">true</span>, <span class="attr">id</span>: <span class="string">'remoteRenderingCheckbox'</span> &#125;,</div><div class="line">  show: <span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">true</span>,</div><div class="line">  ui: &#123;</div><div class="line">    label: <span class="string">'Remote Rendering'</span>,</div><div class="line">    componentLabels: [<span class="string">''</span>],</div><div class="line">    help: <span class="string">'Uncheck for local rendering.  If doing local rendering, all the geometry and the used data arrays will be sent to the browser.'</span> &#125;,</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> SHOW_FPS_PROPS = &#123;</div><div class="line">  data: &#123; <span class="attr">value</span>: <span class="literal">false</span>, <span class="attr">id</span>: <span class="string">'showRemoteFpsCheckbox'</span> &#125;,</div><div class="line">  show: <span class="function"><span class="params">()</span> =&gt;</span> <span class="literal">true</span>,</div><div class="line">  ui: &#123;</div><div class="line">    label: <span class="string">'Show Remote FPS'</span>,</div><div class="line">    componentLabels: [<span class="string">''</span>],</div><div class="line">    help: <span class="string">'Check to show effective frame rate (in black text) while in remote rendering mode.'</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> SettingPanel = React.createClass(&#123;</div><div class="line"></div><div class="line">  displayName: <span class="string">'ParaViewWeb/SettingPanel'</span>,</div><div class="line"></div><div class="line">  propTypes: &#123;</div><div class="line">    className: React.PropTypes.string,</div><div class="line">    visible: React.PropTypes.bool,</div><div class="line"></div><div class="line">    sections: React.PropTypes.array,</div><div class="line">    fetchSettingProxy: React.PropTypes.func,</div><div class="line">    applyChangeSet: React.PropTypes.func,</div><div class="line">    updateCollapsableState: React.PropTypes.func,</div><div class="line">    isRemoteRenderingEnabled: React.PropTypes.bool,</div><div class="line">    updateRemoteRendering: React.PropTypes.func,</div><div class="line">    showRemoteRenderingFps: React.PropTypes.bool,</div><div class="line">    updateRemoteRenderingFps: React.PropTypes.func,</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  getDefaultProps() &#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      visible: <span class="literal">true</span>,</div><div class="line">    &#125;;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  applyChanges(changeSet) &#123;</div><div class="line">    <span class="keyword">const</span> changeToPush = [],</div><div class="line">      ids = &#123;&#125;;</div><div class="line">    <span class="built_in">Object</span>.keys(changeSet).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">      <span class="keyword">const</span> [id, name] = key.split(<span class="string">':'</span>),</div><div class="line">        value = changeSet[key];</div><div class="line">      ids[id] = <span class="literal">true</span>;</div><div class="line">      changeToPush.push(&#123; id, name, value &#125;);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.props.applyChangeSet(changeToPush);</div><div class="line">    <span class="keyword">this</span>.props.fetchSettingProxy();</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  remoteRenderingBoxChecked() &#123;</div><div class="line">    <span class="keyword">this</span>.props.updateRemoteRendering(!<span class="keyword">this</span>.props.isRemoteRenderingEnabled);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  remoteRenderingShowFpsBoxChecked() &#123;</div><div class="line">    <span class="keyword">this</span>.props.updateRemoteRenderingFps(!<span class="keyword">this</span>.props.showRemoteRenderingFps);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.props.visible) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> checkboxProps = <span class="built_in">Object</span>.assign(&#123;&#125;, LOCAL_RENDERING_PROPS, &#123;</div><div class="line">      onChange: <span class="keyword">this</span>.remoteRenderingBoxChecked,</div><div class="line">    &#125;);</div><div class="line">    checkboxProps.data.value = <span class="keyword">this</span>.props.isRemoteRenderingEnabled;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> fpsCheckboxProps = <span class="built_in">Object</span>.assign(&#123;&#125;, SHOW_FPS_PROPS, &#123;</div><div class="line">      onChange: <span class="keyword">this</span>.remoteRenderingShowFpsBoxChecked,</div><div class="line">    &#125;);</div><div class="line">    fpsCheckboxProps.data.value = <span class="keyword">this</span>.props.showRemoteRenderingFps;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div className=&#123;style.container&#125;&gt;</div><div class="line">        &lt;CheckboxProperty &#123;...checkboxProps&#125; /&gt;</div><div class="line">        &lt;CheckboxProperty &#123;...fpsCheckboxProps&#125; /&gt;</div><div class="line">        &lt;ProxyEditorWidget</div><div class="line">          sections=&#123;<span class="keyword">this</span>.props.sections&#125;</div><div class="line">          onApply=&#123;<span class="keyword">this</span>.applyChanges&#125;</div><div class="line">          onCollapseChange=&#123;<span class="keyword">this</span>.props.updateCollapsableState&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;<span class="regexp">/div&gt;);</span></div><div class="line"><span class="regexp">  &#125;,</span></div><div class="line"><span class="regexp">&#125;);</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">/</span><span class="regexp">/ Binding --------------------------------------------------------------------</span></div><div class="line"><span class="regexp">/</span>* eslint-disable arrow-body-style *<span class="regexp">/</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">export default connect((state) =&gt; &#123;</span></div><div class="line"><span class="regexp">  return &#123;</span></div><div class="line"><span class="regexp">    sections: [selectors.proxies.getRenderViewSettingsPropertyGroup(state)],</span></div><div class="line"><span class="regexp">    fetchSettingProxy: () =&gt; &#123;</span></div><div class="line"><span class="regexp">      dispatch(actions.proxies.fetchSettingProxy());</span></div><div class="line"><span class="regexp">    &#125;,</span></div><div class="line"><span class="regexp">    applyChangeSet: (changeSet) =&gt; &#123;</span></div><div class="line"><span class="regexp">      dispatch(actions.proxies.applyChangeSet(changeSet));</span></div><div class="line"><span class="regexp">    &#125;,</span></div><div class="line"><span class="regexp">    updateCollapsableState(name, isOpen) &#123;</span></div><div class="line"><span class="regexp">      dispatch(actions.ui.updateCollapsableState(name, isOpen));</span></div><div class="line"><span class="regexp">    &#125;,</span></div><div class="line"><span class="regexp">    isRemoteRenderingEnabled: selectors.view.getRemoteRenderingState(state),</span></div><div class="line"><span class="regexp">    updateRemoteRendering(isRemote) &#123;</span></div><div class="line"><span class="regexp">      dispatch(actions.view.setRemoteRendering(isRemote));</span></div><div class="line"><span class="regexp">    &#125;,</span></div><div class="line"><span class="regexp">    showRemoteRenderingFps: selectors.view.getRemoteFpsState(state),</span></div><div class="line"><span class="regexp">    updateRemoteRenderingFps(showFps) &#123;</span></div><div class="line"><span class="regexp">      dispatch(actions.view.setRemoteFps(showFps));</span></div><div class="line"><span class="regexp">    &#125;,</span></div><div class="line"><span class="regexp">  &#125;;</span></div><div class="line"><span class="regexp">&#125;)(SettingPanel);</span></div></pre></td></tr></table></figure>
+
+              </div>
+              <footer class="article-footer">
+                <time class="article-footer-updated" datetime="2017-11-03T18:59:42.405Z" itemprop="dateModified">Last updated: 2017-11-03</time>
+                <a href="panels_ControlPanel_SavePanel.html" class="article-footer-prev" title="SavePanel"><i class="fa fa-chevron-left"></i><span>Prev</span></a>
+              </footer>
+              
+            </div>
+          </div>
+          <aside id="article-toc" role="navigation">
+            <div id="article-toc-inner">
+              <strong class="sidebar-title">Contents</strong>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Source"><span class="toc-text">Source</span></a></li></ol>
+              <a href="#" id="article-toc-top">Back to Top</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+      <aside id="sidebar" role="navigation">
+  <div class="inner"><strong class="sidebar-title">panels/ControlPanel</strong><a href="panels_ControlPanel_FileBrowserPanel.html" class="sidebar-link">FileBrowserPanel</a><a href="panels_ControlPanel_FilterPanel.html" class="sidebar-link">FilterPanel</a><a href="panels_ControlPanel_InformationPanel.html" class="sidebar-link">InformationPanel</a><a href="panels_ControlPanel_PipelineBrowser.html" class="sidebar-link">PipelineBrowser</a><a href="panels_ControlPanel_SavePanel.html" class="sidebar-link">SavePanel</a><a href="panels_ControlPanel_SettingPanel.html" class="sidebar-link current">SettingPanel</a><strong class="sidebar-title">panels/TimeController</strong><strong class="sidebar-title">redux/ducks</strong><strong class="sidebar-title">redux/selectors</strong></div>
+</aside>
+    </div>
+  </div>
+</div>
+
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2017 <a href="http://www.kitware.com" target="_blank">Kitware Inc.</a>
+    </div>
+    <div id="footer-links">
+      <a href="https://github.com/kitware/visualizer" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/visualizer/docs/" class="mobile-nav-link">Docs</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/kitware/visualizer" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+      <strong class="mobile-nav-title">panels/ControlPanel</strong><a href="panels_ControlPanel_FileBrowserPanel.html" class="mobile-nav-link">FileBrowserPanel</a><a href="panels_ControlPanel_FilterPanel.html" class="mobile-nav-link">FilterPanel</a><a href="panels_ControlPanel_InformationPanel.html" class="mobile-nav-link">InformationPanel</a><a href="panels_ControlPanel_PipelineBrowser.html" class="mobile-nav-link">PipelineBrowser</a><a href="panels_ControlPanel_SavePanel.html" class="mobile-nav-link">SavePanel</a><a href="panels_ControlPanel_SettingPanel.html" class="mobile-nav-link current">SettingPanel</a><strong class="mobile-nav-title">panels/TimeController</strong><strong class="mobile-nav-title">redux/ducks</strong><strong class="mobile-nav-title">redux/selectors</strong>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>English</span></span>
+    <select id="mobile-lang-select" data-canonical="api/panels_ControlPanel_SettingPanel.html">
+      
+        <option value="en" selected>English</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- build:js build/js/main.js -->
+<script src="/visualizer/js/lang_select.js"></script>
+<script src="/visualizer/js/toc.js"></script>
+<script src="/visualizer/js/mobile_nav.js"></script>
+<!-- endbuild -->
+<script src="https://cdn.jsdelivr.net/retinajs/1.3.0/retina.min.js" async></script>
+
+
+
+</body>
+</html>
