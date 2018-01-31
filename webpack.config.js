@@ -1,4 +1,3 @@
-require('webpack');
 const path = require('path');
 
 const linterRules = require('./config/rules-linter.js');
@@ -23,7 +22,7 @@ module.exports = {
         use: [
           { loader: 'babel-loader',
             options: {
-              presets: ['es2015', 'react'],
+              presets: ['env'],
             },
           },
         ],
@@ -31,11 +30,6 @@ module.exports = {
     ].concat(linterRules, pvwRules, vtkjsRules, wslinkRules),
   },
   resolve: {
-    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
-    modules: [
-      path.resolve(__dirname, 'node_modules'),
-      path.join(__dirname, './src'),
-    ],
     alias: {
       PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
       VisualizerStyle: path.resolve('./style'),

@@ -16,22 +16,25 @@ module.exports = {
     'one-var': 0,
     'react/prefer-es6-class': 0,
     'no-nested-ternary': 0,
-    'jsx-a11y/no-static-element-interactions': 0,
-    'jsx-a11y/click-events-have-key-events': 0,
-    'react/no-unused-prop-types': 0,
     'react/forbid-prop-types': 0,
-    'react/no-array-index-key': 0,
-    'object-curly-newline': 0,
-    'function-paren-newline': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
+    'react/no-unused-prop-types': 0,
 
     // Not for us ;-)
+    'no-plusplus': 0,
     'jsx-a11y/label-has-for': 0,
     'no-console': 0,
-
-    'import/no-named-as-default': 0,
     'import/no-named-as-default-member': 0,
+    'import/no-named-as-default': 0,
+    'import/no-extraneous-dependencies': 0,
   },
-  settings: {
-    'import/resolver': 'webpack',
-  }
+  'settings': {
+    'import/resolver': 'webpack'
+  },
+  globals: {
+    __BASE_PATH__: false,
+  },
+  env: {
+    browser: true,
+  },
 };
