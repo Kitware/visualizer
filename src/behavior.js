@@ -45,7 +45,9 @@ function batchDispatch(dispatch) {
 // ----------------------------------------------------------------------------
 
 function findSourceRepresentation(state, sourceId) {
-  const sourceProxy = state.proxies.pipeline.sources.find((item => item.id === sourceId));
+  const sourceProxy = state.proxies.pipeline.sources.find(
+    (item) => item.id === sourceId
+  );
   if (sourceProxy) {
     return sourceProxy.rep;
   }
@@ -84,7 +86,9 @@ export default function onChange(state, dispatch) {
     previousState.activeSource = state.active.source;
     if (previousState.activeSource && previousState.activeSource !== '0') {
       previousState.activeRepesentation = null;
-      addToDispatchQueue(actions.proxies.fetchProxy(previousState.activeSource));
+      addToDispatchQueue(
+        actions.proxies.fetchProxy(previousState.activeSource)
+      );
     }
   }
 
@@ -95,21 +99,35 @@ export default function onChange(state, dispatch) {
     addToDispatchQueue(actions.proxies.fetchProxy(activeRep));
   }
 
-  if (representationHasScalarImage(state, activeRep) && previousState.lastImageRequest !== activeRep) {
+  if (
+    representationHasScalarImage(state, activeRep) &&
+    previousState.lastImageRequest !== activeRep
+  ) {
     previousState.lastImageRequest = activeRep;
     addToDispatchQueue(actions.colors.fetchRepresentationColorMap(activeRep));
-    addToDispatchQueue(actions.colors.fetchLookupTableScalarRange(previousState.activeSource));
+    addToDispatchQueue(
+      actions.colors.fetchLookupTableScalarRange(previousState.activeSource)
+    );
     // Fetch opacity points of active array if not available
     if (state.proxies.proxies[activeRep].colorBy.array[1]) {
-      addToDispatchQueue(actions.colors.fetchOpacityPoints(state.proxies.proxies[activeRep].colorBy.array[1]));
+      addToDispatchQueue(
+        actions.colors.fetchOpacityPoints(
+          state.proxies.proxies[activeRep].colorBy.array[1]
+        )
+      );
     }
   }
 
   // Update DataSet file extension base on its type
   const activeSource = state.proxies.proxies[previousState.activeSource];
-  if (activeSource && activeSource.data.type !== previousState.activeDataSetType) {
+  if (
+    activeSource &&
+    activeSource.data.type !== previousState.activeDataSetType
+  ) {
     previousState.activeDataSetType = activeSource.data.type;
-    addToDispatchQueue(actions.save.updateDatasetFilename(previousState.activeDataSetType));
+    addToDispatchQueue(
+      actions.save.updateDatasetFilename(previousState.activeDataSetType)
+    );
   }
 
   // Fetch view proxy if not available
@@ -121,7 +139,11 @@ export default function onChange(state, dispatch) {
   if (debugNetwork) {
     // Print network success calls
     if (previousState.netSuccess < state.network.success.length) {
-      for (let i = previousState.netSuccess; i < state.network.success.length; i++) {
+      for (
+        let i = previousState.netSuccess;
+        i < state.network.success.length;
+        i++
+      ) {
         debugNetwork(state.network.requests[state.network.success[i]]);
       }
       previousState.netSuccess = state.network.success.length;
@@ -129,7 +151,11 @@ export default function onChange(state, dispatch) {
 
     // Print network error calls
     if (previousState.netError < state.network.error.length) {
-      for (let i = previousState.netError; i < state.network.error.length; i++) {
+      for (
+        let i = previousState.netError;
+        i < state.network.error.length;
+        i++
+      ) {
         debugNetwork(state.network.requests[state.network.error[i]]);
       }
       previousState.netError = state.network.error.length;
@@ -137,15 +163,27 @@ export default function onChange(state, dispatch) {
   }
 
   // First source in pipeline should trigger resetCamera
-  if (previousState.needResetCamera && state.proxies.pipeline.sources.length === 1) {
+  if (
+    previousState.needResetCamera &&
+    state.proxies.pipeline.sources.length === 1
+  ) {
     previousState.needResetCamera = false;
     addToDispatchQueue(actions.view.resetCamera());
   }
 
   // Keep only a moving window of the network requests
-  if (state.network.success.length > NETWORK_QUEUE_SIZE || state.network.error.length > NETWORK_QUEUE_SIZE) {
-    previousState.netSuccess -= state.network.success.length > NETWORK_QUEUE_SIZE ? state.network.success.length - NETWORK_QUEUE_SIZE : 0;
-    previousState.netError -= state.network.error.length > NETWORK_QUEUE_SIZE ? state.network.error.length - NETWORK_QUEUE_SIZE : 0;
+  if (
+    state.network.success.length > NETWORK_QUEUE_SIZE ||
+    state.network.error.length > NETWORK_QUEUE_SIZE
+  ) {
+    previousState.netSuccess -=
+      state.network.success.length > NETWORK_QUEUE_SIZE
+        ? state.network.success.length - NETWORK_QUEUE_SIZE
+        : 0;
+    previousState.netError -=
+      state.network.error.length > NETWORK_QUEUE_SIZE
+        ? state.network.error.length - NETWORK_QUEUE_SIZE
+        : 0;
     addToDispatchQueue(actions.network.freeNetworkRequests(NETWORK_QUEUE_SIZE));
   }
 

@@ -40,16 +40,17 @@ export function setRemoteFps(remoteFps) {
 export function resetCamera() {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Reset camera');
-    network.getClient()
-      .ViewPort
-      .resetCamera()
+    network
+      .getClient()
+      .ViewPort.resetCamera()
       .then(
         (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -57,16 +58,17 @@ export function resetCamera() {
 export function updateCamera(viewId, focalPoint, viewUp, position) {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Update camera');
-    network.getClient()
-      .ViewPort
-      .updateCamera(viewId, focalPoint, viewUp, position)
+    network
+      .getClient()
+      .ViewPort.updateCamera(viewId, focalPoint, viewUp, position)
       .then(
         (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }

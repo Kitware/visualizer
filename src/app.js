@@ -19,7 +19,12 @@ function start() {
   // Mount UI
   const container = document.querySelector('.content');
   ReactDOM.unmountComponentAtNode(container);
-  ReactDOM.render(<Provider store={getActiveStore()}><MainView /></Provider>, container);
+  ReactDOM.render(
+    <Provider store={getActiveStore()}>
+      <MainView />
+    </Provider>,
+    container
+  );
 }
 
 export function connect(config = {}) {

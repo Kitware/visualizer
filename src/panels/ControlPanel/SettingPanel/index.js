@@ -1,7 +1,7 @@
-import React                from 'react';
-import ProxyEditorWidget    from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
-import CheckboxProperty     from 'paraviewweb/src/React/Properties/CheckboxProperty';
-import style                from 'VisualizerStyle/SettingPanel.mcss';
+import React from 'react';
+import ProxyEditorWidget from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
+import CheckboxProperty from 'paraviewweb/src/React/Properties/CheckboxProperty';
+import style from 'VisualizerStyle/SettingPanel.mcss';
 
 import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../../redux';
@@ -14,7 +14,9 @@ const LOCAL_RENDERING_PROPS = {
   ui: {
     label: 'Remote Rendering',
     componentLabels: [''],
-    help: 'Uncheck for local rendering.  If doing local rendering, all the geometry and the used data arrays will be sent to the browser.' },
+    help:
+      'Uncheck for local rendering.  If doing local rendering, all the geometry and the used data arrays will be sent to the browser.',
+  },
 };
 
 const SHOW_FPS_PROPS = {
@@ -23,12 +25,12 @@ const SHOW_FPS_PROPS = {
   ui: {
     label: 'Show Remote FPS',
     componentLabels: [''],
-    help: 'Check to show effective frame rate (in black text) while in remote rendering mode.',
+    help:
+      'Check to show effective frame rate (in black text) while in remote rendering mode.',
   },
 };
 
 export const SettingPanel = React.createClass({
-
   displayName: 'ParaViewWeb/SettingPanel',
 
   propTypes: {
@@ -97,7 +99,8 @@ export const SettingPanel = React.createClass({
           onApply={this.applyChanges}
           onCollapseChange={this.props.updateCollapsableState}
         />
-      </div>);
+      </div>
+    );
   },
 });
 

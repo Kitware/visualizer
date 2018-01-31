@@ -1,4 +1,4 @@
-let accessor = state => state;
+let accessor = (state) => state;
 
 export default function getState(state) {
   return accessor(state);

@@ -1,6 +1,6 @@
-import React        from 'react';
-import ActionList   from 'paraviewweb/src/React/Widgets/ActionListWidget';
-import style        from 'VisualizerStyle/ToggleIcons.mcss';
+import React from 'react';
+import ActionList from 'paraviewweb/src/React/Widgets/ActionListWidget';
+import style from 'VisualizerStyle/ToggleIcons.mcss';
 
 import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../../redux';
@@ -13,7 +13,6 @@ const ICON_MAPPING = {
 // ----------------------------------------------------------------------------
 
 export const FilterPanel = React.createClass({
-
   displayName: 'ParaViewWeb/FilterPanel',
 
   propTypes: {
@@ -39,7 +38,8 @@ export const FilterPanel = React.createClass({
         className={this.props.className}
         list={this.props.list}
         onClick={this.props.applyFilter}
-      />);
+      />
+    );
   },
 });
 
@@ -48,9 +48,16 @@ export const FilterPanel = React.createClass({
 
 export default connect((state) => {
   return {
-    list: selectors.proxies.getAvailableList(state).map(i => ({ name: i.name, icon: ICON_MAPPING[i.icon] })),
+    list: selectors.proxies
+      .getAvailableList(state)
+      .map((i) => ({ name: i.name, icon: ICON_MAPPING[i.icon] })),
     applyFilter: (name) => {
-      dispatch(actions.proxies.createProxy(name, selectors.proxies.getActiveSourceId(state)));
+      dispatch(
+        actions.proxies.createProxy(
+          name,
+          selectors.proxies.getActiveSourceId(state)
+        )
+      );
       dispatch(actions.ui.updateVisiblePanel(0));
     },
   };

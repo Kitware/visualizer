@@ -21,17 +21,21 @@ const customProtocols = {
 
 function start(conn) {
   connection = conn;
-  client = createClient(conn, [
-    'ColorManager',
-    'FileListing',
-    'MouseHandler',
-    'SaveData',
-    'ProxyManager',
-    'TimeHandler',
-    'ViewPort',
-    'VtkImageDelivery',
-    'VtkGeometryDelivery',
-  ], customProtocols);
+  client = createClient(
+    conn,
+    [
+      'ColorManager',
+      'FileListing',
+      'MouseHandler',
+      'SaveData',
+      'ProxyManager',
+      'TimeHandler',
+      'ViewPort',
+      'VtkImageDelivery',
+      'VtkGeometryDelivery',
+    ],
+    customProtocols
+  );
 
   if (readyCallback) {
     readyCallback();

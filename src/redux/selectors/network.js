@@ -5,7 +5,7 @@ import access from './stateAccessor';
 // Pure state selection
 // ----------------------------------------------------------------------------
 
-export const getPendingRequests = state => access(state).network.pending;
+export const getPendingRequests = (state) => access(state).network.pending;
 
 // ----------------------------------------------------------------------------
 // Composite selector
@@ -13,6 +13,5 @@ export const getPendingRequests = state => access(state).network.pending;
 
 export const getPendingCount = createSelector(
   [getPendingRequests],
-  pending => pending.length,
+  (pending) => pending.length
 );
-

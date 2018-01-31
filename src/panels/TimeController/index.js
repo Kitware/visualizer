@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../redux';
 
 export const TimeController = React.createClass({
-
   displayName: 'ParaViewWeb/TimeController',
 
   propTypes: {
@@ -28,7 +27,9 @@ export const TimeController = React.createClass({
   },
 
   previous() {
-    const timeStep = (this.props.index - 1 + this.props.values.length) % this.props.values.length;
+    const timeStep =
+      (this.props.index - 1 + this.props.values.length) %
+      this.props.values.length;
     this.props.setTimeStep(timeStep);
   },
 
@@ -46,27 +47,33 @@ export const TimeController = React.createClass({
       return null;
     }
 
-    const timeSize = (`${this.props.values.length}`.length * 2) + 1;
+    const timeSize = `${this.props.values.length}`.length * 2 + 1;
     const timeClass = style[`time${timeSize}`];
 
     return (
       <div className={style.container}>
-        {
-          this.props.playing
-          ? <i className={style.stopButton} onClick={this.togglePlay} />
-          : <i className={style.playButton} onClick={this.togglePlay} />
-        }
+        {this.props.playing ? (
+          <i className={style.stopButton} onClick={this.togglePlay} />
+        ) : (
+          <i className={style.playButton} onClick={this.togglePlay} />
+        )}
         <i onClick={this.previous} className={style.previousButton} />
-        <input className={timeClass} type="text" readOnly value={`${this.props.index + 1}/${this.props.values.length}`} />
+        <input
+          className={timeClass}
+          type="text"
+          readOnly
+          value={`${this.props.index + 1}/${this.props.values.length}`}
+        />
         <i onClick={this.next} className={style.nextButton} />
-      </div>);
+      </div>
+    );
   },
 });
 
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(state => ({
+export default connect((state) => ({
   setTimeStep(index) {
     dispatch(actions.time.applyTimeStep(index, state.active.source));
   },

@@ -1,8 +1,8 @@
 /* global Image */
-import React             from 'react';
-import { connect }       from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
 import CollapsibleWidget from 'paraviewweb/src/React/Widgets/CollapsibleWidget';
-import style             from 'VisualizerStyle/SavePanel.mcss';
+import style from 'VisualizerStyle/SavePanel.mcss';
 
 import ImageProviders from '../../../ImageProviders';
 import { selectors, actions, dispatch } from '../../../redux';
@@ -10,7 +10,6 @@ import { selectors, actions, dispatch } from '../../../redux';
 // ----------------------------------------------------------------------------
 
 export const SavePanel = React.createClass({
-
   displayName: 'ParaViewWeb/SavePanel',
 
   propTypes: {
@@ -100,11 +99,15 @@ export const SavePanel = React.createClass({
 
   saveScreenShot() {
     const { width, height } = this.state;
-    this.props.saveData('screenshot', this.props.paths.screenshot, { size: [width, height] });
+    this.props.saveData('screenshot', this.props.paths.screenshot, {
+      size: [width, height],
+    });
   },
 
   saveDataset() {
-    this.props.saveData('dataset', this.props.paths.dataset, { proxyId: this.props.proxy.id });
+    this.props.saveData('dataset', this.props.paths.dataset, {
+      proxyId: this.props.proxy.id,
+    });
   },
 
   saveState() {
@@ -124,7 +127,14 @@ export const SavePanel = React.createClass({
           title="Screenshot"
           onChange={this.updateLocalScreenShotCollapsableState}
         >
-          <img ref={(c) => { this.screenshot = c; }} src={this.state.url} className={style.localImage} alt="" />
+          <img
+            ref={(c) => {
+              this.screenshot = c;
+            }}
+            src={this.state.url}
+            className={style.localImage}
+            alt=""
+          />
         </CollapsibleWidget>
         <CollapsibleWidget
           open={!!this.props.collapsableState.screenshot}
@@ -154,9 +164,14 @@ export const SavePanel = React.createClass({
           </div>
           <div className={style.line}>
             <i
-              className={this.props.statuses.screenshot === 'success'
-                ? style.saveIconSuccess : (this.props.statuses.screenshot && this.props.statuses.screenshot.length
-                  ? style.saveIconError : style.saveIcon)}
+              className={
+                this.props.statuses.screenshot === 'success'
+                  ? style.saveIconSuccess
+                  : this.props.statuses.screenshot &&
+                    this.props.statuses.screenshot.length
+                    ? style.saveIconError
+                    : style.saveIcon
+              }
               title={this.props.statuses.screenshot}
               onClick={this.saveScreenShot}
             />
@@ -178,9 +193,14 @@ export const SavePanel = React.createClass({
         >
           <div className={style.line}>
             <i
-              className={this.props.statuses.dataset === 'success'
-                ? style.saveIconSuccess : (this.props.statuses.dataset && this.props.statuses.dataset.length
-                    ? style.saveIconError : style.saveIcon)}
+              className={
+                this.props.statuses.dataset === 'success'
+                  ? style.saveIconSuccess
+                  : this.props.statuses.dataset &&
+                    this.props.statuses.dataset.length
+                    ? style.saveIconError
+                    : style.saveIcon
+              }
               title={this.props.statuses.dataset}
               onClick={this.saveDataset}
             />
@@ -201,9 +221,14 @@ export const SavePanel = React.createClass({
         >
           <div className={style.line}>
             <i
-              className={this.props.statuses.state === 'success'
-                ? style.saveIconSuccess : (this.props.statuses.state && this.props.statuses.state.length
-                    ? style.saveIconError : style.saveIcon)}
+              className={
+                this.props.statuses.state === 'success'
+                  ? style.saveIconSuccess
+                  : this.props.statuses.state &&
+                    this.props.statuses.state.length
+                    ? style.saveIconError
+                    : style.saveIcon
+              }
               title={this.props.statuses.state}
               onClick={this.saveState}
             />
@@ -216,7 +241,8 @@ export const SavePanel = React.createClass({
             />
           </div>
         </CollapsibleWidget>
-      </div>);
+      </div>
+    );
   },
 });
 

@@ -1,5 +1,5 @@
-import React        from 'react';
-import FileBrowserWidget  from 'paraviewweb/src/React/Widgets/FileBrowserWidget';
+import React from 'react';
+import FileBrowserWidget from 'paraviewweb/src/React/Widgets/FileBrowserWidget';
 
 import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../../redux';
@@ -7,7 +7,6 @@ import { selectors, actions, dispatch } from '../../../redux';
 // ----------------------------------------------------------------------------
 
 export const FileBrowser = React.createClass({
-
   displayName: 'ParaViewWeb/FileBrowser',
 
   propTypes: {
@@ -28,7 +27,7 @@ export const FileBrowser = React.createClass({
   },
 
   path(pathToList, path) {
-    const reqPath = (pathToList === path[0]) ? '.' : pathToList;
+    const reqPath = pathToList === path[0] ? '.' : pathToList;
     this.props.storeActiveDirectory(reqPath);
     this.props.fetchServerDirectory(reqPath);
   },
@@ -42,7 +41,7 @@ export const FileBrowser = React.createClass({
   group(name, files) {
     const basePath = [].concat(this.props.activePath.split('/'));
     basePath.shift(); // Remove the front 'Home'
-    const fullPathFiles = files.map(f => [].concat(basePath, f).join('/'));
+    const fullPathFiles = files.map((f) => [].concat(basePath, f).join('/'));
     this.props.openFiles(fullPathFiles);
   },
 
@@ -70,7 +69,8 @@ export const FileBrowser = React.createClass({
         groups={this.props.fileListing.groups}
         files={this.props.fileListing.files}
         onAction={this.processAction}
-      />);
+      />
+    );
   },
 });
 
@@ -97,5 +97,5 @@ export default connect(
         dispatch(actions.ui.updateVisiblePanel(0));
       },
     };
-  },
+  }
 )(FileBrowser);

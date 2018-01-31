@@ -1,15 +1,15 @@
-import React               from 'react';
+import React from 'react';
 
-import VtkRenderer         from 'paraviewweb/src/React/Renderers/VtkRenderer';
+import VtkRenderer from 'paraviewweb/src/React/Renderers/VtkRenderer';
 import VtkGeometryRenderer from 'paraviewweb/src/React/Renderers/VtkGeometryRenderer';
 import InlineSvgIconWidget from 'paraviewweb/src/React/Widgets/InlineSvgIconWidget';
-import { connect }         from 'react-redux';
+import { connect } from 'react-redux';
 
-import style               from 'VisualizerStyle/MainView.mcss';
+import style from 'VisualizerStyle/MainView.mcss';
 
-import ControlPanel        from './panels/ControlPanel';
-import TimeController      from './panels/TimeController';
-import logo                from './logo.isvg';
+import ControlPanel from './panels/ControlPanel';
+import TimeController from './panels/TimeController';
+import logo from './logo.isvg';
 
 import network from './network';
 import ImageProviders from './ImageProviders';
@@ -17,7 +17,6 @@ import LocalRenderingImageProvider from './LocalRenderingImageProvider';
 import { selectors, actions, dispatch } from './redux';
 
 export const Visualizer = React.createClass({
-
   displayName: 'ParaViewWeb/Visualizer',
 
   propTypes: {
@@ -54,7 +53,12 @@ export const Visualizer = React.createClass({
       if (nextProps.remoteRendering) {
         // Changing back to remote rendering
         const params = this.renderer.getCameraParameters();
-        this.props.updateCamera(this.props.viewId, params.focalPoint, params.viewUp, params.position);
+        this.props.updateCamera(
+          this.props.viewId,
+          params.focalPoint,
+          params.viewUp,
+          params.position
+        );
       }
       ImageProviders.reset();
       this.needsSetImageProvider = true;
@@ -101,14 +105,20 @@ export const Visualizer = React.createClass({
   },
 
   render() {
-    const Renderer = this.props.remoteRendering ? VtkRenderer : VtkGeometryRenderer;
+    const Renderer = this.props.remoteRendering
+      ? VtkRenderer
+      : VtkGeometryRenderer;
     return (
       <div className={style.container}>
         <div className={style.topBar}>
           <div className={style.title}>
             <div className={style.toggleMenu} onClick={this.toggleMenu}>
               <InlineSvgIconWidget
-                className={this.props.pendingCount || this.state.isRendererBusy ? style.networkActive : style.networkIdle}
+                className={
+                  this.props.pendingCount || this.state.isRendererBusy
+                    ? style.networkActive
+                    : style.networkIdle
+                }
                 height="34px"
                 width="34px"
                 icon={logo}
@@ -123,20 +133,21 @@ export const Visualizer = React.createClass({
           </div>
           <div className={style.buttons}>
             <TimeController />
-            <i
-              className={style.resetCameraButton}
-              onClick={this.resetCamera}
-            />
+            <i className={style.resetCameraButton} onClick={this.resetCamera} />
           </div>
         </div>
         <Renderer
-          ref={(c) => { this.renderer = c; }}
+          ref={(c) => {
+            this.renderer = c;
+          }}
           client={this.props.client}
           viewId={this.props.viewId}
           connection={this.props.connection}
           session={this.props.session}
           className={style.viewport}
-          onImageReady={this.props.provideOnImageReady ? this.localImageReady : null}
+          onImageReady={
+            this.props.provideOnImageReady ? this.localImageReady : null
+          }
           viewIdUpdated={this.props.updateActiveViewId}
           onBusyChange={this.busyStatusUpdated}
           showFPS={this.props.remoteFps}
@@ -145,7 +156,8 @@ export const Visualizer = React.createClass({
           clearOneTimeUpdatersOnUnmount
           clearInstanceCacheOnUnmount
         />
-      </div>);
+      </div>
+    );
   },
 });
 
@@ -163,13 +175,21 @@ export default connect(
     const provideOnImageReady = selectors.ui.getVisiblePanel(state) === 3; // SavePanel visible
 
     return {
-      client, connection, session, pendingCount, remoteRendering, remoteFps, viewId, provideOnImageReady,
+      client,
+      connection,
+      session,
+      pendingCount,
+      remoteRendering,
+      remoteFps,
+      viewId,
+      provideOnImageReady,
     };
   },
   () => ({
     resetCamera: () => dispatch(actions.view.resetCamera()),
-    updateCamera: (viewId, focalPoint, viewUp, position) => dispatch(actions.view.updateCamera(viewId, focalPoint, viewUp, position)),
-    updateActiveViewId: viewId => dispatch(actions.active.activate(viewId, actions.active.TYPE_VIEW)),
-  }),
+    updateCamera: (viewId, focalPoint, viewUp, position) =>
+      dispatch(actions.view.updateCamera(viewId, focalPoint, viewUp, position)),
+    updateActiveViewId: (viewId) =>
+      dispatch(actions.active.activate(viewId, actions.active.TYPE_VIEW)),
+  })
 )(Visualizer);
-

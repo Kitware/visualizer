@@ -1,9 +1,9 @@
-import React                from 'react';
-import ColorByWidget        from 'paraviewweb/src/React/Widgets/ColorByWidget';
-import PipelineWidget       from 'paraviewweb/src/React/Widgets/GitTreeWidget';
-import ProxyEditorWidget    from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
+import React from 'react';
+import ColorByWidget from 'paraviewweb/src/React/Widgets/ColorByWidget';
+import PipelineWidget from 'paraviewweb/src/React/Widgets/GitTreeWidget';
+import ProxyEditorWidget from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
 
-import style                from 'VisualizerStyle/PipelineBrowser.mcss';
+import style from 'VisualizerStyle/PipelineBrowser.mcss';
 
 import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../../redux';
@@ -17,7 +17,6 @@ function eventNotHandled(e) {
 // ----------------------------------------------------------------------------
 
 export const PipelineBrowser = React.createClass({
-
   displayName: 'ParaViewWeb/PipelineBrowser',
 
   propTypes: {
@@ -123,7 +122,11 @@ export const PipelineBrowser = React.createClass({
     if (!this.props.visible) {
       return null;
     }
-    const sections = [this.props.source, this.props.representation, this.props.view].filter(i => !!i);
+    const sections = [
+      this.props.source,
+      this.props.representation,
+      this.props.view,
+    ].filter((i) => !!i);
 
     return (
       <div className={style.container}>
@@ -136,39 +139,38 @@ export const PipelineBrowser = React.createClass({
             width="295"
           />
         </div>
-        { // FIXME: show props only when no animation to deal with rendering perf issue
-          // The issue is related to the implementation of the Properties handling
-          // which require internal states (setState in Props...)
-          this.props.playing
-          ? null
-          : (
-            <div className={style.proxyEditorContainer}>
-              <ProxyEditorWidget
-                sections={sections}
-                onApply={this.applyChanges}
-                onCollapseChange={this.props.updateCollapsableState}
-              >
-                <ColorByWidget
-                  className={style.colorBy}
-                  source={this.props.source}
-                  representation={this.props.representation}
-                  scalarBar={this.props.lutImage}
-                  presets={this.props.presets}
-                  min={this.props.lutRange ? this.props.lutRange.min : 0}
-                  max={this.props.lutRange ? this.props.lutRange.max : 1}
-                  onChange={this.updateColorBy}
-                  opacityPoints={this.props.opacityPoints}
-                  onOpacityPointsChange={this.props.setOpacityPoints}
-                  onOpacityEditModeChange={this.props.onOpacityEditModeChange}
-                  opacityEditorSize={[250, 90]}
-                  hidePointControl
-                  useGaussian
-                  gaussians={this.props.gaussians}
-                />
-              </ProxyEditorWidget>
-            </div>)
-        }
-      </div>);
+        {// FIXME: show props only when no animation to deal with rendering perf issue
+        // The issue is related to the implementation of the Properties handling
+        // which require internal states (setState in Props...)
+        this.props.playing ? null : (
+          <div className={style.proxyEditorContainer}>
+            <ProxyEditorWidget
+              sections={sections}
+              onApply={this.applyChanges}
+              onCollapseChange={this.props.updateCollapsableState}
+            >
+              <ColorByWidget
+                className={style.colorBy}
+                source={this.props.source}
+                representation={this.props.representation}
+                scalarBar={this.props.lutImage}
+                presets={this.props.presets}
+                min={this.props.lutRange ? this.props.lutRange.min : 0}
+                max={this.props.lutRange ? this.props.lutRange.max : 1}
+                onChange={this.updateColorBy}
+                opacityPoints={this.props.opacityPoints}
+                onOpacityPointsChange={this.props.setOpacityPoints}
+                onOpacityEditModeChange={this.props.onOpacityEditModeChange}
+                opacityEditorSize={[250, 90]}
+                hidePointControl
+                useGaussian
+                gaussians={this.props.gaussians}
+              />
+            </ProxyEditorWidget>
+          </div>
+        )}
+      </div>
+    );
   },
 });
 
@@ -201,7 +203,7 @@ export default connect((state) => {
 
       // Make sure we update the full proxy not just the edited properties
       if (owners) {
-        owners.forEach(id => dispatch(actions.proxies.fetchProxy(id)));
+        owners.forEach((id) => dispatch(actions.proxies.fetchProxy(id)));
       }
     },
     deleteProxy: (id) => {
@@ -212,7 +214,11 @@ export default connect((state) => {
     },
     updateScalarRange: ({ options }) => {
       dispatch(actions.colors.rescaleTransferFunction(options));
-      dispatch(actions.colors.fetchLookupTableScalarRange(selectors.proxies.getActiveSourceId(state)));
+      dispatch(
+        actions.colors.fetchLookupTableScalarRange(
+          selectors.proxies.getActiveSourceId(state)
+        )
+      );
     },
     updateCollapsableState(name, isOpen, collapseType) {
       dispatch(actions.ui.updateCollapsableState(name, isOpen, collapseType));
@@ -220,10 +226,32 @@ export default connect((state) => {
     scalarBar: ({ source, visible }) => {
       dispatch(actions.colors.showScalarBar(source, visible));
       // The UI rely on representation proxy state to show scalarbar visibility state
-      dispatch(actions.proxies.fetchProxy(selectors.proxies.getActiveRepresentationId(state)));
+      dispatch(
+        actions.proxies.fetchProxy(
+          selectors.proxies.getActiveRepresentationId(state)
+        )
+      );
     },
-    colorBy: ({ representation, arrayLocation, arrayName, colorMode, vectorMode, vectorComponent, rescale }) => {
-      dispatch(actions.colors.applyColorBy(representation, colorMode, arrayLocation, arrayName, vectorComponent, vectorMode, rescale));
+    colorBy: ({
+      representation,
+      arrayLocation,
+      arrayName,
+      colorMode,
+      vectorMode,
+      vectorComponent,
+      rescale,
+    }) => {
+      dispatch(
+        actions.colors.applyColorBy(
+          representation,
+          colorMode,
+          arrayLocation,
+          arrayName,
+          vectorComponent,
+          vectorMode,
+          rescale
+        )
+      );
     },
     updatePreset: ({ representation, preset }) => {
       dispatch(actions.colors.applyPreset(representation, preset));
@@ -236,9 +264,20 @@ export default connect((state) => {
         serverFormat.push(p.x2 || p.midpoint || 0.5);
         serverFormat.push(p.y2 || p.sharpness || 0.5);
       });
-      dispatch(actions.colors.storePiecewiseFunction(selectors.colors.getColorByArray(state), points, serverFormat));
+      dispatch(
+        actions.colors.storePiecewiseFunction(
+          selectors.colors.getColorByArray(state),
+          points,
+          serverFormat
+        )
+      );
       if (gaussians) {
-        dispatch(actions.colors.storeGuassians(selectors.colors.getColorByArray(state), gaussians));
+        dispatch(
+          actions.colors.storeGuassians(
+            selectors.colors.getColorByArray(state),
+            gaussians
+          )
+        );
       }
     },
     onOpacityEditModeChange(isEditing) {
