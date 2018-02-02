@@ -1,10 +1,10 @@
 import { createClient } from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
 import SmartConnect from 'wslink/src/SmartConnect';
 
-var connection = null,
-  client = null,
-  smartConnect = null,
-  readyCallback = null;
+let connection = null;
+let client = null;
+let smartConnect = null;
+let readyCallback = null;
 
 const customProtocols = {
   // Time(session) {

@@ -7,8 +7,8 @@ import { selectors, actions, dispatch } from '../../../redux';
 // ----------------------------------------------------------------------------
 
 function memoryToString(number) {
-  var unitIdx = 0,
-    currentValue = number;
+  let unitIdx = 0;
+  let currentValue = number;
   const units = [' KB', ' MB', ' GB', ' TB'];
 
   while (currentValue > 1000) {

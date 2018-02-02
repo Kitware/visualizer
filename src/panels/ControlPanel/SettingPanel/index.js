@@ -1,6 +1,7 @@
 import React from 'react';
 import ProxyEditorWidget from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
 import CheckboxProperty from 'paraviewweb/src/React/Properties/CheckboxProperty';
+
 import style from 'VisualizerStyle/SettingPanel.mcss';
 
 import { connect } from 'react-redux';
@@ -54,11 +55,11 @@ export const SettingPanel = React.createClass({
   },
 
   applyChanges(changeSet) {
-    const changeToPush = [],
-      ids = {};
+    const changeToPush = [];
+    const ids = {};
     Object.keys(changeSet).forEach((key) => {
-      const [id, name] = key.split(':'),
-        value = changeSet[key];
+      const [id, name] = key.split(':');
+      const value = changeSet[key];
       ids[id] = true;
       changeToPush.push({ id, name, value });
     });
@@ -105,27 +106,24 @@ export const SettingPanel = React.createClass({
 });
 
 // Binding --------------------------------------------------------------------
-/* eslint-disable arrow-body-style */
 
-export default connect((state) => {
-  return {
-    sections: [selectors.proxies.getRenderViewSettingsPropertyGroup(state)],
-    fetchSettingProxy: () => {
-      dispatch(actions.proxies.fetchSettingProxy());
-    },
-    applyChangeSet: (changeSet) => {
-      dispatch(actions.proxies.applyChangeSet(changeSet));
-    },
-    updateCollapsableState(name, isOpen) {
-      dispatch(actions.ui.updateCollapsableState(name, isOpen));
-    },
-    isRemoteRenderingEnabled: selectors.view.getRemoteRenderingState(state),
-    updateRemoteRendering(isRemote) {
-      dispatch(actions.view.setRemoteRendering(isRemote));
-    },
-    showRemoteRenderingFps: selectors.view.getRemoteFpsState(state),
-    updateRemoteRenderingFps(showFps) {
-      dispatch(actions.view.setRemoteFps(showFps));
-    },
-  };
-})(SettingPanel);
+export default connect((state) => ({
+  sections: [selectors.proxies.getRenderViewSettingsPropertyGroup(state)],
+  fetchSettingProxy() {
+    dispatch(actions.proxies.fetchSettingProxy());
+  },
+  applyChangeSet(changeSet) {
+    dispatch(actions.proxies.applyChangeSet(changeSet));
+  },
+  updateCollapsableState(name, isOpen) {
+    dispatch(actions.ui.updateCollapsableState(name, isOpen));
+  },
+  isRemoteRenderingEnabled: selectors.view.getRemoteRenderingState(state),
+  updateRemoteRendering(isRemote) {
+    dispatch(actions.view.setRemoteRendering(isRemote));
+  },
+  showRemoteRenderingFps: selectors.view.getRemoteFpsState(state),
+  updateRemoteRenderingFps(showFps) {
+    dispatch(actions.view.setRemoteFps(showFps));
+  },
+}))(SettingPanel);

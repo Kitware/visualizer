@@ -54,11 +54,11 @@ export const PipelineBrowser = React.createClass({
   },
 
   applyChanges(changeSet) {
-    const changeToPush = [],
-      ids = {};
+    const changeToPush = [];
+    const ids = {};
     Object.keys(changeSet).forEach((key) => {
-      const [id, name] = key.split(':'),
-        value = changeSet[key];
+      const [id, name] = key.split(':');
+      const value = changeSet[key];
       ids[id] = true;
       changeToPush.push({ id, name, value });
     });
@@ -83,9 +83,9 @@ export const PipelineBrowser = React.createClass({
       case 'visibility': {
         const { idMapOfSourceToRep } = this.props;
         const changeSet = event.changeSet.map((node) => {
-          const id = idMapOfSourceToRep[node.id],
-            name = 'Visibility',
-            value = node.visible ? 1 : 0;
+          const id = idMapOfSourceToRep[node.id];
+          const name = 'Visibility';
+          const value = node.visible ? 1 : 0;
 
           return { id, name, value };
         });

@@ -23,8 +23,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
-      VisualizerStyle: path.resolve('./style'),
+      PVWStyle: path.join(__dirname, './node_modules/paraviewweb/style'),
+      VisualizerStyle: path.join(__dirname, './style'),
     },
   },
   devServer: {
