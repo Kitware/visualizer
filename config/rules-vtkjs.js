@@ -1,16 +1,19 @@
 module.exports = [
   {
+    test: /\.glsl$/i,
+    include: /node_modules(\/|\\)vtk.js(\/|\\)/,
+    loader: 'shader-loader',
+  },
+  {
     test: /\.js$/,
-    include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
+    include: /node_modules(\/|\\)vtk.js(\/|\\)/,
     use: [
-      { loader: 'babel-loader',
+      {
+        loader: 'babel-loader',
         options: {
           presets: ['env'],
         },
       },
     ],
-  }, {
-    test: /\.glsl$/,
-    loader: 'shader-loader',
   },
 ];

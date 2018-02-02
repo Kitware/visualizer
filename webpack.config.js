@@ -2,6 +2,7 @@ const path = require('path');
 
 const linterRules = require('./config/rules-linter.js');
 const pvwRules = require('./config/rules-pvw.js');
+const visualizerRules = require('./config/rules-visualizer.js');
 const vtkjsRules = require('./config/rules-vtkjs.js');
 const wslinkRules = require('./config/rules-wslink.js');
 
@@ -15,19 +16,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: require.resolve('./src/app.js'), loader: 'expose-loader?Visualizer',
-      }, {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: 'babel-loader',
-            options: {
-              presets: ['env'],
-            },
-          },
-        ],
+        test: require.resolve('./src/app.js'),
+        loader: 'expose-loader?Visualizer',
       },
-    ].concat(linterRules, pvwRules, vtkjsRules, wslinkRules),
+    ].concat(linterRules, pvwRules, visualizerRules, vtkjsRules, wslinkRules),
   },
   resolve: {
     alias: {

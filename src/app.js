@@ -1,4 +1,4 @@
-/* global document window */
+import 'normalize.css';
 
 import { Provider } from 'react-redux';
 import React from 'react';
@@ -8,8 +8,6 @@ import network from './network';
 import setup from './setup';
 import MainView from './MainView';
 import { getActiveStore } from './redux';
-
-require('normalize.css');
 
 function start() {
   setImmediate(() => {
