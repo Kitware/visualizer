@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="Visualizer">
 <meta property="og:description" content="ParaView Visualizer is meant to be an Open Source application for 3DScientific Visualization. The following guide explain our software process and tools use tobuild and develop this framework. Softwar">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-11-03T19:37:08.600Z">
+<meta property="og:updated_time" content="2018-02-02T20:49:11.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tools">
 <meta name="twitter:description" content="ParaView Visualizer is meant to be an Open Source application for 3DScientific Visualization. The following guide explain our software process and tools use tobuild and develop this framework. Softwar">
@@ -103,7 +103,7 @@
                 <p>ParaView Visualizer is meant to be an Open Source application for 3D<br>Scientific Visualization.</p>
 <p>The following guide explain our software process and tools use to<br>build and develop this framework.</p>
 <h2 id="Software-process" class="article-heading"><a href="#Software-process" class="headerlink" title="Software process"></a>Software process<a class="article-anchor" href="#Software-process" aria-hidden="true"></a></h2><p>We rely on Semantic-release to manage our change log, tagging and publishing<br>to NPM via Travis.</p>
-<p>In order to maintain that process each commit message should follow a specific<br>formatting. To ensure that formating, we use Commitizen which can be triggered<br>via the following command line. Additional information can be found<br><a href="https://gist.github.com/stephenparish/9941e89d80e2bc58a153" target="_blank" rel="external">here</a>.</p>
+<p>In order to maintain that process each commit message should follow a specific<br>formatting. To ensure that formating, we use Commitizen which can be triggered<br>via the following command line. Additional information can be found<br><a href="https://gist.github.com/stephenparish/9941e89d80e2bc58a153" target="_blank" rel="noopener">here</a>.</p>
 <pre><code>$ git cz
 </code></pre><p>Then a set of questions will be presented to you like the following ones:</p>
 <pre><code>$ git cz
@@ -136,19 +136,19 @@ Author: Sebastien Jourdain &lt;sebastien.jourdain@kitware.com&gt;
 Date:   Mon Dec 21 09:29:21 2015 -0700
 
     style(ESLint): Update code formatting to comply with our ESLint specification
-</code></pre><p><a href="https://gist.github.com/stephenparish/9941e89d80e2bc58a153" target="_blank" rel="external">Full convention</a> </p>
-<h2 id="Code-editing" class="article-heading"><a href="#Code-editing" class="headerlink" title="Code editing"></a>Code editing<a class="article-anchor" href="#Code-editing" aria-hidden="true"></a></h2><p><a href="http://www.sublimetext.com" target="_blank" rel="external">Sublime Text 3</a> with the following set of plugins.<br>To install plugins you will have to first install the <a href="https://packagecontrol.io/installation" target="_blank" rel="external">Package constrol</a>.</p>
+</code></pre><p><a href="https://gist.github.com/stephenparish/9941e89d80e2bc58a153" target="_blank" rel="noopener">Full convention</a> </p>
+<h2 id="Code-editing" class="article-heading"><a href="#Code-editing" class="headerlink" title="Code editing"></a>Code editing<a class="article-anchor" href="#Code-editing" aria-hidden="true"></a></h2><p><a href="http://www.sublimetext.com" target="_blank" rel="noopener">Sublime Text 3</a> with the following set of plugins.<br>To install plugins you will have to first install the <a href="https://packagecontrol.io/installation" target="_blank" rel="noopener">Package constrol</a>.</p>
 <p>Then installing new plugin should start with: <code>Ctrl/Cmd + Shift + p</code> Install</p>
 <h3 id="Git-GitGutter" class="article-heading"><a href="#Git-GitGutter" class="headerlink" title="Git + GitGutter"></a>Git + GitGutter<a class="article-anchor" href="#Git-GitGutter" aria-hidden="true"></a></h3><p>With GitGutter, you can see which lines have been added, deleted or modified in the gutter.</p>
 <h3 id="Babel" class="article-heading"><a href="#Babel" class="headerlink" title="Babel"></a>Babel<a class="article-anchor" href="#Babel" aria-hidden="true"></a></h3><p>This plugin adds proper syntax highlighting to your ES6/2015 and React JSX code.</p>
 <h3 id="JsFormat" class="article-heading"><a href="#JsFormat" class="headerlink" title="JsFormat"></a>JsFormat<a class="article-anchor" href="#JsFormat" aria-hidden="true"></a></h3><p>Once installed, to use JSFormat, go to your JS file and hit Ctrl + Alt + f on<br>Windows/Linux or Ctrl + ⌥ + f on Mac. Alternatively, use the context menu.</p>
-<h3 id="Sublime-Linter-SublimeLinter-eslint" class="article-heading"><a href="#Sublime-Linter-SublimeLinter-eslint" class="headerlink" title="Sublime-Linter + SublimeLinter-eslint"></a>Sublime-Linter + SublimeLinter-eslint<a class="article-anchor" href="#Sublime-Linter-SublimeLinter-eslint" aria-hidden="true"></a></h3><p><a href="https://github.com/roadhump/SublimeLinter-eslint" target="_blank" rel="external">More information available here</a>.</p>
+<h3 id="Sublime-Linter-SublimeLinter-eslint" class="article-heading"><a href="#Sublime-Linter-SublimeLinter-eslint" class="headerlink" title="Sublime-Linter + SublimeLinter-eslint"></a>Sublime-Linter + SublimeLinter-eslint<a class="article-anchor" href="#Sublime-Linter-SublimeLinter-eslint" aria-hidden="true"></a></h3><p><a href="https://github.com/roadhump/SublimeLinter-eslint" target="_blank" rel="noopener">More information available here</a>.</p>
 <pre><code>$ npm install -g eslint
-</code></pre><h3 id="EditorConfig" class="article-heading"><a href="#EditorConfig" class="headerlink" title="EditorConfig"></a>EditorConfig<a class="article-anchor" href="#EditorConfig" aria-hidden="true"></a></h3><p><a href="https://github.com/sindresorhus/editorconfig-sublime#readme" target="_blank" rel="external">More information available here</a></p>
+</code></pre><h3 id="EditorConfig" class="article-heading"><a href="#EditorConfig" class="headerlink" title="EditorConfig"></a>EditorConfig<a class="article-anchor" href="#EditorConfig" aria-hidden="true"></a></h3><p><a href="https://github.com/sindresorhus/editorconfig-sublime#readme" target="_blank" rel="noopener">More information available here</a></p>
 
               </div>
               <footer class="article-footer">
-                <time class="article-footer-updated" datetime="2017-11-03T19:37:08.600Z" itemprop="dateModified">Last updated: 2017-11-03</time>
+                <time class="article-footer-updated" datetime="2018-02-02T20:49:11.622Z" itemprop="dateModified">Last updated: 2018-02-02</time>
                 <a href="compatibility.html" class="article-footer-prev" title="Version Compatibility"><i class="fa fa-chevron-left"></i><span>Prev</span></a><a href="troubleshooting.html" class="article-footer-next" title="Troubleshooting"><span>Next</span><i class="fa fa-chevron-right"></i></a>
               </footer>
               
@@ -173,7 +173,7 @@ Date:   Mon Dec 21 09:29:21 2015 -0700
     <footer id="footer" class="wrapper">
   <div class="inner">
     <div id="footer-copyright">
-      &copy; 2017 <a href="http://www.kitware.com" target="_blank">Kitware Inc.</a>
+      &copy; 2018 <a href="http://www.kitware.com" target="_blank">Kitware Inc.</a>
     </div>
     <div id="footer-links">
       <a href="https://github.com/kitware/visualizer" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>

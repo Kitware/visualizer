@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="Visualizer">
 <meta property="og:description" content="The ParaView Visualizer is a Web application that enables scientific visualization on the Web using a ParaView backend for data processing and rendering. If you encounter any problems when using ParaV">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-11-03T19:37:08.600Z">
+<meta property="og:updated_time" content="2018-02-02T20:49:11.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Documentation">
 <meta name="twitter:description" content="The ParaView Visualizer is a Web application that enables scientific visualization on the Web using a ParaView backend for data processing and rendering. If you encounter any problems when using ParaV">
@@ -101,14 +101,14 @@
               </header>
               <div class="article-content" itemprop="articleBody">
                 <p>The ParaView Visualizer is a Web application that enables scientific visualization on the Web using a ParaView backend for data processing and rendering.</p>
-<p>If you encounter any problems when using ParaView Visualizer, you can find the solutions in <a href="troubleshooting.html">Troubleshooting</a> or ask us on <a href="https://github.com/kitware/visualizer/issues" target="_blank" rel="external">GitHub</a> or <a href="http://www.paraview.org/mailman/listinfo/paraview" target="_blank" rel="external">Mailing list</a>.</p>
+<p>If you encounter any problems when using ParaView Visualizer, you can find the solutions in <a href="troubleshooting.html">Troubleshooting</a> or ask us on <a href="https://github.com/kitware/visualizer/issues" target="_blank" rel="noopener">GitHub</a> or <a href="http://www.paraview.org/mailman/listinfo/paraview" target="_blank" rel="noopener">Mailing list</a>.</p>
 <h2 id="What-is-ParaView-Visualizer" class="article-heading"><a href="#What-is-ParaView-Visualizer" class="headerlink" title="What is ParaView Visualizer?"></a>What is ParaView Visualizer?<a class="article-anchor" href="#What-is-ParaView-Visualizer" aria-hidden="true"></a></h2><p>ParaView Visualizer is a standalone application that leverages ParaView capabilities on the backend to produce interactive visualizations over the Web. The Visualizer application can be used locally as a command line tool (demo-mode) or remotely when properly deployed.</p>
 <p>The ParaViewWeb Visualizer aims to provide a ParaView-like application for your browser.</p>
-<h2 id="Installation" class="article-heading"><a href="#Installation" class="headerlink" title="Installation"></a>Installation<a class="article-anchor" href="#Installation" aria-hidden="true"></a></h2><p>It only takes few minutes to set up ParaView Visualizer. If you encounter a problem and can’t find the solution here, please <a href="https://github.com/kitware/visualizer/issues" target="_blank" rel="external">submit a GitHub issue</a>.</p>
-<p>ParaView Visualizer requires ParaView 5.2+ which can be downloaded <a href="http://www.paraview.org/download/" target="_blank" rel="external">here</a>. ParaView bundles the ParaView Visualizer application.</p>
-<p>Although using ParaView Visualizer from the command line via <a href="https://nodejs.org/en/" target="_blank" rel="external">Node</a> and <a href="https://www.npmjs.com/" target="_blank" rel="external">NPM</a> could be easier for trying it out.</p>
-<p>In order to install and execute the Visualizer application on your system from your command line environment, just run the following commands assuming <a href="https://nodejs.org/en/" target="_blank" rel="external">Node</a> is available on your system:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ npm install -g pvw-visualizer</div><div class="line">$ Visualizer --paraview /Applications/paraview.app --data ~/Desktop</div></pre></td></tr></table></figure>
+<h2 id="Installation" class="article-heading"><a href="#Installation" class="headerlink" title="Installation"></a>Installation<a class="article-anchor" href="#Installation" aria-hidden="true"></a></h2><p>It only takes few minutes to set up ParaView Visualizer. If you encounter a problem and can’t find the solution here, please <a href="https://github.com/kitware/visualizer/issues" target="_blank" rel="noopener">submit a GitHub issue</a>.</p>
+<p>ParaView Visualizer requires ParaView 5.2+ which can be downloaded <a href="http://www.paraview.org/download/" target="_blank" rel="noopener">here</a>. ParaView bundles the ParaView Visualizer application.</p>
+<p>Although using ParaView Visualizer from the command line via <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node</a> and <a href="https://www.npmjs.com/" target="_blank" rel="noopener">NPM</a> could be easier for trying it out.</p>
+<p>In order to install and execute the Visualizer application on your system from your command line environment, just run the following commands assuming <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node</a> is available on your system:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ npm install -g pvw-visualizer</span><br><span class="line">$ Visualizer --paraview /Applications/paraview.app --data ~/Desktop</span><br></pre></td></tr></table></figure>
 <p>For production usage, ParaView Visualizer should be deployed within your Web infrastructure following the proper requirements: </p>
 <p>1) Serve the Visualizer application to the client (Static content: JS + HTML) using any kind of Web server (Apache, Nginx, Tomcat, Node…).<br>2) Enable the client to start a new ParaView process on the server side (Cluster). We provide a generic launcher implementation using Python which could be replaced with something more appropriate to your infrastructure.<br>3) Configure your network to forward the WebSocket connection to the proper backend host running the ParaView server.</p>
 <p>For better rendering performance, the ParaView server should run on a GPU machine.</p>
@@ -121,31 +121,31 @@
 </ul>
 <h3 id="Requirements" class="article-heading"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements<a class="article-anchor" href="#Requirements" aria-hidden="true"></a></h3><p>Installing ParaView Visualizer as a dependency inside your Web project is quite easy. However, you do need to have a couple of other things installed first:</p>
 <ul>
-<li><a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a></li>
-<li><a href="http://git-scm.com/" target="_blank" rel="external">Git</a></li>
+<li><a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a></li>
+<li><a href="http://git-scm.com/" target="_blank" rel="noopener">Git</a></li>
 </ul>
 <p>If your computer already has these, congratulations! Just install ParaViewWeb Visualizer with npm:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ npm install pvw-visualizer --save</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install pvw-visualizer --save</span><br></pre></td></tr></table></figure>
 <p>If not, please follow the following instructions to install all the requirements.</p>
 <blockquote class="note warn"><strong class="note-title">For Mac users</strong><p>You may encounter some problems when compiling. Please install Xcode from the App Store first. After Xcode is installed, open Xcode and go to <strong>Preferences -&gt; Download -&gt; Command Line Tools -&gt; Install</strong> to install command line tools.</p>
 </blockquote>
 <h3 id="Install-Git" class="article-heading"><a href="#Install-Git" class="headerlink" title="Install Git"></a>Install Git<a class="article-anchor" href="#Install-Git" aria-hidden="true"></a></h3><ul>
-<li>Windows: Download &amp; install <a href="https://git-scm.com/download/win" target="_blank" rel="external">git</a>.</li>
-<li>Mac: Install it with <a href="http://mxcl.github.com/homebrew/" target="_blank" rel="external">Homebrew</a>, <a href="http://www.macports.org/" target="_blank" rel="external">MacPorts</a> or <a href="http://sourceforge.net/projects/git-osx-installer/" target="_blank" rel="external">installer</a>.</li>
+<li>Windows: Download &amp; install <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git</a>.</li>
+<li>Mac: Install it with <a href="http://mxcl.github.com/homebrew/" target="_blank" rel="noopener">Homebrew</a>, <a href="http://www.macports.org/" target="_blank" rel="noopener">MacPorts</a> or <a href="http://sourceforge.net/projects/git-osx-installer/" target="_blank" rel="noopener">installer</a>.</li>
 <li>Linux (Ubuntu, Debian): <code>sudo apt-get install git-core</code></li>
 <li>Linux (Fedora, Red Hat, CentOS): <code>sudo yum install git-core</code></li>
 </ul>
-<h3 id="Install-Node-js" class="article-heading"><a href="#Install-Node-js" class="headerlink" title="Install Node.js"></a>Install Node.js<a class="article-anchor" href="#Install-Node-js" aria-hidden="true"></a></h3><p>The best way to install Node.js is with <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a>.</p>
+<h3 id="Install-Node-js" class="article-heading"><a href="#Install-Node-js" class="headerlink" title="Install Node.js"></a>Install Node.js<a class="article-anchor" href="#Install-Node-js" aria-hidden="true"></a></h3><p>The best way to install Node.js is with <a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a>.</p>
 <p>Once nvm is installed, restart the terminal and run the following command to install Node.js.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ nvm install 6</div></pre></td></tr></table></figure>
-<p>Alternatively, download and run <a href="http://nodejs.org/" target="_blank" rel="external">node</a>.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nvm install 6</span><br></pre></td></tr></table></figure>
+<p>Alternatively, download and run <a href="http://nodejs.org/" target="_blank" rel="noopener">node</a>.</p>
 <h3 id="Install-pvw-visualizer" class="article-heading"><a href="#Install-pvw-visualizer" class="headerlink" title="Install pvw-visualizer"></a>Install pvw-visualizer<a class="article-anchor" href="#Install-pvw-visualizer" aria-hidden="true"></a></h3><p>This is useful if you want to embed Visualizer within your own application or just use some Visualizer components. </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ npm install pvw-visualizer --save</div></pre></td></tr></table></figure>
-<h3 id="Getting-pvw-visualizer-source-code-for-contributing" class="article-heading"><a href="#Getting-pvw-visualizer-source-code-for-contributing" class="headerlink" title="Getting pvw-visualizer source code for contributing"></a>Getting pvw-visualizer source code for contributing<a class="article-anchor" href="#Getting-pvw-visualizer-source-code-for-contributing" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/kitware/visualizer.git</div><div class="line">$ <span class="built_in">cd</span> visualizer</div><div class="line">$ npm install</div><div class="line">$ npm link</div><div class="line">$ Visualizer [...]</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install pvw-visualizer --save</span><br></pre></td></tr></table></figure>
+<h3 id="Getting-pvw-visualizer-source-code-for-contributing" class="article-heading"><a href="#Getting-pvw-visualizer-source-code-for-contributing" class="headerlink" title="Getting pvw-visualizer source code for contributing"></a>Getting pvw-visualizer source code for contributing<a class="article-anchor" href="#Getting-pvw-visualizer-source-code-for-contributing" aria-hidden="true"></a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/kitware/visualizer.git</span><br><span class="line">$ <span class="built_in">cd</span> visualizer</span><br><span class="line">$ npm install</span><br><span class="line">$ npm link</span><br><span class="line">$ Visualizer [...]</span><br></pre></td></tr></table></figure>
 
               </div>
               <footer class="article-footer">
-                <time class="article-footer-updated" datetime="2017-11-03T19:37:08.600Z" itemprop="dateModified">Last updated: 2017-11-03</time>
+                <time class="article-footer-updated" datetime="2018-02-02T20:49:11.622Z" itemprop="dateModified">Last updated: 2018-02-02</time>
                 <a href="compatibility.html" class="article-footer-next" title="Version Compatibility"><span>Next</span><i class="fa fa-chevron-right"></i></a>
               </footer>
               
@@ -170,7 +170,7 @@
     <footer id="footer" class="wrapper">
   <div class="inner">
     <div id="footer-copyright">
-      &copy; 2017 <a href="http://www.kitware.com" target="_blank">Kitware Inc.</a>
+      &copy; 2018 <a href="http://www.kitware.com" target="_blank">Kitware Inc.</a>
     </div>
     <div id="footer-links">
       <a href="https://github.com/kitware/visualizer" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
