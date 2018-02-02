@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import ActionList from 'paraviewweb/src/React/Widgets/ActionListWidget';
 import style from 'VisualizerStyle/ToggleIcons.mcss';
 
@@ -12,36 +14,32 @@ const ICON_MAPPING = {
 
 // ----------------------------------------------------------------------------
 
-export const FilterPanel = React.createClass({
-  displayName: 'ParaViewWeb/FilterPanel',
+export function FilterPanel(props) {
+  if (!props.visible) {
+    return null;
+  }
 
-  propTypes: {
-    className: React.PropTypes.string,
-    visible: React.PropTypes.bool,
-    list: React.PropTypes.array,
-    applyFilter: React.PropTypes.func,
-  },
+  return (
+    <ActionList
+      className={props.className}
+      list={props.list}
+      onClick={props.applyFilter}
+    />
+  );
+}
 
-  getDefaultProps() {
-    return {
-      visible: true,
-    };
-  },
+FilterPanel.propTypes = {
+  className: PropTypes.string,
+  visible: PropTypes.bool,
+  list: PropTypes.array,
+  applyFilter: PropTypes.func.isRequired,
+};
 
-  render() {
-    if (!this.props.visible) {
-      return null;
-    }
-
-    return (
-      <ActionList
-        className={this.props.className}
-        list={this.props.list}
-        onClick={this.props.applyFilter}
-      />
-    );
-  },
-});
+FilterPanel.defaultProps = {
+  className: '',
+  visible: true,
+  list: [],
+};
 
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */

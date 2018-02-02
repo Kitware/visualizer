@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import VtkRenderer from 'paraviewweb/src/React/Renderers/VtkRenderer';
 import VtkGeometryRenderer from 'paraviewweb/src/React/Renderers/VtkGeometryRenderer';
@@ -16,37 +17,29 @@ import ImageProviders from './ImageProviders';
 import LocalRenderingImageProvider from './LocalRenderingImageProvider';
 import { selectors, actions, dispatch } from './redux';
 
-export const Visualizer = React.createClass({
-  displayName: 'ParaViewWeb/Visualizer',
-
-  propTypes: {
-    resetCamera: React.PropTypes.func,
-    updateCamera: React.PropTypes.func,
-    client: React.PropTypes.object,
-    connection: React.PropTypes.object,
-    session: React.PropTypes.object,
-    pendingCount: React.PropTypes.number,
-    remoteRendering: React.PropTypes.bool,
-    remoteFps: React.PropTypes.bool,
-    viewId: React.PropTypes.string,
-    provideOnImageReady: React.PropTypes.bool,
-    updateActiveViewId: React.PropTypes.func,
-  },
-
-  getInitialState() {
-    return {
+export class Visualizer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       menuVisible: true,
       isRendererBusy: false,
     };
-  },
+
+    // callbacks
+    this.setImageProvider = this.setImageProvider.bind(this);
+    this.resetCamera = this.resetCamera.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
+    this.localImageReady = this.localImageReady.bind(this);
+    this.busyStatusUpdated = this.busyStatusUpdated.bind(this);
+  }
 
   componentWillMount() {
     this.needsSetImageProvider = true;
-  },
+  }
 
   componentDidMount() {
     this.setImageProvider();
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.remoteRendering !== this.props.remoteRendering) {
@@ -63,11 +56,11 @@ export const Visualizer = React.createClass({
       ImageProviders.reset();
       this.needsSetImageProvider = true;
     }
-  },
+  }
 
   componentDidUpdate() {
     this.setImageProvider();
-  },
+  }
 
   setImageProvider() {
     if (this.needsSetImageProvider) {
@@ -81,28 +74,28 @@ export const Visualizer = React.createClass({
       }
     }
     this.needsSetImageProvider = false;
-  },
+  }
 
   resetCamera() {
     this.props.resetCamera();
     if (this.renderer && this.renderer.resetCamera) {
       this.renderer.resetCamera();
     }
-  },
+  }
 
   toggleMenu() {
     this.setState({ menuVisible: !this.state.menuVisible });
-  },
+  }
 
   localImageReady(img) {
     if (this.localRenderingImageProvider) {
       this.localRenderingImageProvider.fireImageReady(img);
     }
-  },
+  }
 
   busyStatusUpdated(status) {
     this.setState({ isRendererBusy: status });
-  },
+  }
 
   render() {
     const Renderer = this.props.remoteRendering
@@ -158,8 +151,30 @@ export const Visualizer = React.createClass({
         />
       </div>
     );
-  },
-});
+  }
+}
+
+Visualizer.propTypes = {
+  resetCamera: PropTypes.func.isRequired,
+  updateCamera: PropTypes.func.isRequired,
+  client: PropTypes.object.isRequired,
+  connection: PropTypes.object,
+  session: PropTypes.object,
+  pendingCount: PropTypes.number.isRequired,
+  remoteRendering: PropTypes.bool,
+  remoteFps: PropTypes.bool,
+  viewId: PropTypes.string.isRequired,
+  provideOnImageReady: PropTypes.bool,
+  updateActiveViewId: PropTypes.func.isRequired,
+};
+
+Visualizer.defaultProps = {
+  remoteRendering: false,
+  remoteFps: false,
+  provideOnImageReady: false,
+  connection: undefined,
+  session: undefined,
+};
 
 // Binding --------------------------------------------------------------------
 

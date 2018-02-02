@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import ProxyEditorWidget from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
 import CheckboxProperty from 'paraviewweb/src/React/Properties/CheckboxProperty';
 
@@ -31,28 +33,19 @@ const SHOW_FPS_PROPS = {
   },
 };
 
-export const SettingPanel = React.createClass({
-  displayName: 'ParaViewWeb/SettingPanel',
+// ----------------------------------------------------------------------------
 
-  propTypes: {
-    className: React.PropTypes.string,
-    visible: React.PropTypes.bool,
+export class SettingPanel extends React.Component {
+  constructor(props) {
+    super(props);
 
-    sections: React.PropTypes.array,
-    fetchSettingProxy: React.PropTypes.func,
-    applyChangeSet: React.PropTypes.func,
-    updateCollapsableState: React.PropTypes.func,
-    isRemoteRenderingEnabled: React.PropTypes.bool,
-    updateRemoteRendering: React.PropTypes.func,
-    showRemoteRenderingFps: React.PropTypes.bool,
-    updateRemoteRenderingFps: React.PropTypes.func,
-  },
-
-  getDefaultProps() {
-    return {
-      visible: true,
-    };
-  },
+    // callbacks
+    this.applyChanges = this.applyChanges.bind(this);
+    this.remoteRenderingBoxChecked = this.remoteRenderingBoxChecked.bind(this);
+    this.remoteRenderingShowFpsBoxChecked = this.remoteRenderingShowFpsBoxChecked.bind(
+      this
+    );
+  }
 
   applyChanges(changeSet) {
     const changeToPush = [];
@@ -66,15 +59,15 @@ export const SettingPanel = React.createClass({
 
     this.props.applyChangeSet(changeToPush);
     this.props.fetchSettingProxy();
-  },
+  }
 
   remoteRenderingBoxChecked() {
     this.props.updateRemoteRendering(!this.props.isRemoteRenderingEnabled);
-  },
+  }
 
   remoteRenderingShowFpsBoxChecked() {
     this.props.updateRemoteRenderingFps(!this.props.showRemoteRenderingFps);
-  },
+  }
 
   render() {
     if (!this.props.visible) {
@@ -102,8 +95,29 @@ export const SettingPanel = React.createClass({
         />
       </div>
     );
-  },
-});
+  }
+}
+
+SettingPanel.propTypes = {
+  className: PropTypes.string,
+  visible: PropTypes.bool,
+
+  sections: PropTypes.array.isRequired,
+  fetchSettingProxy: PropTypes.func.isRequired,
+  applyChangeSet: PropTypes.func.isRequired,
+  updateCollapsableState: PropTypes.func.isRequired,
+  isRemoteRenderingEnabled: PropTypes.bool,
+  updateRemoteRendering: PropTypes.func.isRequired,
+  showRemoteRenderingFps: PropTypes.bool,
+  updateRemoteRenderingFps: PropTypes.func.isRequired,
+};
+
+SettingPanel.defaultProps = {
+  className: '',
+  visible: true,
+  isRemoteRenderingEnabled: false,
+  showRemoteRenderingFps: false,
+};
 
 // Binding --------------------------------------------------------------------
 

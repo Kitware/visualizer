@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import ColorByWidget from 'paraviewweb/src/React/Widgets/ColorByWidget';
 import PipelineWidget from 'paraviewweb/src/React/Widgets/GitTreeWidget';
 import ProxyEditorWidget from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
@@ -16,42 +18,15 @@ function eventNotHandled(e) {
 
 // ----------------------------------------------------------------------------
 
-export const PipelineBrowser = React.createClass({
-  displayName: 'ParaViewWeb/PipelineBrowser',
+export class PipelineBrowser extends React.Component {
+  constructor(props) {
+    super(props);
 
-  propTypes: {
-    className: React.PropTypes.string,
-    visible: React.PropTypes.bool,
-    presets: React.PropTypes.object, // { presetName: image }
-    pipeline: React.PropTypes.object,
-    idMapOfSourceToRep: React.PropTypes.object,
-    source: React.PropTypes.object,
-    representation: React.PropTypes.object,
-    view: React.PropTypes.object,
-    lutImage: React.PropTypes.string,
-    lutRange: React.PropTypes.object,
-    playing: React.PropTypes.bool,
-    opacityPoints: React.PropTypes.array,
-    gaussians: React.PropTypes.array,
-
-    // actions:
-    deleteProxy: React.PropTypes.func,
-    setActiveSource: React.PropTypes.func,
-    colorBy: React.PropTypes.func,
-    propertyChange: React.PropTypes.func,
-    scalarBar: React.PropTypes.func,
-    updatePreset: React.PropTypes.func,
-    updateScalarRange: React.PropTypes.func,
-    updateCollapsableState: React.PropTypes.func,
-    setOpacityPoints: React.PropTypes.func,
-    onOpacityEditModeChange: React.PropTypes.func,
-  },
-
-  getDefaultProps() {
-    return {
-      visible: true,
-    };
-  },
+    // callbacks
+    this.applyChanges = this.applyChanges.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.updateColorBy = this.updateColorBy.bind(this);
+  }
 
   applyChanges(changeSet) {
     const changeToPush = [];
@@ -70,7 +45,7 @@ export const PipelineBrowser = React.createClass({
     });
 
     this.props.propertyChange({ changeSet: changeToPush, owners });
-  },
+  }
 
   handleChange(event) {
     switch (event.type) {
@@ -100,7 +75,7 @@ export const PipelineBrowser = React.createClass({
         console.log('Warning: Event not managed', event);
         break;
     }
-  },
+  }
 
   updateColorBy(event) {
     const fn = this.props[event.type] || eventNotHandled;
@@ -116,7 +91,7 @@ export const PipelineBrowser = React.createClass({
       event.owners = owners;
     }
     fn(event);
-  },
+  }
 
   render() {
     if (!this.props.visible) {
@@ -171,12 +146,46 @@ export const PipelineBrowser = React.createClass({
         )}
       </div>
     );
-  },
-});
+  }
+}
 
-/*
+PipelineBrowser.propTypes = {
+  visible: PropTypes.bool,
+  presets: PropTypes.object.isRequired, // { presetName: image }
+  pipeline: PropTypes.object.isRequired,
+  idMapOfSourceToRep: PropTypes.object.isRequired,
+  source: PropTypes.object,
+  representation: PropTypes.object,
+  view: PropTypes.object,
+  lutImage: PropTypes.string,
+  lutRange: PropTypes.object,
+  playing: PropTypes.bool.isRequired,
+  opacityPoints: PropTypes.array,
+  gaussians: PropTypes.array,
 
-*/
+  // actions:
+  deleteProxy: PropTypes.func.isRequired,
+  setActiveSource: PropTypes.func.isRequired,
+  // colorBy: PropTypes.func.isRequired,
+  propertyChange: PropTypes.func.isRequired,
+  // scalarBar: PropTypes.func.isRequired,
+  // updatePreset: PropTypes.func.isRequired,
+  // updateScalarRange: PropTypes.func.isRequired,
+  updateCollapsableState: PropTypes.func.isRequired,
+  setOpacityPoints: PropTypes.func.isRequired,
+  onOpacityEditModeChange: PropTypes.func.isRequired,
+};
+
+PipelineBrowser.defaultProps = {
+  visible: true,
+  source: undefined,
+  representation: undefined,
+  view: undefined,
+  lutImage: undefined,
+  lutRange: undefined,
+  opacityPoints: undefined,
+  gaussians: undefined,
+};
 
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import style from 'VisualizerStyle/InformationPanel.mcss';
 
 import { connect } from 'react-redux';
@@ -21,40 +23,27 @@ function memoryToString(number) {
 
 // ----------------------------------------------------------------------------
 
-export const InformationPanel = React.createClass({
-  displayName: 'ParaViewWeb/InformationPanel',
-
-  propTypes: {
-    className: React.PropTypes.string,
-    visible: React.PropTypes.bool,
-
-    proxy: React.PropTypes.object,
-    timeStep: React.PropTypes.number,
-    timeValues: React.PropTypes.array,
-    setTimeStep: React.PropTypes.func,
-  },
-
-  getDefaultProps() {
-    return {
-      visible: true,
-    };
-  },
-
-  getInitialState() {
-    return {
+export class InformationPanel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       arrayIdx: 0,
     };
-  },
+
+    // callbacks
+    this.updateArray = this.updateArray.bind(this);
+    this.updateTime = this.updateTime.bind(this);
+  }
 
   updateArray(event) {
     const arrayIdx = event.target.value;
     this.setState({ arrayIdx });
-  },
+  }
 
   updateTime(event) {
     const timeIdx = event.target.value;
     this.props.setTimeStep(Number(timeIdx));
-  },
+  }
 
   render() {
     if (!this.props.visible) {
@@ -218,8 +207,22 @@ export const InformationPanel = React.createClass({
         ) : null}
       </div>
     );
-  },
-});
+  }
+}
+
+InformationPanel.propTypes = {
+  visible: PropTypes.bool,
+
+  proxy: PropTypes.object,
+  timeStep: PropTypes.number.isRequired,
+  timeValues: PropTypes.array.isRequired,
+  setTimeStep: PropTypes.func.isRequired,
+};
+
+InformationPanel.defaultProps = {
+  visible: true,
+  proxy: undefined,
+};
 
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */

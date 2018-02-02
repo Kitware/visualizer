@@ -1,46 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import style from 'VisualizerStyle/TimeController.mcss';
 
 import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../redux';
 
-export const TimeController = React.createClass({
-  displayName: 'ParaViewWeb/TimeController',
+export class TimeController extends React.Component {
+  constructor(props) {
+    super(props);
 
-  propTypes: {
-    className: React.PropTypes.string,
-    index: React.PropTypes.number,
-    values: React.PropTypes.array,
-    playing: React.PropTypes.bool,
-    setTimeStep: React.PropTypes.func,
-    playTime: React.PropTypes.func,
-    stopTime: React.PropTypes.func,
-  },
-
-  getDefaultProps() {
-    return {
-      index: 0,
-      values: [],
-      playing: false,
-      className: '',
-    };
-  },
+    // callbacks
+    this.previous = this.previous.bind(this);
+    this.next = this.next.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
+  }
 
   previous() {
     const timeStep =
       (this.props.index - 1 + this.props.values.length) %
       this.props.values.length;
     this.props.setTimeStep(timeStep);
-  },
+  }
 
   next() {
     const timeStep = (this.props.index + 1) % this.props.values.length;
     this.props.setTimeStep(timeStep);
-  },
+  }
 
   togglePlay() {
     this.props[this.props.playing ? 'stopTime' : 'playTime']();
-  },
+  }
 
   render() {
     if (!this.props.values.length) {
@@ -67,8 +57,23 @@ export const TimeController = React.createClass({
         <i onClick={this.next} className={style.nextButton} />
       </div>
     );
-  },
-});
+  }
+}
+
+TimeController.propTypes = {
+  index: PropTypes.number,
+  values: PropTypes.array,
+  playing: PropTypes.bool,
+  setTimeStep: PropTypes.func.isRequired,
+  playTime: PropTypes.func.isRequired, // eslint-disable-line
+  stopTime: PropTypes.func.isRequired, // eslint-disable-line
+};
+
+TimeController.defaultProps = {
+  index: 0,
+  values: [],
+  playing: false,
+};
 
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */

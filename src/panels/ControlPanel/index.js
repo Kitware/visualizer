@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 
 import style from 'VisualizerStyle/ToggleIcons.mcss';
@@ -12,24 +14,22 @@ import SettingPanel from './SettingPanel';
 
 import { selectors, actions, dispatch } from '../../redux';
 
-export const ControlPanel = React.createClass({
-  displayName: 'ParaViewWeb/ControlPanel',
+export class ControlPanel extends React.Component {
+  constructor(props) {
+    super(props);
 
-  propTypes: {
-    className: React.PropTypes.string,
-    activeIdx: React.PropTypes.number,
-
-    updateActivePanel: React.PropTypes.func,
-    resetCamera: React.PropTypes.func,
-  },
+    // callbacks
+    this.updateActive = this.updateActive.bind(this);
+    this.resetCamera = this.resetCamera.bind(this);
+  }
 
   updateActive(e) {
     this.props.updateActivePanel(Number(e.target.dataset.idx) || 0);
-  },
+  }
 
   resetCamera() {
     this.props.resetCamera();
-  },
+  }
 
   render() {
     return (
@@ -105,8 +105,21 @@ export const ControlPanel = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
+
+ControlPanel.propTypes = {
+  className: PropTypes.string,
+  activeIdx: PropTypes.number,
+
+  updateActivePanel: PropTypes.func.isRequired,
+  resetCamera: PropTypes.func.isRequired,
+};
+
+ControlPanel.defaultProps = {
+  className: '',
+  activeIdx: 0,
+};
 
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
