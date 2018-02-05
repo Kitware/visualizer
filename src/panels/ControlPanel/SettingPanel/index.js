@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ProxyEditorWidget from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
 import CheckboxProperty from 'paraviewweb/src/React/Properties/CheckboxProperty';
+import SliderProperty from 'paraviewweb/src/React/Properties/SliderProperty';
 
 import style from 'VisualizerStyle/SettingPanel.mcss';
 
@@ -12,6 +13,7 @@ import { selectors, actions, dispatch } from '../../../redux';
 // ----------------------------------------------------------------------------
 
 const LOCAL_RENDERING_PROPS = {
+  id: 'remoteRenderingCheckbox',
   data: { value: true, id: 'remoteRenderingCheckbox' },
   show: () => true,
   ui: {
@@ -20,17 +22,45 @@ const LOCAL_RENDERING_PROPS = {
     help:
       'Uncheck for local rendering.  If doing local rendering, all the geometry and the used data arrays will be sent to the browser.',
   },
+  viewData: {},
 };
 
 const SHOW_FPS_PROPS = {
+  id: 'showRemoteFpsCheckbox',
   data: { value: false, id: 'showRemoteFpsCheckbox' },
   show: () => true,
   ui: {
     label: 'Show Remote FPS',
     componentLabels: [''],
     help:
-      'Check to show effective frame rate (in black text) while in remote rendering mode.',
+      'Check to show effective frame rate (in gray text) on top right corner while in remote rendering mode.',
   },
+  viewData: {},
+};
+
+const IMAGE_QUALITY_PROPS = {
+  data: { value: 50, id: 'interactiveQuality' },
+  show: () => true,
+  ui: {
+    domain: { min: 1, max: 100, step: 1 },
+    label: 'Interactive image quality',
+    componentLabels: [''],
+    help: 'Adjust image quality when interacting.',
+  },
+  viewData: {},
+};
+
+const IMAGE_RATIO_PROPS = {
+  data: { value: 1, id: 'interactiveQuality' },
+  show: () => true,
+  ui: {
+    type: 'double',
+    domain: { min: 0.1, max: 1, step: 0.01 },
+    label: 'Interactive image ratio',
+    componentLabels: [''],
+    help: 'Adjust image size when interacting.',
+  },
+  viewData: {},
 };
 
 // ----------------------------------------------------------------------------
@@ -45,6 +75,20 @@ export class SettingPanel extends React.Component {
     this.remoteRenderingShowFpsBoxChecked = this.remoteRenderingShowFpsBoxChecked.bind(
       this
     );
+
+    // Custom props
+    this.checkboxProps = Object.assign({}, LOCAL_RENDERING_PROPS, {
+      onChange: this.remoteRenderingBoxChecked,
+    });
+    this.fpsCheckboxProps = Object.assign({}, SHOW_FPS_PROPS, {
+      onChange: this.remoteRenderingShowFpsBoxChecked,
+    });
+    this.qualitySliderProps = Object.assign({}, IMAGE_QUALITY_PROPS, {
+      onChange: props.updateRemoteRenderingInteractiveQuality,
+    });
+    this.ratioSliderProps = Object.assign({}, IMAGE_RATIO_PROPS, {
+      onChange: props.updateRemoteRenderingInteractiveRatio,
+    });
   }
 
   applyChanges(changeSet) {
@@ -74,20 +118,18 @@ export class SettingPanel extends React.Component {
       return null;
     }
 
-    const checkboxProps = Object.assign({}, LOCAL_RENDERING_PROPS, {
-      onChange: this.remoteRenderingBoxChecked,
-    });
-    checkboxProps.data.value = this.props.isRemoteRenderingEnabled;
-
-    const fpsCheckboxProps = Object.assign({}, SHOW_FPS_PROPS, {
-      onChange: this.remoteRenderingShowFpsBoxChecked,
-    });
-    fpsCheckboxProps.data.value = this.props.showRemoteRenderingFps;
+    // Update custom prop state
+    this.checkboxProps.data.value = this.props.isRemoteRenderingEnabled;
+    this.fpsCheckboxProps.data.value = this.props.showRemoteRenderingFps;
+    this.qualitySliderProps.data.value = this.props.remoteRenderingInteractiveQuality;
+    this.ratioSliderProps.data.value = this.props.remoteRenderingInteractiveRatio;
 
     return (
       <div className={style.container}>
-        <CheckboxProperty {...checkboxProps} />
-        <CheckboxProperty {...fpsCheckboxProps} />
+        <CheckboxProperty {...this.checkboxProps} />
+        <CheckboxProperty {...this.fpsCheckboxProps} />
+        <SliderProperty {...this.qualitySliderProps} />
+        <SliderProperty {...this.ratioSliderProps} />
         <ProxyEditorWidget
           sections={this.props.sections}
           onApply={this.applyChanges}
@@ -110,6 +152,11 @@ SettingPanel.propTypes = {
   updateRemoteRendering: PropTypes.func.isRequired,
   showRemoteRenderingFps: PropTypes.bool,
   updateRemoteRenderingFps: PropTypes.func.isRequired,
+
+  remoteRenderingInteractiveQuality: PropTypes.number,
+  updateRemoteRenderingInteractiveQuality: PropTypes.func.isRequired,
+  remoteRenderingInteractiveRatio: PropTypes.number,
+  updateRemoteRenderingInteractiveRatio: PropTypes.func.isRequired,
 };
 
 SettingPanel.defaultProps = {
@@ -117,6 +164,8 @@ SettingPanel.defaultProps = {
   visible: true,
   isRemoteRenderingEnabled: false,
   showRemoteRenderingFps: false,
+  remoteRenderingInteractiveQuality: 50,
+  remoteRenderingInteractiveRatio: 0.5,
 };
 
 // Binding --------------------------------------------------------------------
@@ -139,5 +188,17 @@ export default connect((state) => ({
   showRemoteRenderingFps: selectors.view.getRemoteFpsState(state),
   updateRemoteRenderingFps(showFps) {
     dispatch(actions.view.setRemoteFps(showFps));
+  },
+  remoteRenderingInteractiveQuality: selectors.view.getRemoteInteractiveQualityState(
+    state
+  ),
+  updateRemoteRenderingInteractiveQuality(data) {
+    dispatch(actions.view.setInteractiveQuality(Number(data.value)));
+  },
+  remoteRenderingInteractiveRatio: selectors.view.getRemoteInteractiveRatioState(
+    state
+  ),
+  updateRemoteRenderingInteractiveRatio(data) {
+    dispatch(actions.view.setInteractiveRatio(Number(data.value)));
   },
 }))(SettingPanel);

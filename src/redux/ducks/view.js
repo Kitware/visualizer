@@ -3,12 +3,16 @@ import * as netActions from './network';
 
 const REMOTE_RENDERING = 'REMOTE_RENDERING';
 const REMOTE_FPS = 'REMOTE_FPS';
+const REMOTE_INTERACTIVE_QUALITY = 'REMOTE_INTERACTIVE_QUALITY';
+const REMOTE_INTERACTIVE_RATIO = 'REMOTE_INTERACTIVE_RATIO';
 
 // --- Reducer ----------------------------------------------------------------
 
 export const initialState = {
   remote: true,
   remoteFps: false,
+  interactiveQuality: 50,
+  interactiveRatio: 1,
 };
 
 export default function reducer(state = initialState, action) {
@@ -18,6 +22,16 @@ export default function reducer(state = initialState, action) {
     }
     case REMOTE_FPS: {
       return Object.assign({}, state, { remoteFps: action.remoteFps });
+    }
+    case REMOTE_INTERACTIVE_QUALITY: {
+      return Object.assign({}, state, {
+        interactiveQuality: action.quality,
+      });
+    }
+    case REMOTE_INTERACTIVE_RATIO: {
+      return Object.assign({}, state, {
+        interactiveRatio: action.ratio,
+      });
     }
 
     default:
@@ -33,6 +47,14 @@ export function setRemoteRendering(remote) {
 
 export function setRemoteFps(remoteFps) {
   return { type: REMOTE_FPS, remoteFps };
+}
+
+export function setInteractiveQuality(quality) {
+  return { type: REMOTE_INTERACTIVE_QUALITY, quality };
+}
+
+export function setInteractiveRatio(ratio) {
+  return { type: REMOTE_INTERACTIVE_RATIO, ratio };
 }
 
 // --- Async actions ---

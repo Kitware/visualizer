@@ -148,6 +148,8 @@ export class Visualizer extends React.Component {
           resizeOnWindowResize
           clearOneTimeUpdatersOnUnmount
           clearInstanceCacheOnUnmount
+          interactiveQuality={this.props.interactiveQuality}
+          interactiveRatio={this.props.interactiveRatio}
         />
       </div>
     );
@@ -166,6 +168,9 @@ Visualizer.propTypes = {
   viewId: PropTypes.string.isRequired,
   provideOnImageReady: PropTypes.bool,
   updateActiveViewId: PropTypes.func.isRequired,
+
+  interactiveQuality: PropTypes.number.isRequired,
+  interactiveRatio: PropTypes.number.isRequired,
 };
 
 Visualizer.defaultProps = {
@@ -188,6 +193,12 @@ export default connect(
     const remoteFps = selectors.view.getRemoteFpsState(state);
     const viewId = selectors.active.getActiveView(state);
     const provideOnImageReady = selectors.ui.getVisiblePanel(state) === 3; // SavePanel visible
+    const interactiveQuality = selectors.view.getRemoteInteractiveQualityState(
+      state
+    );
+    const interactiveRatio = selectors.view.getRemoteInteractiveRatioState(
+      state
+    );
 
     return {
       client,
@@ -198,6 +209,8 @@ export default connect(
       remoteFps,
       viewId,
       provideOnImageReady,
+      interactiveRatio,
+      interactiveQuality,
     };
   },
   () => ({
