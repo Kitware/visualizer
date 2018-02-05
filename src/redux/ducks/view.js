@@ -12,7 +12,7 @@ export const initialState = {
   remote: true,
   remoteFps: false,
   interactiveQuality: 50,
-  interactiveRatio: 1,
+  interactiveRatio: 0.5,
 };
 
 export default function reducer(state = initialState, action) {

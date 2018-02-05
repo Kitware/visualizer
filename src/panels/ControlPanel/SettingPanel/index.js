@@ -51,7 +51,7 @@ const IMAGE_QUALITY_PROPS = {
 };
 
 const IMAGE_RATIO_PROPS = {
-  data: { value: 1, id: 'interactiveQuality' },
+  data: { value: 0.5, id: 'interactiveQuality' },
   show: () => true,
   ui: {
     type: 'double',
