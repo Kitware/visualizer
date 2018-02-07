@@ -80,6 +80,14 @@ r"""
 
 # import to process args
 import os
+import sys
+
+# Try handle virtual env if provided
+if '--virtual-env' in sys.argv:
+  virtualEnvPath = sys.argv[sys.argv.index('--virtual-env') + 1]
+  virtualEnv = virtualEnvPath + '/bin/activate_this.py'
+  execfile(virtualEnv, dict(__file__=virtualEnv))
+
 
 # import paraview modules.
 from paraview.web import pv_wslink
@@ -126,6 +134,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
 
     @staticmethod
     def add_arguments(parser):
+        parser.add_argument("--virtual-env", default=None, help="Path to virtual environment to use")
         parser.add_argument("--data", default=os.getcwd(), help="path to data directory to list, or else multiple directories given as 'name1=path1|name2=path2|...'", dest="path")
         parser.add_argument("--load-file", default=None, help="File to load if any based on data-dir base path", dest="file")
         parser.add_argument("--color-palette-file", default=None, help="File to load to define a set of color map", dest="palettes")
