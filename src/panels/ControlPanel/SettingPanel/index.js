@@ -30,10 +30,9 @@ const SHOW_FPS_PROPS = {
   data: { value: false, id: 'showRemoteFpsCheckbox' },
   show: () => true,
   ui: {
-    label: 'Show Remote FPS',
+    label: 'Show Rendering stats',
     componentLabels: [''],
-    help:
-      'Check to show effective frame rate (in gray text) on top right corner while in remote rendering mode.',
+    help: 'Check to show frame rate with other details.',
   },
   viewData: {},
 };
