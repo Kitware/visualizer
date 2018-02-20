@@ -5,6 +5,7 @@ const REMOTE_RENDERING = 'REMOTE_RENDERING';
 const REMOTE_FPS = 'REMOTE_FPS';
 const REMOTE_INTERACTIVE_QUALITY = 'REMOTE_INTERACTIVE_QUALITY';
 const REMOTE_INTERACTIVE_RATIO = 'REMOTE_INTERACTIVE_RATIO';
+const EVENT_THROTTLING_TIME = 'EVENT_THROTTLING_TIME';
 
 // --- Reducer ----------------------------------------------------------------
 
@@ -13,6 +14,7 @@ export const initialState = {
   remoteFps: false,
   interactiveQuality: 50,
   interactiveRatio: 0.5,
+  throttleTime: 8,
 };
 
 export default function reducer(state = initialState, action) {
@@ -31,6 +33,11 @@ export default function reducer(state = initialState, action) {
     case REMOTE_INTERACTIVE_RATIO: {
       return Object.assign({}, state, {
         interactiveRatio: action.ratio,
+      });
+    }
+    case EVENT_THROTTLING_TIME: {
+      return Object.assign({}, state, {
+        throttleTime: action.time,
       });
     }
 
@@ -55,6 +62,10 @@ export function setInteractiveQuality(quality) {
 
 export function setInteractiveRatio(ratio) {
   return { type: REMOTE_INTERACTIVE_RATIO, ratio };
+}
+
+export function setEventThrottleTime(time) {
+  return { type: EVENT_THROTTLING_TIME, time };
 }
 
 // --- Async actions ---

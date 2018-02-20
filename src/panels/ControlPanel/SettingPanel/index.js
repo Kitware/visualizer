@@ -62,6 +62,19 @@ const IMAGE_RATIO_PROPS = {
   viewData: {},
 };
 
+const EVENT_THROTTLE_PROPS = {
+  data: { value: 120, id: 'eventThrottle' },
+  show: () => true,
+  ui: {
+    type: 'double',
+    domain: { min: 10, max: 120, step: 1 },
+    label: 'Mouse throttling',
+    componentLabels: [''],
+    help: 'Adjust the number of events per seconds.',
+  },
+  viewData: {},
+};
+
 // ----------------------------------------------------------------------------
 
 export class SettingPanel extends React.Component {
@@ -87,6 +100,9 @@ export class SettingPanel extends React.Component {
     });
     this.ratioSliderProps = Object.assign({}, IMAGE_RATIO_PROPS, {
       onChange: props.updateRemoteRenderingInteractiveRatio,
+    });
+    this.mouseThrottleProps = Object.assign({}, EVENT_THROTTLE_PROPS, {
+      onChange: props.updateEventThrottling,
     });
   }
 
@@ -122,6 +138,9 @@ export class SettingPanel extends React.Component {
     this.fpsCheckboxProps.data.value = this.props.showRemoteRenderingFps;
     this.qualitySliderProps.data.value = this.props.remoteRenderingInteractiveQuality;
     this.ratioSliderProps.data.value = this.props.remoteRenderingInteractiveRatio;
+    this.mouseThrottleProps.data.value = Math.round(
+      1000 / this.props.throttleTime
+    );
 
     return (
       <div className={style.container}>
@@ -129,6 +148,7 @@ export class SettingPanel extends React.Component {
         <CheckboxProperty {...this.fpsCheckboxProps} />
         <SliderProperty {...this.qualitySliderProps} />
         <SliderProperty {...this.ratioSliderProps} />
+        <SliderProperty {...this.mouseThrottleProps} />
         <ProxyEditorWidget
           sections={this.props.sections}
           onApply={this.applyChanges}
@@ -156,6 +176,9 @@ SettingPanel.propTypes = {
   updateRemoteRenderingInteractiveQuality: PropTypes.func.isRequired,
   remoteRenderingInteractiveRatio: PropTypes.number,
   updateRemoteRenderingInteractiveRatio: PropTypes.func.isRequired,
+
+  throttleTime: PropTypes.number,
+  updateEventThrottling: PropTypes.func.isRequired,
 };
 
 SettingPanel.defaultProps = {
@@ -165,6 +188,7 @@ SettingPanel.defaultProps = {
   showRemoteRenderingFps: false,
   remoteRenderingInteractiveQuality: 50,
   remoteRenderingInteractiveRatio: 0.5,
+  throttleTime: 16.6,
 };
 
 // Binding --------------------------------------------------------------------
@@ -199,5 +223,9 @@ export default connect((state) => ({
   ),
   updateRemoteRenderingInteractiveRatio(data) {
     dispatch(actions.view.setInteractiveRatio(Number(data.value)));
+  },
+  throttleTime: selectors.view.getThrottleTime(state),
+  updateEventThrottling(data) {
+    dispatch(actions.view.setEventThrottleTime(1000 / Number(data.value)));
   },
 }))(SettingPanel);

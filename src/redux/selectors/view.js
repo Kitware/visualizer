@@ -10,10 +10,12 @@ export const getRemoteInteractiveQualityState = (state) =>
   access(state).view.interactiveQuality;
 export const getRemoteInteractiveRatioState = (state) =>
   access(state).view.interactiveRatio;
+export const getThrottleTime = (state) => access(state).view.throttleTime;
 
 export default {
   getRemoteRenderingState,
   getRemoteFpsState,
   getRemoteInteractiveQualityState,
   getRemoteInteractiveRatioState,
+  getThrottleTime,
 };

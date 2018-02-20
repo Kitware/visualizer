@@ -150,6 +150,7 @@ export class Visualizer extends React.Component {
           clearInstanceCacheOnUnmount
           interactiveQuality={this.props.interactiveQuality}
           interactiveRatio={this.props.interactiveRatio}
+          throttleTime={this.props.throttleTime}
         />
       </div>
     );
@@ -171,6 +172,7 @@ Visualizer.propTypes = {
 
   interactiveQuality: PropTypes.number.isRequired,
   interactiveRatio: PropTypes.number.isRequired,
+  throttleTime: PropTypes.number.isRequired,
 };
 
 Visualizer.defaultProps = {
@@ -199,6 +201,7 @@ export default connect(
     const interactiveRatio = selectors.view.getRemoteInteractiveRatioState(
       state
     );
+    const throttleTime = selectors.view.getThrottleTime(state);
 
     return {
       client,
@@ -211,6 +214,7 @@ export default connect(
       provideOnImageReady,
       interactiveRatio,
       interactiveQuality,
+      throttleTime,
     };
   },
   () => ({
