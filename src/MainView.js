@@ -151,6 +151,7 @@ export class Visualizer extends React.Component {
           interactiveQuality={this.props.interactiveQuality}
           interactiveRatio={this.props.interactiveRatio}
           throttleTime={this.props.throttleTime}
+          maxFPS={this.props.maxFPS}
         />
       </div>
     );
@@ -173,6 +174,7 @@ Visualizer.propTypes = {
   interactiveQuality: PropTypes.number.isRequired,
   interactiveRatio: PropTypes.number.isRequired,
   throttleTime: PropTypes.number.isRequired,
+  maxFPS: PropTypes.number.isRequired,
 };
 
 Visualizer.defaultProps = {
@@ -202,6 +204,7 @@ export default connect(
       state
     );
     const throttleTime = selectors.view.getThrottleTime(state);
+    const maxFPS = selectors.view.getServerMaxFPS(state);
 
     return {
       client,
@@ -215,6 +218,7 @@ export default connect(
       interactiveRatio,
       interactiveQuality,
       throttleTime,
+      maxFPS,
     };
   },
   () => ({

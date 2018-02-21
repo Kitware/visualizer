@@ -6,6 +6,7 @@ const REMOTE_FPS = 'REMOTE_FPS';
 const REMOTE_INTERACTIVE_QUALITY = 'REMOTE_INTERACTIVE_QUALITY';
 const REMOTE_INTERACTIVE_RATIO = 'REMOTE_INTERACTIVE_RATIO';
 const EVENT_THROTTLING_TIME = 'EVENT_THROTTLING_TIME';
+const SERVER_MAX_FPS = 'SERVER_MAX_FPS';
 
 // --- Reducer ----------------------------------------------------------------
 
@@ -15,6 +16,7 @@ export const initialState = {
   interactiveQuality: 50,
   interactiveRatio: 0.5,
   throttleTime: 8,
+  serverMaxFPS: 30,
 };
 
 export default function reducer(state = initialState, action) {
@@ -38,6 +40,11 @@ export default function reducer(state = initialState, action) {
     case EVENT_THROTTLING_TIME: {
       return Object.assign({}, state, {
         throttleTime: action.time,
+      });
+    }
+    case SERVER_MAX_FPS: {
+      return Object.assign({}, state, {
+        serverMaxFPS: action.maxFPS,
       });
     }
 
@@ -66,6 +73,10 @@ export function setInteractiveRatio(ratio) {
 
 export function setEventThrottleTime(time) {
   return { type: EVENT_THROTTLING_TIME, time };
+}
+
+export function setServerMaxFPS(maxFPS) {
+  return { type: SERVER_MAX_FPS, maxFPS };
 }
 
 // --- Async actions ---

@@ -75,6 +75,20 @@ const EVENT_THROTTLE_PROPS = {
   viewData: {},
 };
 
+const SERVER_MAX_FPS_PROPS = {
+  data: { value: 30, id: 'serverFPS' },
+  show: () => true,
+  ui: {
+    type: 'double',
+    domain: { min: 12, max: 60, step: 1 },
+    label: 'Server max animation FPS',
+    componentLabels: [''],
+    help:
+      'Adjust the maximum number of images the server will push per seconds.',
+  },
+  viewData: {},
+};
+
 // ----------------------------------------------------------------------------
 
 export class SettingPanel extends React.Component {
@@ -103,6 +117,9 @@ export class SettingPanel extends React.Component {
     });
     this.mouseThrottleProps = Object.assign({}, EVENT_THROTTLE_PROPS, {
       onChange: props.updateEventThrottling,
+    });
+    this.serverFPSProps = Object.assign({}, SERVER_MAX_FPS_PROPS, {
+      onChange: props.updateServerMaxFPS,
     });
   }
 
@@ -141,11 +158,13 @@ export class SettingPanel extends React.Component {
     this.mouseThrottleProps.data.value = Math.round(
       1000 / this.props.throttleTime
     );
+    this.serverFPSProps.data.value = this.props.serverMaxFPS;
 
     return (
       <div className={style.container}>
         <CheckboxProperty {...this.checkboxProps} />
         <CheckboxProperty {...this.fpsCheckboxProps} />
+        <SliderProperty {...this.serverFPSProps} />
         <SliderProperty {...this.qualitySliderProps} />
         <SliderProperty {...this.ratioSliderProps} />
         <SliderProperty {...this.mouseThrottleProps} />
@@ -179,6 +198,9 @@ SettingPanel.propTypes = {
 
   throttleTime: PropTypes.number,
   updateEventThrottling: PropTypes.func.isRequired,
+
+  serverMaxFPS: PropTypes.number,
+  updateServerMaxFPS: PropTypes.func.isRequired,
 };
 
 SettingPanel.defaultProps = {
@@ -189,6 +211,7 @@ SettingPanel.defaultProps = {
   remoteRenderingInteractiveQuality: 50,
   remoteRenderingInteractiveRatio: 0.5,
   throttleTime: 16.6,
+  serverMaxFPS: 30,
 };
 
 // Binding --------------------------------------------------------------------
@@ -227,5 +250,9 @@ export default connect((state) => ({
   throttleTime: selectors.view.getThrottleTime(state),
   updateEventThrottling(data) {
     dispatch(actions.view.setEventThrottleTime(1000 / Number(data.value)));
+  },
+  serverMaxFPS: selectors.view.getServerMaxFPS(state),
+  updateServerMaxFPS(data) {
+    dispatch(actions.view.setServerMaxFPS(Number(data.value)));
   },
 }))(SettingPanel);
