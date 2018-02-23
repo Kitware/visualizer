@@ -42,9 +42,9 @@ const IMAGE_QUALITY_PROPS = {
   show: () => true,
   ui: {
     domain: { min: 1, max: 100, step: 1 },
-    label: 'Interactive image quality',
+    label: 'Interactive image quality (JPEG)',
     componentLabels: [''],
-    help: 'Adjust image quality when interacting.',
+    help: 'Adjust JPEG quality when interacting.',
   },
   viewData: {},
 };
@@ -63,12 +63,12 @@ const IMAGE_RATIO_PROPS = {
 };
 
 const EVENT_THROTTLE_PROPS = {
-  data: { value: 120, id: 'eventThrottle' },
+  data: { value: 60, id: 'eventThrottle' },
   show: () => true,
   ui: {
     type: 'double',
     domain: { min: 10, max: 120, step: 1 },
-    label: 'Mouse throttling',
+    label: 'Mouse event throttling per second',
     componentLabels: [''],
     help: 'Adjust the number of events per seconds.',
   },
@@ -81,7 +81,7 @@ const SERVER_MAX_FPS_PROPS = {
   ui: {
     type: 'double',
     domain: { min: 12, max: 60, step: 1 },
-    label: 'Server max animation FPS',
+    label: 'Max interactive server FPS',
     componentLabels: [''],
     help:
       'Adjust the maximum number of images the server will push per seconds.',

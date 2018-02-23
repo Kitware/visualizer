@@ -14,8 +14,8 @@ export const initialState = {
   remote: true,
   remoteFps: false,
   interactiveQuality: 50,
-  interactiveRatio: 0.5,
-  throttleTime: 8,
+  interactiveRatio: 1,
+  throttleTime: 16.6,
   serverMaxFPS: 30,
 };
 
