@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
+
 import network from './network';
 import setup from './setup';
 import MainView from './MainView';
@@ -28,6 +30,12 @@ function start() {
 export function connect(config = {}) {
   network.onReady(start);
   network.connect(config);
+}
+
+export function connectWithArgsAsConfig(baseConfig = {}) {
+  const userParams = vtkURLExtract.extractURLParameters();
+  const config = Object.assign({}, baseConfig, userParams);
+  connect(config);
 }
 
 export function autoStopServer(timeout = 60) {
