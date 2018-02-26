@@ -2,128 +2,128 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://kitware.github.io/visualizer/api/panels_ControlPanel_SavePanel.html</loc>
+    <loc>https://kitware.github.io/visualizer/api/panels_ControlPanel_SettingPanel.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.048Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.304Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/visualizer/api/panels_ControlPanel_SettingPanel.html</loc>
+    <loc>https://kitware.github.io/visualizer/api/panels_ControlPanel_SavePanel.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.048Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.300Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/api/panels_ControlPanel_PipelineBrowser.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.044Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.296Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/api/panels_ControlPanel_InformationPanel.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.040Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.292Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/api/panels_ControlPanel_FileBrowserPanel.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.036Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.288Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/api/panels_ControlPanel_FilterPanel.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.036Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/visualizer/docs/apache_front_end.html</loc>
-    
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/visualizer/docs/troubleshooting.html</loc>
-    
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/visualizer/api/index.html</loc>
-    
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.288Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/index.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.268Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/docs/apache_front_end.html</loc>
+    
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/api/index.html</loc>
+    
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/visualizer/docs/troubleshooting.html</loc>
+    
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/docs/compatibility.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/docs/contributing.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/docs/index.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/docs/launching_examples.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/docs/multi_user_setup.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/docs/python_launcher.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/docs/tools.html</loc>
     
-    <lastmod>2018-02-23T21:44:28.020Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.264Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/visualizer/2016/04/29/kw-doc/</loc>
     
-    <lastmod>2018-02-23T21:44:28.008Z</lastmod>
+    <lastmod>2018-02-26T18:52:26.252Z</lastmod>
     
   </url>
   
