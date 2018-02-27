@@ -144,7 +144,7 @@
 }
 
 .networkActive :global(.logo-container-inner) {
-  stroke: #aaaaaa;
+  stroke: #000;
 }
 
 .networkIdle :global(.pvw_1) {
@@ -185,19 +185,19 @@
 
 .networkActive :global(.pvw_1) {
   animation: redTransition 0.3s ease infinite;
-  fill: #aaaaaa;
+  fill: #000;
 }
 
 .networkActive :global(.pvw_2) {
   animation: greenTransition 0.3s ease infinite;
   animation-delay: 0.1s;
-  fill: #aaaaaa;
+  fill: #000;
 }
 
 .networkActive :global(.pvw_3) {
   animation: blueTransition 0.3s ease infinite;
   animation-delay: 0.2s;
-  fill: #aaaaaa;
+  fill: #000;
 }
 
 input:focus {
