@@ -27,7 +27,7 @@
     "kw-doc": "1.1.1",
     "paraviewweb": "3.0.13",
     "vtk.js": "6.2.8",
-    "wslink": "0.1.5"
+    "wslink": "0.1.6"
   },
   "scripts": {
     "validate": "prettier --config ./prettier.config.js --list-different \"src/**/*.js\"",

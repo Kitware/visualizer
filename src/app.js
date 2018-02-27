@@ -9,6 +9,7 @@ import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
 import network from './network';
 import setup from './setup';
 import MainView from './MainView';
+import Loading from './Loading';
 import { getActiveStore } from './redux';
 
 function start() {
@@ -27,8 +28,17 @@ function start() {
   );
 }
 
+function loading(message = 'Loading ParaView...') {
+  // Mount UI
+  const container = document.querySelector('.content');
+  ReactDOM.unmountComponentAtNode(container);
+  ReactDOM.render(<Loading message={message} />, container);
+}
+
 export function connect(config = {}) {
+  loading();
   network.onReady(start);
+  network.onError(loading);
   network.connect(config);
 }
 
