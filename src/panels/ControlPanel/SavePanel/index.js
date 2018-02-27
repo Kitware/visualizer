@@ -20,6 +20,7 @@ export class SavePanel extends React.Component {
     };
 
     // callbacks
+    this.saveScreenShot = this.saveScreenShot.bind(this);
     this.updateForm = this.updateForm.bind(this);
     this.updatePath = this.updatePath.bind(this);
     this.resetSize = this.resetSize.bind(this);
