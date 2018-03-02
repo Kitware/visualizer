@@ -1,17 +1,26 @@
 #! /usr/bin/env node
 
-var fs = require('fs'),
-    shell = require('shelljs'),
-    path = require('path'),
-    program = require('commander'),
-    paraview = process.env.PARAVIEW_HOME,
-    pkg = require('../package.json'),
-    version = /semantically-release/.test(pkg.version) ? 'development version' : pkg.version;
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
+
+const fs = require('fs');
+const shell = require('shelljs');
+const path = require('path');
+const program = require('commander');
+const open = require('open');
+
+const pkg = require('../package.json');
+
+let paraview = process.env.PARAVIEW_HOME;
+const version = /semantically-release/.test(pkg.version)
+  ? 'development version'
+  : pkg.version;
 
 function quotePath(str) {
-  return '"' + str + '"';
+  return `"${str}"`;
 }
 
+// prettier-ignore
 program
   .version(version)
   .option('-p, --port [8080]', 'Start web server with given port', 8080)
@@ -29,105 +38,129 @@ program
   .option('--no-auto-readers', 'If provided, disables ability to use non-configured readers\n')
 
   .option('--viewport [1x2560x1440]', 'Configure viewport {scale}x{maxWidth}x{maxHeight}')
+  .option('--settings-lod-threshold [102400]', 'LOD Threshold in Megabytes\n')
 
   .parse(process.argv);
 
 // Try to find a paraview directory inside /Applications or /opt
 const pvPossibleBasePath = [];
-['/Applications', '/opt', '/usr/local/opt/'].forEach(function (directoryPath) {
-  shell.ls(directoryPath).forEach(function (fileName) {
+['/Applications', '/opt', '/usr/local/opt/'].forEach(function(directoryPath) {
+  shell.ls(directoryPath).forEach(function(fileName) {
     if (fileName.toLowerCase().indexOf('paraview') !== -1) {
       pvPossibleBasePath.push(path.join(directoryPath, fileName));
     }
   });
 });
 
-if(!paraview) {
-    paraview = [];
-    [program.paraview].concat(pvPossibleBasePath).forEach(function(directory){
-        try {
-            if(fs.statSync(directory).isDirectory()) {
-                paraview.push(directory);
-            }
-        } catch(err) {
-            // skip
-        }
-    });
+if (!paraview) {
+  paraview = [];
+  [program.paraview].concat(pvPossibleBasePath).forEach(function(directory) {
+    try {
+      if (fs.statSync(directory).isDirectory()) {
+        paraview.push(directory);
+      }
+    } catch (err) {
+      // skip
+    }
+  });
 }
 
 if (!process.argv.slice(2).length || !program.help || paraview.length === 0) {
-    program.outputHelp();
-    process.exit(0);
+  program.outputHelp();
+  process.exit(0);
 }
 
-var pvPythonExecs = shell.find(paraview).filter(function(file) { return file.match(/pvpython$/) || file.match(/pvpython.exe$/); });
-if(pvPythonExecs.length < 1) {
-    console.log('Could not find pvpython in your ParaView HOME directory ($PARAVIEW_HOME)');
-    program.outputHelp();
+const pvPythonExecs = shell.find(paraview).filter(function(file) {
+  return file.match(/pvpython$/) || file.match(/pvpython.exe$/);
+});
+if (pvPythonExecs.length < 1) {
+  console.log(
+    'Could not find pvpython in your ParaView HOME directory ($PARAVIEW_HOME)'
+  );
+  program.outputHelp();
 } else {
-    const cmdLine = [
-        quotePath(pvPythonExecs[0]), '-dr',
-        quotePath(path.normalize(path.join(__dirname, '../server/pvw-visualizer.py'))),
-        '--content', quotePath(path.normalize(path.join(__dirname, '../dist'))),
-        '--port', program.port,
-        '--data', quotePath(program.data),
+  const cmdLine = [
+    quotePath(pvPythonExecs[0]),
+    '-dr',
+    quotePath(
+      path.normalize(path.join(__dirname, '../server/pvw-visualizer.py'))
+    ),
+    '--content',
+    quotePath(path.normalize(path.join(__dirname, '../dist'))),
+    '--port',
+    program.port,
+    '--data',
+    quotePath(program.data),
+  ];
+
+  if (program.loadFile) {
+    cmdLine.push('--load-file');
+    cmdLine.push(program.loadFile);
+  }
+
+  if (program.excludeRegex) {
+    cmdLine.push('--exclude-regex');
+    cmdLine.push(program.excludeRegex);
+  }
+
+  if (program.groupRegex) {
+    cmdLine.push('--group-regex');
+    cmdLine.push(program.groupRegex);
+  }
+
+  if (program.plugins) {
+    cmdLine.push('--plugins');
+    cmdLine.push(program.plugins);
+  }
+
+  if (program.proxies) {
+    cmdLine.push('--proxies');
+    cmdLine.push(program.proxies);
+  }
+
+  if (!program.autoReaders) {
+    cmdLine.push('--no-auto-readers');
+  }
+
+  if (program.viewport) {
+    const viewport = program.viewport.split('x');
+    const options = [
+      '--viewport-scale',
+      '--viewport-max-width',
+      '--viewport-max-height',
     ];
-
-    if (program.loadFile) {
-      cmdLine.push('--load-file');
-      cmdLine.push(program.loadFile);
+    while (viewport.length) {
+      cmdLine.push(options.shift());
+      cmdLine.push(viewport.shift());
     }
+  }
 
-    if (program.excludeRegex) {
-      cmdLine.push('--exclude-regex');
-      cmdLine.push(program.excludeRegex);
-    }
+  if (program.settingsLodThreshold) {
+    cmdLine.push('--settings-lod-threshold');
+    cmdLine.push(program.settingsLodThreshold);
+  }
 
-    if (program.groupRegex) {
-      cmdLine.push('--group-regex');
-      cmdLine.push(program.groupRegex);
-    }
+  if (program.virtualEnv) {
+    cmdLine.push('--virtual-env');
+    cmdLine.push(program.virtualEnv);
+  }
 
-    if (program.plugins) {
-      cmdLine.push('--plugins');
-      cmdLine.push(program.plugins);
-    }
-
-    if (program.proxies) {
-      cmdLine.push('--proxies');
-      cmdLine.push(program.proxies);
-    }
-
-    if (!program.autoReaders) {
-      cmdLine.push('--no-auto-readers');
-    }
-
-    if (program.viewport) {
-      var viewport = program.viewport.split('x');
-      var options = ['--viewport-scale', '--viewport-max-width', '--viewport-max-height'];
-      while (viewport.length) {
-        cmdLine.push(options.shift());
-        cmdLine.push(viewport.shift());
-      }
-    }
-
-    if (program.virtualEnv) {
-      cmdLine.push('--virtual-env');
-      cmdLine.push(program.virtualEnv);
-    }
-
-    console.log('\n===============================================================================');
-    console.log('| Execute:');
-    console.log('| $', cmdLine.join('\n|\t'));
-    console.log('===============================================================================\n');
-    shell.exec(cmdLine.join(' '), { async: true }).stdout.on('data', function(data) {
-        if (data.indexOf('Starting factory') !== -1) {
-            // Open browser if asked
-            if (!program.serverOnly) {
-                require('open')('http://localhost:' + program.port);
-            }
+  console.log(
+    '\n==============================================================================='
+  );
+  console.log('| Execute:');
+  console.log('| $', cmdLine.join('\n|\t'));
+  console.log(
+    '===============================================================================\n'
+  );
+  shell
+    .exec(cmdLine.join(' '), { async: true })
+    .stdout.on('data', function(data) {
+      if (data.indexOf('Starting factory') !== -1) {
+        // Open browser if asked
+        if (!program.serverOnly) {
+          open(`http://localhost:${program.port}`);
         }
+      }
     });
 }
-
-

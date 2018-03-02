@@ -131,6 +131,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
     viewportScale=1.0
     viewportMaxWidth=2560
     viewportMaxHeight=1440
+    settingsLODThreshold = 102400
 
     @staticmethod
     def add_arguments(parser):
@@ -152,25 +153,27 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
         parser.add_argument("--viewport-scale", default=1.0, type=float, help="Viewport scaling factor", dest="viewportScale")
         parser.add_argument("--viewport-max-width", default=2560, type=int, help="Viewport maximum size in width", dest="viewportMaxWidth")
         parser.add_argument("--viewport-max-height", default=1440, type=int, help="Viewport maximum size in height", dest="viewportMaxHeight")
+        parser.add_argument("--settings-lod-threshold", default=102400, type=int, help="LOD Threshold in Megabytes", dest="settingsLODThreshold")
 
     @staticmethod
     def configure(args):
-        _VisualizerServer.authKey           = args.authKey
-        _VisualizerServer.dataDir           = args.path
-        _VisualizerServer.dsHost            = args.dsHost
-        _VisualizerServer.dsPort            = args.dsPort
-        _VisualizerServer.rsHost            = args.rsHost
-        _VisualizerServer.rsPort            = args.rsPort
-        _VisualizerServer.rcPort            = args.reverseConnectPort
-        _VisualizerServer.excludeRegex      = args.exclude
-        _VisualizerServer.groupRegex        = args.group
-        _VisualizerServer.plugins           = args.plugins
-        _VisualizerServer.proxies           = args.proxies
-        _VisualizerServer.colorPalette      = args.palettes
-        _VisualizerServer.viewportScale     = args.viewportScale
-        _VisualizerServer.viewportMaxWidth  = args.viewportMaxWidth
-        _VisualizerServer.viewportMaxHeight = args.viewportMaxHeight
-        _VisualizerServer.allReaders        = not args.no_auto_readers
+        _VisualizerServer.authKey              = args.authKey
+        _VisualizerServer.dataDir              = args.path
+        _VisualizerServer.dsHost               = args.dsHost
+        _VisualizerServer.dsPort               = args.dsPort
+        _VisualizerServer.rsHost               = args.rsHost
+        _VisualizerServer.rsPort               = args.rsPort
+        _VisualizerServer.rcPort               = args.reverseConnectPort
+        _VisualizerServer.excludeRegex         = args.exclude
+        _VisualizerServer.groupRegex           = args.group
+        _VisualizerServer.plugins              = args.plugins
+        _VisualizerServer.proxies              = args.proxies
+        _VisualizerServer.colorPalette         = args.palettes
+        _VisualizerServer.viewportScale        = args.viewportScale
+        _VisualizerServer.viewportMaxWidth     = args.viewportMaxWidth
+        _VisualizerServer.viewportMaxHeight    = args.viewportMaxHeight
+        _VisualizerServer.settingsLODThreshold = args.settingsLODThreshold
+        _VisualizerServer.allReaders           = not args.no_auto_readers
 
         # If no save directory is provided, default it to the data directory
         if args.saveDataDir == '':
@@ -208,10 +211,16 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
         simple.GetRenderView().EnableRenderOnInteraction = 0
         simple.GetRenderView().Background = [0,0,0]
 
-        # Update interaction mode
+        # ProxyManager helper
         pxm = simple.servermanager.ProxyManager()
+
+        # Update interaction mode
         interactionProxy = pxm.GetProxy('settings', 'RenderViewInteractionSettings')
         interactionProxy.Camera3DManipulators = ['Rotate', 'Pan', 'Zoom', 'Pan', 'Roll', 'Pan', 'Zoom', 'Rotate', 'Zoom']
+
+        # Custom rendering settings
+        renderingSettings = pxm.GetProxy('settings', 'RenderViewSettings')
+        renderingSettings.LODThreshold = _VisualizerServer.settingsLODThreshold
 
 # =============================================================================
 # Main: Parse args and start server
