@@ -9,7 +9,7 @@ export { actions, reducers, selectors };
 let activeStore = createStore(reducers);
 
 export function dispatch(action) {
-  var currentAction = action;
+  let currentAction = action;
   while (typeof currentAction === 'function') {
     currentAction = action(dispatch, activeStore.getState);
   }

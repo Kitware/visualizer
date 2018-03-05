@@ -26,8 +26,9 @@ export const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case NETWORK_REQUEST: {
-      const requests = Object.assign({}, state.requests,
-        { [action.id]: { message: action.message, start: action.start } });
+      const requests = Object.assign({}, state.requests, {
+        [action.id]: { message: action.message, start: action.start },
+      });
       const pending = state.pending.concat(action.id);
       return Object.assign({}, state, { requests, pending });
     }
@@ -36,17 +37,16 @@ export default function reducer(state = initialState, action) {
       if (!state.requests[action.id]) {
         console.error('no request for', action.id, action.data);
       }
-      const requests = Object.assign({}, state.requests,
-        {
-          [action.id]: {
-            message: state.requests[action.id].message,
-            data: action.data,
-            start: state.requests[action.id].start,
-            end: action.end,
-          },
-        });
+      const requests = Object.assign({}, state.requests, {
+        [action.id]: {
+          message: state.requests[action.id].message,
+          data: action.data,
+          start: state.requests[action.id].start,
+          end: action.end,
+        },
+      });
       const success = state.success.concat(action.id);
-      const pending = state.pending.filter(id => id !== action.id);
+      const pending = state.pending.filter((id) => id !== action.id);
       return Object.assign({}, state, { requests, pending, success });
     }
 
@@ -54,24 +54,26 @@ export default function reducer(state = initialState, action) {
       if (!state.requests[action.id]) {
         console.error('no request for', action.id, action.data);
       }
-      const requests = Object.assign({}, state.requests,
-        {
-          [action.id]: {
-            message: state.requests[action.id].message,
-            data: action.data,
-            start: state.requests[action.id].start,
-            end: action.end,
-          },
-        });
+      const requests = Object.assign({}, state.requests, {
+        [action.id]: {
+          message: state.requests[action.id].message,
+          data: action.data,
+          start: state.requests[action.id].start,
+          end: action.end,
+        },
+      });
       const error = state.error.concat(action.id);
-      const pending = state.pending.filter(id => id !== action.id);
+      console.error('network_error:', action.data);
+      const pending = state.pending.filter((id) => id !== action.id);
       return Object.assign({}, state, { requests, pending, error });
     }
 
     case FREE_NETWORK_REQUESTS: {
-      const size = action.size;
-      const success = state.success.length > size ? [].concat(state.success) : state.success;
-      const error = state.error.length > size ? [].concat(state.error) : state.error;
+      const { size } = action;
+      const success =
+        state.success.length > size ? [].concat(state.success) : state.success;
+      const error =
+        state.error.length > size ? [].concat(state.error) : state.error;
       const requests = Object.assign({}, state.requests);
       while (success.length > size) {
         delete requests[success.shift()];

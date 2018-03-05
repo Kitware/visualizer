@@ -1,6 +1,8 @@
-import React        from 'react';
-import ActionList   from 'paraviewweb/src/React/Widgets/ActionListWidget';
-import style        from 'VisualizerStyle/ToggleIcons.mcss';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import ActionList from 'paraviewweb/src/React/Widgets/ActionListWidget';
+import style from 'VisualizerStyle/ToggleIcons.mcss';
 
 import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../../redux';
@@ -12,48 +14,49 @@ const ICON_MAPPING = {
 
 // ----------------------------------------------------------------------------
 
-export const FilterPanel = React.createClass({
+export function FilterPanel(props) {
+  if (!props.visible) {
+    return null;
+  }
 
-  displayName: 'ParaViewWeb/FilterPanel',
+  return (
+    <ActionList
+      className={props.className}
+      list={props.list}
+      onClick={props.applyFilter}
+    />
+  );
+}
 
-  propTypes: {
-    className: React.PropTypes.string,
-    visible: React.PropTypes.bool,
-    list: React.PropTypes.array,
-    applyFilter: React.PropTypes.func,
-  },
+FilterPanel.propTypes = {
+  className: PropTypes.string,
+  visible: PropTypes.bool,
+  list: PropTypes.array,
+  applyFilter: PropTypes.func.isRequired,
+};
 
-  getDefaultProps() {
-    return {
-      visible: true,
-    };
-  },
-
-  render() {
-    if (!this.props.visible) {
-      return null;
-    }
-
-    return (
-      <ActionList
-        className={this.props.className}
-        list={this.props.list}
-        onClick={this.props.applyFilter}
-      />);
-  },
-});
+FilterPanel.defaultProps = {
+  className: '',
+  visible: true,
+  list: [],
+};
 
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(
-  (state) => {
-    return {
-      list: selectors.proxies.getAvailableList(state).map(i => ({ name: i.name, icon: ICON_MAPPING[i.icon] })),
-      applyFilter: (name) => {
-        dispatch(actions.proxies.createProxy(name, selectors.proxies.getActiveSourceId(state)));
-        dispatch(actions.ui.updateVisiblePanel(0));
-      },
-    };
-  }
-)(FilterPanel);
+export default connect((state) => {
+  return {
+    list: selectors.proxies
+      .getAvailableList(state)
+      .map((i) => ({ name: i.name, icon: ICON_MAPPING[i.icon] })),
+    applyFilter: (name) => {
+      dispatch(
+        actions.proxies.createProxy(
+          name,
+          selectors.proxies.getActiveSourceId(state)
+        )
+      );
+      dispatch(actions.ui.updateVisiblePanel(0));
+    },
+  };
+})(FilterPanel);

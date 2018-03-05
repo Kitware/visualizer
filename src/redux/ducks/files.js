@@ -31,7 +31,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case ACTIVE_DIRECTORY: {
-      const activePath = action.activePath;
+      const { activePath } = action;
       return Object.assign({}, state, { activePath });
     }
 
@@ -63,20 +63,31 @@ export function storeActiveDirectory(activePath) {
 
 export function fetchServerDirectory(pathToList) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest('Fetch server directory listing');
-    network.getClient()
-      .FileListing
-      .listServerDirectory(pathToList)
+    const netRequest = externalActions.network.createRequest(
+      'Fetch server directory listing'
+    );
+    network
+      .getClient()
+      .FileListing.listServerDirectory(pathToList)
       .then(
         (listing) => {
           dispatch(externalActions.network.success(netRequest.id, listing));
           const { dirs, files, groups, path, label } = listing;
-          const fileLabels = files.map(i => i.label);
-          dispatch(storeDirectoryListing(pathToList, { dirs, files: fileLabels, groups, path, label }));
+          const fileLabels = files.map((i) => i.label);
+          dispatch(
+            storeDirectoryListing(pathToList, {
+              dirs,
+              files: fileLabels,
+              groups,
+              path,
+              label,
+            })
+          );
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
 
     return netRequest;
   };

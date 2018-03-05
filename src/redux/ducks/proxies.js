@@ -34,13 +34,13 @@ function propertyKey(prop) {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case PROXY_STORE: {
-      const proxy = action.proxy;
+      const { proxy } = action;
       const proxies = Object.assign({}, state.proxies, { [proxy.id]: proxy });
       return Object.assign({}, state, { proxies });
     }
 
     case PIPELINE_STORE: {
-      const pipeline = action.pipeline;
+      const { pipeline } = action;
       const sourceToRepresentation = {};
       pipeline.sources.forEach((proxy) => {
         sourceToRepresentation[proxy.id] = proxy.rep;
@@ -49,13 +49,17 @@ export default function reducer(state = initialState, action) {
     }
 
     case PROXY_SETTING_STORE: {
-      const settings = Object.assign({}, state.settings, { [action.name]: action.id });
+      const settings = Object.assign({}, state.settings, {
+        [action.name]: action.id,
+      });
       return Object.assign({}, state, { settings });
     }
 
     case AVAILABLE_SOURCES_STORE:
     case AVAILABLE_FILTERS_STORE: {
-      const available = Object.assign({}, state.available, { [action.key]: action[action.key] });
+      const available = Object.assign({}, state.available, {
+        [action.key]: action[action.key],
+      });
       return Object.assign({}, state, { available });
     }
 
@@ -69,7 +73,9 @@ export default function reducer(state = initialState, action) {
       action.proxies.forEach((id) => {
         const proxProps = proxies[id].properties;
         if (proxProps) {
-          const properties = proxProps.map(prop => changeMap[propertyKey(prop)] || prop);
+          const properties = proxProps.map(
+            (prop) => changeMap[propertyKey(prop)] || prop
+          );
           proxies[id] = Object.assign({}, proxies[id], { properties });
         }
       });
@@ -118,7 +124,9 @@ export function updateProxyProperties(proxies, properties) {
 export function fetchPipeline() {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Fetch pipeline');
-    network.getClient().ProxyManager.list()
+    network
+      .getClient()
+      .ProxyManager.list()
       .then(
         (pipeline) => {
           dispatch(netActions.success(netRequest.id, pipeline));
@@ -126,7 +134,8 @@ export function fetchPipeline() {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -134,8 +143,9 @@ export function fetchPipeline() {
 export function createProxy(name, parentProxy) {
   return (dispatch) => {
     const netRequest = netActions.createRequest(`Create proxy ${name}`);
-    network.getClient().ProxyManager
-      .create(name, parentProxy)
+    network
+      .getClient()
+      .ProxyManager.create(name, parentProxy)
       .then(
         (proxy) => {
           dispatch(netActions.success(netRequest.id, proxy));
@@ -146,7 +156,8 @@ export function createProxy(name, parentProxy) {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
 
     return netRequest;
   };
@@ -155,7 +166,9 @@ export function createProxy(name, parentProxy) {
 export function deleteProxy(proxyId) {
   return (dispatch) => {
     const netRequest = netActions.createRequest(`Delete proxy ${proxyId}`);
-    network.getClient().ProxyManager.delete(proxyId)
+    network
+      .getClient()
+      .ProxyManager.delete(proxyId)
       .then(
         (parent) => {
           dispatch(netActions.success(netRequest.id, parent));
@@ -165,7 +178,8 @@ export function deleteProxy(proxyId) {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -174,7 +188,9 @@ export function fetchProxy(proxyId) {
   return (dispatch) => {
     const needUI = true; // FIXME
     const netRequest = netActions.createRequest(`Fetch proxy ${proxyId}`);
-    network.getClient().ProxyManager.get(proxyId, needUI)
+    network
+      .getClient()
+      .ProxyManager.get(proxyId, needUI)
       .then(
         (proxy) => {
           dispatch(netActions.success(netRequest.id, proxy));
@@ -182,7 +198,8 @@ export function fetchProxy(proxyId) {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -191,7 +208,9 @@ export function fetchProxy(proxyId) {
 export function fetchSettingProxy(name = 'RenderViewSettings') {
   return (dispatch) => {
     const netRequest = netActions.createRequest(`Fetch setting proxy ${name}`);
-    network.getClient().ProxyManager.findProxyId('settings', name)
+    network
+      .getClient()
+      .ProxyManager.findProxyId('settings', name)
       .then(
         (proxyId) => {
           dispatch(netActions.success(netRequest.id, proxyId));
@@ -200,7 +219,8 @@ export function fetchSettingProxy(name = 'RenderViewSettings') {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -209,20 +229,28 @@ export function fetchAvailableProxies() {
   return (dispatch) => {
     // Sources
     const netRequest = netActions.createRequest('Fetch available sources');
-    network.getClient().ProxyManager.availableSources()
+    network
+      .getClient()
+      .ProxyManager.availableSources()
       .then(
         (sources) => {
           dispatch(netActions.success(netRequest.id, sources));
           dispatch(storeAvailableSources(sources));
         },
         (err) => {
+          console.error('ERROR Fetching sources', err);
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
 
     // Filters
-    const netFilterRequest = netActions.createRequest('Fetch available filters');
+    const netFilterRequest = netActions.createRequest(
+      'Fetch available filters'
+    );
     dispatch(netFilterRequest);
-    network.getClient().ProxyManager.availableFilters()
+    network
+      .getClient()
+      .ProxyManager.availableFilters()
       .then(
         (filters) => {
           dispatch(netActions.success(netFilterRequest.id, filters));
@@ -230,7 +258,8 @@ export function fetchAvailableProxies() {
         },
         (err) => {
           dispatch(netActions.error(netFilterRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -238,7 +267,9 @@ export function fetchAvailableProxies() {
 export function applyChangeSet(propertyChangeSet, propsOwners = []) {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Apply property edits');
-    network.getClient().ProxyManager.update(propertyChangeSet)
+    network
+      .getClient()
+      .ProxyManager.update(propertyChangeSet)
       .then(
         (resp) => {
           dispatch(netActions.success(netRequest.id, resp));
@@ -246,7 +277,8 @@ export function applyChangeSet(propertyChangeSet, propsOwners = []) {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -254,9 +286,9 @@ export function applyChangeSet(propertyChangeSet, propsOwners = []) {
 export function openFiles(files) {
   return (dispatch) => {
     const netRequest = netActions.createRequest(`Open files ${files}`);
-    network.getClient()
-      .ProxyManager
-      .open(files)
+    network
+      .getClient()
+      .ProxyManager.open(files)
       .then(
         (req) => {
           if (req.success) {
@@ -264,7 +296,9 @@ export function openFiles(files) {
             // dispatch(fetchProxy(req.id)); // => new active fetch...
             if (req.view) {
               // After opening a state file, we may get a new view id here
-              dispatch(activeActions.activate(req.view, activeActions.TYPE_VIEW));
+              dispatch(
+                activeActions.activate(req.view, activeActions.TYPE_VIEW)
+              );
             }
             dispatch(activeActions.activate(req.id, activeActions.TYPE_SOURCE));
             dispatch(fetchPipeline());
@@ -275,7 +309,8 @@ export function openFiles(files) {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }

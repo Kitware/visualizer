@@ -58,18 +58,20 @@ export function storeTimeAnimation(play) {
 export function fetchTime() {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Fetch time values');
-    network.getClient()
-      .TimeHandler
-      .getTimeValues()
+    network
+      .getClient()
+      .TimeHandler.getTimeValues()
       .then(
         (values) => {
           dispatch(netActions.success(netRequest.id, values));
           if (values.length) {
-            const netRequestTimeStep = netActions.createRequest('Fetch time step');
+            const netRequestTimeStep = netActions.createRequest(
+              'Fetch time step'
+            );
             dispatch(netRequestTimeStep);
-            network.getClient()
-              .TimeHandler
-              .getTimeStep()
+            network
+              .getClient()
+              .TimeHandler.getTimeStep()
               .then(
                 (index) => {
                   dispatch(netActions.success(netRequestTimeStep.id, index));
@@ -77,14 +79,16 @@ export function fetchTime() {
                 },
                 (err) => {
                   dispatch(netActions.error(netRequestTimeStep.id, err));
-                });
+                }
+              );
           } else {
             dispatch(resetTime());
           }
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
 
     return netRequest;
   };
@@ -93,9 +97,9 @@ export function fetchTime() {
 export function applyTimeStep(index, proxyIdToUpdate) {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Apply time step');
-    network.getClient()
-      .TimeHandler
-      .setTimeStep(index)
+    network
+      .getClient()
+      .TimeHandler.setTimeStep(index)
       .then(
         (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
@@ -106,7 +110,8 @@ export function applyTimeStep(index, proxyIdToUpdate) {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -114,16 +119,17 @@ export function applyTimeStep(index, proxyIdToUpdate) {
 export function playTime(delatT = 0.01) {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Start time animation');
-    network.getClient()
-      .TimeHandler
-      .play(delatT)
+    network
+      .getClient()
+      .TimeHandler.play(delatT)
       .then(
         (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     dispatch(storeTimeAnimation(true));
     return netRequest;
   };
@@ -132,9 +138,9 @@ export function playTime(delatT = 0.01) {
 export function stopTime() {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Stop time animation');
-    network.getClient()
-      .TimeHandler
-      .stop()
+    network
+      .getClient()
+      .TimeHandler.stop()
       .then(
         (ok) => {
           dispatch(netActions.success(netRequest.id, ok));
@@ -142,7 +148,8 @@ export function stopTime() {
         },
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }

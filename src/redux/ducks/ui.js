@@ -7,21 +7,23 @@ const UPDATE_GROUP_COLLAPSED_STATE = 'UPDATE_GROUP_COLLAPSED_STATE';
 // --- Reducer ----------------------------------------------------------------
 
 export const initialState = {
-  visiblePanel: 0,         // PipelineBrowser
+  /* eslint-disable no-multi-spaces */
+  visiblePanel: 0, // PipelineBrowser
   collapsableState: {
     // Collapsable Widgets in SavePanel
     localScreenShot: true, // opened
-    screenshot: false,     // closed
-    dataset: false,        // closed
-    state: false,          // closed
+    screenshot: false, // closed
+    dataset: false, // closed
+    state: false, // closed
 
     // Sections of property list in PipelineBrowser
-    Source: false,         // Open
-    Representation: true,  // Closed
-    View: true,            // Closed
+    Source: false, // Open
+    Representation: true, // Closed
+    View: true, // Closed
     RenderViewSettingsCollapsed: false, // Open
 
     collapsibleGroups: {},
+    /* eslint-enable no-multi-spaces */
   },
 };
 
@@ -33,13 +35,21 @@ export default function reducer(state = initialState, action) {
     }
 
     case UPDATE_COLLAPSABLE_STATE: {
-      const collapsableState = Object.assign({}, state.collapsableState, { [action.name]: action.open });
+      const collapsableState = Object.assign({}, state.collapsableState, {
+        [action.name]: action.open,
+      });
       return Object.assign({}, state, { collapsableState });
     }
 
     case UPDATE_GROUP_COLLAPSED_STATE: {
-      const groupState = Object.assign({}, state.collapsableState.collapsibleGroups, { [action.name]: action.open });
-      const collapsableState = Object.assign({}, state.collapsableState, { collapsibleGroups: groupState });
+      const groupState = Object.assign(
+        {},
+        state.collapsableState.collapsibleGroups,
+        { [action.name]: action.open }
+      );
+      const collapsableState = Object.assign({}, state.collapsableState, {
+        collapsibleGroups: groupState,
+      });
       return Object.assign({}, state, { collapsableState });
     }
 

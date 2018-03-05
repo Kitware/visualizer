@@ -1,10 +1,12 @@
 import { createClient } from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient';
-import SmartConnect from 'paraviewweb/src/IO/WebSocket/SmartConnect';
+import SmartConnect from 'wslink/src/SmartConnect';
 
-var connection = null,
-  client = null,
-  smartConnect = null,
-  readyCallback = null;
+let connection = null;
+let client = null;
+let smartConnect = null;
+let readyCallback = null;
+let errorCallback = null;
+let closeCallback = null;
 
 const customProtocols = {
   // Time(session) {
@@ -21,19 +23,38 @@ const customProtocols = {
 
 function start(conn) {
   connection = conn;
-  client = createClient(conn, [
-    'ColorManager',
-    'FileListing',
-    'MouseHandler',
-    'SaveData',
-    'ProxyManager',
-    'TimeHandler',
-    'ViewPort',
-    'VtkGeometryDelivery',
-  ], customProtocols);
+  client = createClient(
+    conn,
+    [
+      'ColorManager',
+      'FileListing',
+      'MouseHandler',
+      'SaveData',
+      'ProxyManager',
+      'TimeHandler',
+      'ViewPort',
+      'VtkImageDelivery',
+      'VtkGeometryDelivery',
+    ],
+    customProtocols
+  );
 
   if (readyCallback) {
     readyCallback();
+  }
+}
+
+function error(sConnect, message) {
+  console.log('error', sConnect, message);
+  if (errorCallback) {
+    errorCallback(message);
+  }
+}
+
+function close(sConnect) {
+  console.log('close', sConnect);
+  if (closeCallback) {
+    closeCallback(sConnect);
   }
 }
 
@@ -45,8 +66,10 @@ function exit(timeout = 60) {
 }
 
 function connect(config = {}) {
-  smartConnect = new SmartConnect(config);
+  smartConnect = SmartConnect.newInstance({ config });
   smartConnect.onConnectionReady(start);
+  smartConnect.onConnectionError(error);
+  smartConnect.onConnectionClose(close);
   smartConnect.connect();
 }
 
@@ -66,10 +89,20 @@ function onReady(callback) {
   }
 }
 
+function onError(callback) {
+  errorCallback = callback;
+}
+
+function onClose(callback) {
+  closeCallback = callback;
+}
+
 export default {
   exit,
   connect,
   getClient,
   getConnection,
   onReady,
+  onError,
+  onClose,
 };

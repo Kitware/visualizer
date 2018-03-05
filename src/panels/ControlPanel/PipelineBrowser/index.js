@@ -1,8 +1,11 @@
-import React                from 'react';
-import ColorByWidget        from 'paraviewweb/src/React/Widgets/ColorByWidget';
-import PipelineWidget       from 'paraviewweb/src/React/Widgets/GitTreeWidget';
-import ProxyEditorWidget    from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
-import style                from 'VisualizerStyle/PipelineBrowser.mcss';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import ColorByWidget from 'paraviewweb/src/React/Widgets/ColorByWidget';
+import PipelineWidget from 'paraviewweb/src/React/Widgets/GitTreeWidget';
+import ProxyEditorWidget from 'paraviewweb/src/React/Widgets/ProxyEditorWidget';
+
+import style from 'VisualizerStyle/PipelineBrowser.mcss';
 
 import { connect } from 'react-redux';
 import { selectors, actions, dispatch } from '../../../redux';
@@ -15,49 +18,22 @@ function eventNotHandled(e) {
 
 // ----------------------------------------------------------------------------
 
-export const PipelineBrowser = React.createClass({
+export class PipelineBrowser extends React.Component {
+  constructor(props) {
+    super(props);
 
-  displayName: 'ParaViewWeb/PipelineBrowser',
-
-  propTypes: {
-    className: React.PropTypes.string,
-    visible: React.PropTypes.bool,
-    presets: React.PropTypes.object, // { presetName: image }
-    pipeline: React.PropTypes.object,
-    idMapOfSourceToRep: React.PropTypes.object,
-    source: React.PropTypes.object,
-    representation: React.PropTypes.object,
-    view: React.PropTypes.object,
-    lutImage: React.PropTypes.string,
-    lutRange: React.PropTypes.object,
-    playing: React.PropTypes.bool,
-    opacityPoints: React.PropTypes.array,
-
-    // actions:
-    deleteProxy: React.PropTypes.func,
-    setActiveSource: React.PropTypes.func,
-    colorBy: React.PropTypes.func,
-    propertyChange: React.PropTypes.func,
-    scalarBar: React.PropTypes.func,
-    updatePreset: React.PropTypes.func,
-    updateScalarRange: React.PropTypes.func,
-    updateCollapsableState: React.PropTypes.func,
-    setOpacityPoints: React.PropTypes.func,
-    onOpacityEditModeChange: React.PropTypes.func,
-  },
-
-  getDefaultProps() {
-    return {
-      visible: true,
-    };
-  },
+    // callbacks
+    this.applyChanges = this.applyChanges.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.updateColorBy = this.updateColorBy.bind(this);
+  }
 
   applyChanges(changeSet) {
-    const changeToPush = [],
-      ids = {};
+    const changeToPush = [];
+    const ids = {};
     Object.keys(changeSet).forEach((key) => {
-      const [id, name] = key.split(':'),
-        value = changeSet[key];
+      const [id, name] = key.split(':');
+      const value = changeSet[key];
       ids[id] = true;
       changeToPush.push({ id, name, value });
     });
@@ -69,7 +45,7 @@ export const PipelineBrowser = React.createClass({
     });
 
     this.props.propertyChange({ changeSet: changeToPush, owners });
-  },
+  }
 
   handleChange(event) {
     switch (event.type) {
@@ -82,9 +58,9 @@ export const PipelineBrowser = React.createClass({
       case 'visibility': {
         const { idMapOfSourceToRep } = this.props;
         const changeSet = event.changeSet.map((node) => {
-          const id = idMapOfSourceToRep[node.id],
-            name = 'Visibility',
-            value = node.visible ? 1 : 0;
+          const id = idMapOfSourceToRep[node.id];
+          const name = 'Visibility';
+          const value = node.visible ? 1 : 0;
 
           return { id, name, value };
         });
@@ -99,7 +75,7 @@ export const PipelineBrowser = React.createClass({
         console.log('Warning: Event not managed', event);
         break;
     }
-  },
+  }
 
   updateColorBy(event) {
     const fn = this.props[event.type] || eventNotHandled;
@@ -115,13 +91,17 @@ export const PipelineBrowser = React.createClass({
       event.owners = owners;
     }
     fn(event);
-  },
+  }
 
   render() {
     if (!this.props.visible) {
       return null;
     }
-    const sections = [this.props.source, this.props.representation, this.props.view].filter(i => !!i);
+    const sections = [
+      this.props.source,
+      this.props.representation,
+      this.props.view,
+    ].filter((i) => !!i);
 
     return (
       <div className={style.container}>
@@ -134,12 +114,11 @@ export const PipelineBrowser = React.createClass({
             width="295"
           />
         </div>
-        { // FIXME: show props only when no animation to deal with rendering perf issue
-          // The issue is related to the implementation of the Properties handling
-          // which require internal states (setState in Props...)
-          this.props.playing
-          ? null
-          : (<div className={style.proxyEditorContainer}>
+        {// FIXME: show props only when no animation to deal with rendering perf issue
+        // The issue is related to the implementation of the Properties handling
+        // which require internal states (setState in Props...)
+        this.props.playing ? null : (
+          <div className={style.proxyEditorContainer}>
             <ProxyEditorWidget
               sections={sections}
               onApply={this.applyChanges}
@@ -159,87 +138,163 @@ export const PipelineBrowser = React.createClass({
                 onOpacityEditModeChange={this.props.onOpacityEditModeChange}
                 opacityEditorSize={[250, 90]}
                 hidePointControl
+                useGaussian
+                gaussians={this.props.gaussians}
               />
             </ProxyEditorWidget>
-          </div>)
-        }
-      </div>);
-  },
-});
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 
-/*
+PipelineBrowser.propTypes = {
+  visible: PropTypes.bool,
+  presets: PropTypes.object.isRequired, // { presetName: image }
+  pipeline: PropTypes.object.isRequired,
+  idMapOfSourceToRep: PropTypes.object.isRequired,
+  source: PropTypes.object,
+  representation: PropTypes.object,
+  view: PropTypes.object,
+  lutImage: PropTypes.string,
+  lutRange: PropTypes.object,
+  playing: PropTypes.bool.isRequired,
+  opacityPoints: PropTypes.array,
+  gaussians: PropTypes.array,
 
-*/
+  // actions:
+  deleteProxy: PropTypes.func.isRequired,
+  setActiveSource: PropTypes.func.isRequired,
+  // colorBy: PropTypes.func.isRequired,
+  propertyChange: PropTypes.func.isRequired,
+  // scalarBar: PropTypes.func.isRequired,
+  // updatePreset: PropTypes.func.isRequired,
+  // updateScalarRange: PropTypes.func.isRequired,
+  updateCollapsableState: PropTypes.func.isRequired,
+  setOpacityPoints: PropTypes.func.isRequired,
+  onOpacityEditModeChange: PropTypes.func.isRequired,
+};
+
+PipelineBrowser.defaultProps = {
+  visible: true,
+  source: undefined,
+  representation: undefined,
+  view: undefined,
+  lutImage: undefined,
+  lutRange: undefined,
+  opacityPoints: undefined,
+  gaussians: undefined,
+};
 
 // Binding --------------------------------------------------------------------
 /* eslint-disable arrow-body-style */
 
-export default connect(
-  (state) => {
-    const props = {
-      opacityPoints: selectors.colors.getPiecewisePoints(state),
-      idMapOfSourceToRep: selectors.proxies.getSourceToRepresentationMap(state),
-      playing: selectors.time.isAnimationPlaying(state), // fix perf issue with Properties UI
-      presets: selectors.colors.getPresetsImages(state),
-      pipeline: selectors.proxies.getPipeline(state),
-      source: selectors.proxies.getSourcePropertyGroup(state),
-      representation: selectors.proxies.getRepresentationPropertyGroup(state),
-      view: selectors.proxies.getViewPropertyGroup(state),
-      lutImage: selectors.colors.getScalarBarImage(state),
-      lutRange: selectors.colors.getScalarBarRange(state),
+export default connect((state) => {
+  const props = {
+    opacityPoints: selectors.colors.getPiecewisePoints(state),
+    idMapOfSourceToRep: selectors.proxies.getSourceToRepresentationMap(state),
+    playing: selectors.time.isAnimationPlaying(state), // fix perf issue with Properties UI
+    presets: selectors.colors.getPresetsImages(state),
+    pipeline: selectors.proxies.getPipeline(state),
+    source: selectors.proxies.getSourcePropertyGroup(state),
+    representation: selectors.proxies.getRepresentationPropertyGroup(state),
+    view: selectors.proxies.getViewPropertyGroup(state),
+    lutImage: selectors.colors.getScalarBarImage(state),
+    lutRange: selectors.colors.getScalarBarRange(state),
+    gaussians: selectors.colors.getPiecewiseGaussians(state),
 
-      propertyChange: ({ changeSet, invalidatePipeline, owners }) => {
-        dispatch(actions.proxies.applyChangeSet(changeSet, owners));
-        if (invalidatePipeline) {
-          dispatch(actions.proxies.fetchPipeline());
-        }
+    propertyChange: ({ changeSet, invalidatePipeline, owners }) => {
+      dispatch(actions.proxies.applyChangeSet(changeSet, owners));
+      if (invalidatePipeline) {
+        dispatch(actions.proxies.fetchPipeline());
+      }
 
-        // Make sure we update the full proxy not just the edited properties
-        if (owners) {
-          owners.forEach(id => dispatch(actions.proxies.fetchProxy(id)));
-        }
-      },
-      deleteProxy: (id) => {
-        dispatch(actions.proxies.deleteProxy(id));
-      },
-      setActiveSource: (id) => {
-        dispatch(actions.active.activate(id, 'source'));
-      },
-      updateScalarRange: ({ options }) => {
-        dispatch(actions.colors.rescaleTransferFunction(options));
-        dispatch(actions.colors.fetchLookupTableScalarRange(selectors.proxies.getActiveSourceId(state)));
-      },
-      updateCollapsableState(name, isOpen, collapseType) {
-        dispatch(actions.ui.updateCollapsableState(name, isOpen, collapseType));
-      },
-      scalarBar: ({ source, visible }) => {
-        dispatch(actions.colors.showScalarBar(source, visible));
-        // The UI rely on representation proxy state to show scalarbar visibility state
-        dispatch(actions.proxies.fetchProxy(selectors.proxies.getActiveRepresentationId(state)));
-      },
-      colorBy: ({ representation, arrayLocation, arrayName, colorMode, vectorMode, vectorComponent, rescale }) => {
-        dispatch(actions.colors.applyColorBy(representation, colorMode, arrayLocation, arrayName, vectorComponent, vectorMode, rescale));
-      },
-      updatePreset: ({ representation, preset }) => {
-        dispatch(actions.colors.applyPreset(representation, preset));
-      },
-      setOpacityPoints(points) {
-        const serverFormat = [];
-        points.forEach((p) => {
-          serverFormat.push(p.x);
-          serverFormat.push(p.y);
-          serverFormat.push(p.x2 || 0.5);
-          serverFormat.push(p.y2 || 0.5);
-        });
-        dispatch(actions.colors.storePiecewiseFunction(selectors.colors.getColorByArray(state), points, serverFormat));
-      },
-      onOpacityEditModeChange(isEditing) {
-        // Extract updates to push
-        if (!isEditing) {
-          dispatch(actions.colors.pushPendingServerOpacityPoints());
-        }
-      },
-    };
-    return props;
-  }
-)(PipelineBrowser);
+      // Make sure we update the full proxy not just the edited properties
+      if (owners) {
+        owners.forEach((id) => dispatch(actions.proxies.fetchProxy(id)));
+      }
+    },
+    deleteProxy: (id) => {
+      dispatch(actions.proxies.deleteProxy(id));
+    },
+    setActiveSource: (id) => {
+      dispatch(actions.active.activate(id, 'source'));
+    },
+    updateScalarRange: ({ options }) => {
+      dispatch(actions.colors.rescaleTransferFunction(options));
+      dispatch(
+        actions.colors.fetchLookupTableScalarRange(
+          selectors.proxies.getActiveSourceId(state)
+        )
+      );
+    },
+    updateCollapsableState(name, isOpen, collapseType) {
+      dispatch(actions.ui.updateCollapsableState(name, isOpen, collapseType));
+    },
+    scalarBar: ({ source, visible }) => {
+      dispatch(actions.colors.showScalarBar(source, visible));
+      // The UI rely on representation proxy state to show scalarbar visibility state
+      dispatch(
+        actions.proxies.fetchProxy(
+          selectors.proxies.getActiveRepresentationId(state)
+        )
+      );
+    },
+    colorBy: ({
+      representation,
+      arrayLocation,
+      arrayName,
+      colorMode,
+      vectorMode,
+      vectorComponent,
+      rescale,
+    }) => {
+      dispatch(
+        actions.colors.applyColorBy(
+          representation,
+          colorMode,
+          arrayLocation,
+          arrayName,
+          vectorComponent,
+          vectorMode,
+          rescale
+        )
+      );
+    },
+    updatePreset: ({ representation, preset }) => {
+      dispatch(actions.colors.applyPreset(representation, preset));
+    },
+    setOpacityPoints(points, gaussians) {
+      const serverFormat = [];
+      points.forEach((p) => {
+        serverFormat.push(p.x);
+        serverFormat.push(p.y);
+        serverFormat.push(p.x2 || p.midpoint || 0.5);
+        serverFormat.push(p.y2 || p.sharpness || 0.5);
+      });
+      dispatch(
+        actions.colors.storePiecewiseFunction(
+          selectors.colors.getColorByArray(state),
+          points,
+          serverFormat
+        )
+      );
+      if (gaussians) {
+        dispatch(
+          actions.colors.storeGuassians(
+            selectors.colors.getColorByArray(state),
+            gaussians
+          )
+        );
+      }
+    },
+    onOpacityEditModeChange(isEditing) {
+      // Extract updates to push
+      if (!isEditing) {
+        dispatch(actions.colors.pushPendingServerOpacityPoints());
+      }
+    },
+  };
+  return props;
+})(PipelineBrowser);

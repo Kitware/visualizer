@@ -29,7 +29,6 @@ export default function setup(session) {
     dispatch(actions.colors.fetchColorMapImages());
   }, 2000);
 
-
   // Attach default behavior
   getActiveStore().subscribe(() => {
     const state = stateAccessor(getActiveStore().getState());

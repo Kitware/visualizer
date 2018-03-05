@@ -16,6 +16,7 @@ const APPLY_PRESET = 'APPLY_PRESET';
 const ALL_PRESETS = 'ALL_PRESETS';
 const LUT_RANGE = 'LUT_RANGE';
 const UPDATE_PIECE_WISE_FUNCTION = 'UPDATE_PIECE_WISE_FUNCTION';
+const UPDATE_PIECE_WISE_GUASSIANS = 'UPDATE_PIECE_WISE_GUASSIANS';
 const REMOVE_SERVER_PIECE_WISE_FUNCTION = 'REMOVE_SERVER_PIECE_WISE_FUNCTION';
 
 // --- Reducer ----------------------------------------------------------------
@@ -28,12 +29,15 @@ export const initialState = {
   ranges: {},
   piecewiseFunctions: {},
   piecewiseFunctionsToPush: {},
+  piecewiseGaussians: {},
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOOKUP_TABLE_IMAGE_STORE: {
-      const images = Object.assign({}, state.images, { [action.id]: action.image });
+      const images = Object.assign({}, state.images, {
+        [action.id]: action.image,
+      });
       return Object.assign({}, state, { images });
     }
 
@@ -43,35 +47,60 @@ export default function reducer(state = initialState, action) {
     }
 
     case APPLY_PRESET: {
-      const presets = Object.assign({}, state.presets, { [action.id]: action.name });
+      const presets = Object.assign({}, state.presets, {
+        [action.id]: action.name,
+      });
       if (state.presetImages[action.name]) {
-        const images = Object.assign({}, state.images, { [action.id]: state.presetImages[action.name] });
+        const images = Object.assign({}, state.images, {
+          [action.id]: state.presetImages[action.name],
+        });
         return Object.assign({}, state, { presets, images });
       }
       return Object.assign({}, state, { presets });
     }
 
     case ALL_PRESETS: {
-      const presetImages = action.presetImages;
+      const { presetImages } = action;
       return Object.assign({}, state, { presetImages });
     }
 
     case LUT_RANGE: {
-      const ranges = Object.assign({}, state.ranges, { [action.id]: action.range });
+      const ranges = Object.assign({}, state.ranges, {
+        [action.id]: action.range,
+      });
       return Object.assign({}, state, { ranges });
     }
 
     case UPDATE_PIECE_WISE_FUNCTION: {
-      const piecewiseFunctions = Object.assign({}, state.piecewiseFunctions, { [action.arrayName]: action.points });
+      const piecewiseFunctions = Object.assign({}, state.piecewiseFunctions, {
+        [action.arrayName]: action.points,
+      });
       if (action.serverSidePointsFormat) {
-        const piecewiseFunctionsToPush = Object.assign({}, state.piecewiseFunctionsToPush, { [action.arrayName]: action.serverSidePointsFormat });
-        return Object.assign({}, state, { piecewiseFunctions, piecewiseFunctionsToPush });
+        const piecewiseFunctionsToPush = Object.assign(
+          {},
+          state.piecewiseFunctionsToPush,
+          { [action.arrayName]: action.serverSidePointsFormat }
+        );
+        return Object.assign({}, state, {
+          piecewiseFunctions,
+          piecewiseFunctionsToPush,
+        });
       }
       return Object.assign({}, state, { piecewiseFunctions });
     }
 
+    case UPDATE_PIECE_WISE_GUASSIANS: {
+      const piecewiseGaussians = Object.assign({}, state.piecewiseGaussians, {
+        [action.arrayName]: action.gaussians,
+      });
+      return Object.assign({}, state, { piecewiseGaussians });
+    }
+
     case REMOVE_SERVER_PIECE_WISE_FUNCTION: {
-      const piecewiseFunctionsToPush = Object.assign({}, state.piecewiseFunctionsToPush);
+      const piecewiseFunctionsToPush = Object.assign(
+        {},
+        state.piecewiseFunctionsToPush
+      );
       action.arrayNames.forEach((name) => {
         delete piecewiseFunctionsToPush[name];
       });
@@ -92,7 +121,11 @@ export default function reducer(state = initialState, action) {
 // --- Pure actions ---
 
 export function storeLookupTableImage(representationId, encodedImage) {
-  return { type: LOOKUP_TABLE_IMAGE_STORE, id: representationId, image: encodedImage };
+  return {
+    type: LOOKUP_TABLE_IMAGE_STORE,
+    id: representationId,
+    image: encodedImage,
+  };
 }
 
 export function storeScalarBarVisibilies(state) {
@@ -111,8 +144,21 @@ export function storeLookupTableRange(sourceId, range) {
   return { type: LUT_RANGE, id: sourceId, range };
 }
 
-export function storePiecewiseFunction(arrayName, points, serverSidePointsFormat) {
-  return { type: UPDATE_PIECE_WISE_FUNCTION, arrayName, points, serverSidePointsFormat };
+export function storePiecewiseFunction(
+  arrayName,
+  points,
+  serverSidePointsFormat
+) {
+  return {
+    type: UPDATE_PIECE_WISE_FUNCTION,
+    arrayName,
+    points,
+    serverSidePointsFormat,
+  };
+}
+
+export function storeGuassians(arrayName, gaussians) {
+  return { type: UPDATE_PIECE_WISE_GUASSIANS, arrayName, gaussians };
 }
 
 export function removePendingServerOpacityPoints(arrayNames) {
@@ -123,10 +169,12 @@ export function removePendingServerOpacityPoints(arrayNames) {
 
 export function fetchRepresentationColorMap(representationId, sampling = 512) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest('Fetch color map image');
-    network.getClient()
-      .ColorManager
-      .getLutImage(representationId, sampling)
+    const netRequest = externalActions.network.createRequest(
+      'Fetch color map image'
+    );
+    network
+      .getClient()
+      .ColorManager.getLutImage(representationId, sampling)
       .then(
         (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
@@ -134,18 +182,36 @@ export function fetchRepresentationColorMap(representationId, sampling = 512) {
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
 
-export function applyColorBy(representationId, colorMode, arrayLocation = 'POINTS', arrayName = '',
-  vectorComponent = 0, vectorMode = 'Magnitude', rescale = false) {
+export function applyColorBy(
+  representationId,
+  colorMode,
+  arrayLocation = 'POINTS',
+  arrayName = '',
+  vectorComponent = 0,
+  vectorMode = 'Magnitude',
+  rescale = false
+) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest(`Color by ${arrayName}`);
-    network.getClient()
-      .ColorManager
-      .colorBy(representationId, colorMode, arrayLocation, arrayName, vectorMode, vectorComponent, rescale)
+    const netRequest = externalActions.network.createRequest(
+      `Color by ${arrayName}`
+    );
+    network
+      .getClient()
+      .ColorManager.colorBy(
+        representationId,
+        colorMode,
+        arrayLocation,
+        arrayName,
+        vectorMode,
+        vectorComponent,
+        rescale
+      )
       .then(
         (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
@@ -154,17 +220,20 @@ export function applyColorBy(representationId, colorMode, arrayLocation = 'POINT
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
 
 export function showScalarBar(sourceId, show) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest('Toggle scalar bar');
-    network.getClient()
-      .ColorManager
-      .setScalarBarVisibilities({ [sourceId]: show })
+    const netRequest = externalActions.network.createRequest(
+      'Toggle scalar bar'
+    );
+    network
+      .getClient()
+      .ColorManager.setScalarBarVisibilities({ [sourceId]: show })
       .then(
         (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
@@ -172,17 +241,20 @@ export function showScalarBar(sourceId, show) {
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
 
 export function applyPreset(representationId, presetName) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest(`Apply preset ${presetName}`);
-    network.getClient()
-      .ColorManager
-      .selectColorMap(representationId, presetName)
+    const netRequest = externalActions.network.createRequest(
+      `Apply preset ${presetName}`
+    );
+    network
+      .getClient()
+      .ColorManager.selectColorMap(representationId, presetName)
       .then(
         (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
@@ -190,7 +262,8 @@ export function applyPreset(representationId, presetName) {
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
@@ -203,30 +276,37 @@ export function fetchColorMapImages(sampling = 512, local = true) {
       return storePresetImages(localPresetImages);
     }
 
-    const netRequest = externalActions.network.createRequest('Fetch all preset images');
-    network.getClient()
-      .ColorManager
-      .listColorMapImages(sampling)
+    const netRequest = externalActions.network.createRequest(
+      'Fetch all preset images'
+    );
+    network
+      .getClient()
+      .ColorManager.listColorMapImages(sampling)
       .then(
         (presetImages) => {
           // Useful to update local presets
           // console.log(JSON.stringify(presetImages));
-          dispatch(externalActions.network.success(netRequest.id, presetImages));
+          dispatch(
+            externalActions.network.success(netRequest.id, presetImages)
+          );
           dispatch(storePresetImages(presetImages));
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
 
 export function rescaleTransferFunction(options) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest('Fetch all preset images');
-    network.getClient()
-      .ColorManager
-      .rescaleTransferFunction(options)
+    const netRequest = externalActions.network.createRequest(
+      'Fetch all preset images'
+    );
+    network
+      .getClient()
+      .ColorManager.rescaleTransferFunction(options)
       .then(
         (ok) => {
           dispatch(externalActions.network.success(netRequest.id, ok));
@@ -235,17 +315,20 @@ export function rescaleTransferFunction(options) {
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
 
 export function fetchLookupTableScalarRange(sourceProxyId) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest('Fetch lookup table range');
-    network.getClient()
-      .ColorManager
-      .getCurrentScalarRange(sourceProxyId)
+    const netRequest = externalActions.network.createRequest(
+      'Fetch lookup table range'
+    );
+    network
+      .getClient()
+      .ColorManager.getCurrentScalarRange(sourceProxyId)
       .then(
         (range) => {
           dispatch(externalActions.network.success(netRequest.id, range));
@@ -253,34 +336,40 @@ export function fetchLookupTableScalarRange(sourceProxyId) {
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
 
 export function applyOpacityPoints(arrayName, points) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest('Apply piecewise opacity function');
-    network.getClient()
-      .ColorManager
-      .setOpacityFunctionPoints(arrayName, points)
+    const netRequest = externalActions.network.createRequest(
+      'Apply piecewise opacity function'
+    );
+    network
+      .getClient()
+      .ColorManager.setOpacityFunctionPoints(arrayName, points, true)
       .then(
         (nothing) => {
           dispatch(externalActions.network.success(netRequest.id));
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }
 
 export function fetchOpacityPoints(arrayName) {
   return (dispatch) => {
-    const netRequest = externalActions.network.createRequest('Fetch piecewise opacity function');
-    network.getClient()
-      .ColorManager
-      .getOpacityFunctionPoints(arrayName)
+    const netRequest = externalActions.network.createRequest(
+      'Fetch piecewise opacity function'
+    );
+    network
+      .getClient()
+      .ColorManager.getOpacityFunctionPoints(arrayName)
       .then(
         (piecewise) => {
           dispatch(externalActions.network.success(netRequest.id, piecewise));
@@ -288,7 +377,8 @@ export function fetchOpacityPoints(arrayName) {
         },
         (err) => {
           dispatch(externalActions.network.error(netRequest.id, err));
-        });
+        }
+      );
     return netRequest;
   };
 }

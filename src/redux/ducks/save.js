@@ -52,13 +52,15 @@ export default function proxiesReducer(state = initialState, action) {
 
     case UPDATE_DATASET_FILENAME: {
       const xmlExt = DATASET_MAPPING[action.dataset] || 'vtk';
-      const dataset = state.paths.dataset.replace(/\.[^\.]+$/, `.${xmlExt}`);
+      const dataset = state.paths.dataset.replace(/\.[^.]+$/, `.${xmlExt}`);
       const paths = Object.assign({}, state.paths, { dataset });
       return Object.assign({}, state, { paths });
     }
 
     case UPDATE_SAVE_PATH: {
-      const paths = Object.assign({}, state.paths, { [action.mode]: action.path });
+      const paths = Object.assign({}, state.paths, {
+        [action.mode]: action.path,
+      });
       return Object.assign({}, state, { paths });
     }
 
@@ -92,7 +94,9 @@ export function saveData(type, path, options = {}) {
   return (dispatch) => {
     const netRequest = netActions.createRequest('Save data');
     dispatch(updateSaveStatus(type, 'pending'));
-    network.getClient().SaveData.saveData(path, options)
+    network
+      .getClient()
+      .SaveData.saveData(path, options)
       .then(
         (pipeline) => {
           dispatch(netActions.success(netRequest.id, pipeline));
@@ -101,7 +105,8 @@ export function saveData(type, path, options = {}) {
         (err) => {
           dispatch(netActions.error(netRequest.id, err));
           dispatch(updateSaveStatus(type, 'error'));
-        });
+        }
+      );
     return netRequest;
   };
 }

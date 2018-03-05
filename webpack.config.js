@@ -1,55 +1,41 @@
-var path = require('path'),
-    webpack = require('webpack'),
-    loaders = require('./node_modules/paraviewweb/config/webpack.loaders.js'),
-    plugins = [];
+const path = require('path');
 
-if(process.env.NODE_ENV === 'production') {
-    console.log('==> Production build');
-    plugins.push(new webpack.DefinePlugin({
-        "process.env": {
-            NODE_ENV: JSON.stringify("production"),
-        },
-    }));
-}
+const linterRules = require('./config/rules-linter.js');
+const pvwRules = require('./config/rules-pvw.js');
+const visualizerRules = require('./config/rules-visualizer.js');
+const vtkjsRules = require('./config/rules-vtkjs.js');
+const wslinkRules = require('./config/rules-wslink.js');
 
 module.exports = {
-  plugins: plugins,
-  entry: './src/app.js',
+  plugins: [],
+  entry: path.join(__dirname, './src/app.js'),
   output: {
-    path: './dist',
+    path: path.join(__dirname, './dist'),
     filename: 'Visualizer.js',
   },
   module: {
-        preLoaders: [{
-            test: /\.js$/,
-            loader: "eslint-loader",
-            exclude: /node_modules/,
-        }],
-        loaders: [
-            { test: require.resolve("./src/app.js"), loader: "expose?Visualizer" },
-        ].concat(loaders),
+    rules: [
+      {
+        test: require.resolve('./src/app.js'),
+        loader: 'expose-loader?Visualizer',
+      },
+    ].concat(linterRules, pvwRules, visualizerRules, vtkjsRules, wslinkRules),
+  },
+  resolve: {
+    alias: {
+      PVWStyle: path.join(__dirname, './node_modules/paraviewweb/style'),
+      VisualizerStyle: path.join(__dirname, './style'),
     },
-    resolve: {
-        alias: {
-            PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
-            VisualizerStyle: path.resolve('./style'),
-        },
+  },
+  devServer: {
+    contentBase: './dist/',
+    port: 9999,
+    hot: true,
+    quiet: false,
+    noInfo: false,
+    stats: {
+      colors: true,
     },
-    postcss: [
-        require('autoprefixer')({ browsers: ['last 2 versions'] }),
-    ],
-    eslint: {
-        configFile: '.eslintrc.js',
-    },
-    devServer: {
-        contentBase: './dist/',
-        port: 9999,
-        hot: true,
-        quiet: false,
-        noInfo: false,
-        stats: {
-            colors: true,
-        },
-        proxy: {},
-    },
+    proxy: {},
+  },
 };
