@@ -153,6 +153,7 @@ export class Visualizer extends React.Component {
           throttleTime={this.props.throttleTime}
           maxFPS={this.props.maxFPS}
         />
+        <div className={style.progressOverlay}>{this.props.progress}</div>
       </div>
     );
   }
@@ -175,6 +176,8 @@ Visualizer.propTypes = {
   interactiveRatio: PropTypes.number.isRequired,
   throttleTime: PropTypes.number.isRequired,
   maxFPS: PropTypes.number.isRequired,
+
+  progress: PropTypes.string,
 };
 
 Visualizer.defaultProps = {
@@ -183,6 +186,7 @@ Visualizer.defaultProps = {
   provideOnImageReady: false,
   connection: undefined,
   session: undefined,
+  progress: '',
 };
 
 // Binding --------------------------------------------------------------------
@@ -205,6 +209,7 @@ export default connect(
     );
     const throttleTime = selectors.view.getThrottleTime(state);
     const maxFPS = selectors.view.getServerMaxFPS(state);
+    const progress = selectors.network.getProgressUpdate(state);
 
     return {
       client,
@@ -219,6 +224,7 @@ export default connect(
       interactiveQuality,
       throttleTime,
       maxFPS,
+      progress,
     };
   },
   () => ({

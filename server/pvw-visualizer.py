@@ -200,6 +200,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebWidgetManager())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebKeyValuePairStore())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebSaveData(baseSavePath=_VisualizerServer.saveDataDir))
+        # self.registerVtkWebProtocol(pv_protocols.ParaViewWebProgressUpdate()) # Not fully working yet
 
         # Update authentication key to use
         self.updateSecret(_VisualizerServer.authKey)

@@ -40,6 +40,7 @@ export function connect(config = {}) {
   loading();
   network.onReady(start);
   network.onError(loading);
+  network.onClose(() => loading('Server disconnected'));
   network.connect(config);
 }
 

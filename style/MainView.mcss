@@ -203,3 +203,12 @@
 input:focus {
   outline-color: rgb(29, 147, 249);
 }
+
+.progressOverlay {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #eee;
+  z-index: 1000;
+  user-select: none;
+}

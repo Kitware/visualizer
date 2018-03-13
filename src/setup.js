@@ -1,6 +1,12 @@
+import macro from 'vtk.js/Sources/macro';
+
 import { getActiveStore, dispatch, actions } from './redux';
 import behaviorOnChange from './behavior';
 import stateAccessor from './redux/selectors/stateAccessor';
+
+const resetProgress = macro.debounce(() => {
+  dispatch(actions.network.resetProgress());
+}, 1000);
 
 export default function setup(session) {
   // Keep track of any server notification
@@ -15,6 +21,10 @@ export default function setup(session) {
         dispatch(actions.proxies.fetchProxy(state.active.source));
       }
     });
+  });
+  session.subscribe('paraview.progress', (args) => {
+    dispatch(actions.network.updateProgress(args[0]));
+    resetProgress();
   });
 
   // Fetch data

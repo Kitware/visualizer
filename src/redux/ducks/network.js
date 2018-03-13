@@ -9,6 +9,7 @@ const NETWORK_REQUEST = 'NETWORK_REQUEST';
 const NETWORK_SUCCESS = 'NETWORK_SUCCESS';
 const NETWORK_ERROR = 'NETWORK_ERROR';
 const FREE_NETWORK_REQUESTS = 'FREE_NETWORK_REQUESTS';
+const PROGRESS_UPDATE = 'PROGRESS_UPDATE';
 
 function now() {
   return +new Date();
@@ -21,6 +22,7 @@ export const initialState = {
   pending: [],
   success: [],
   error: [],
+  progress: '',
 };
 
 export default function reducer(state = initialState, action) {
@@ -88,6 +90,14 @@ export default function reducer(state = initialState, action) {
       return initialState;
     }
 
+    case PROGRESS_UPDATE: {
+      const { text, progress } = action;
+      if (progress === 0) {
+        return Object.assign({}, state, { progress: '' });
+      }
+      return Object.assign({}, state, { progress: `${progress}% - ${text}` });
+    }
+
     default:
       return state;
   }
@@ -113,4 +123,12 @@ export function error(id, data = {}) {
 
 export function freeNetworkRequests(size = 10) {
   return { type: FREE_NETWORK_REQUESTS, size };
+}
+
+export function updateProgress({ text, progress }) {
+  return { type: PROGRESS_UPDATE, text, progress };
+}
+
+export function resetProgress() {
+  return { type: PROGRESS_UPDATE, text: '', progress: 0 };
 }
