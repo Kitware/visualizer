@@ -1,8 +1,11 @@
 import macro from 'vtk.js/Sources/macro';
+import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
 
 import { getActiveStore, dispatch, actions } from './redux';
 import behaviorOnChange from './behavior';
 import stateAccessor from './redux/selectors/stateAccessor';
+
+const serverColorMaps = vtkURLExtract.extractURLParameters().serverColorMaps;
 
 const resetProgress = macro.debounce(() => {
   dispatch(actions.network.resetProgress());
@@ -36,7 +39,7 @@ export default function setup(session) {
 
   // Fetch heavy data after full initialization
   setTimeout(() => {
-    dispatch(actions.colors.fetchColorMapImages());
+    dispatch(actions.colors.fetchColorMapImages(512, !serverColorMaps));
   }, 2000);
 
   // Attach default behavior

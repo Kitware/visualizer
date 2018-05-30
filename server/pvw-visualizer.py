@@ -139,6 +139,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
         parser.add_argument("--data", default=os.getcwd(), help="path to data directory to list, or else multiple directories given as 'name1=path1|name2=path2|...'", dest="path")
         parser.add_argument("--load-file", default=None, help="File to load if any based on data-dir base path", dest="file")
         parser.add_argument("--color-palette-file", default=None, help="File to load to define a set of color map", dest="palettes")
+        parser.add_argument("--no-built-in-palette", help="If provided, disables built-in color maps", action="store_true", dest="hide_built_in_color_maps")
         parser.add_argument("--ds-host", default=None, help="Hostname to connect to for DataServer", dest="dsHost")
         parser.add_argument("--ds-port", default=11111, type=int, help="Port number to connect to for DataServer", dest="dsPort")
         parser.add_argument("--rs-host", default=None, help="Hostname to connect to for RenderServer", dest="rsHost")
@@ -174,6 +175,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
         _VisualizerServer.viewportMaxHeight    = args.viewportMaxHeight
         _VisualizerServer.settingsLODThreshold = args.settingsLODThreshold
         _VisualizerServer.allReaders           = not args.no_auto_readers
+        _VisualizerServer.showBuiltin          = not args.hide_built_in_color_maps
 
         # If no save directory is provided, default it to the data directory
         if args.saveDataDir == '':
@@ -190,7 +192,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebStartupPluginLoader(_VisualizerServer.plugins))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebFileListing(_VisualizerServer.dataDir, "Home", _VisualizerServer.excludeRegex, _VisualizerServer.groupRegex))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebProxyManager(allowedProxiesFile=_VisualizerServer.proxies, baseDir=_VisualizerServer.dataDir, fileToLoad=_VisualizerServer.fileToLoad, allowUnconfiguredReaders=_VisualizerServer.allReaders))
-        self.registerVtkWebProtocol(pv_protocols.ParaViewWebColorManager(pathToColorMaps=_VisualizerServer.colorPalette))
+        self.registerVtkWebProtocol(pv_protocols.ParaViewWebColorManager(pathToColorMaps=_VisualizerServer.colorPalette, showBuiltin=_VisualizerServer.showBuiltin))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebMouseHandler())
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebViewPort(_VisualizerServer.viewportScale, _VisualizerServer.viewportMaxWidth, _VisualizerServer.viewportMaxHeight))
         self.registerVtkWebProtocol(pv_protocols.ParaViewWebPublishImageDelivery(decode=False))

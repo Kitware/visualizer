@@ -37,6 +37,9 @@ program
   .option('--proxies [proxyFile]', 'Path to a file with json text containing filters to load')
   .option('--no-auto-readers', 'If provided, disables ability to use non-configured readers\n')
 
+  .option('--no-built-in-palette', 'If provided, disables built-in color maps')
+  .option('--color-palette-file [colorMap.json]', 'File to load to define a set of color map\n')
+
   .option('--viewport [1x2560x1440]', 'Configure viewport {scale}x{maxWidth}x{maxHeight}')
   .option('--settings-lod-threshold [102400]', 'LOD Threshold in Megabytes\n')
 
@@ -143,6 +146,15 @@ if (pvPythonExecs.length < 1) {
   if (program.virtualEnv) {
     cmdLine.push('--virtual-env');
     cmdLine.push(program.virtualEnv);
+  }
+
+  if (!program.builtInPalette) {
+    cmdLine.push('--no-built-in-palette');
+  }
+
+  if (program.colorPaletteFile) {
+    cmdLine.push('--color-palette-file');
+    cmdLine.push(program.colorPaletteFile);
   }
 
   console.log(
