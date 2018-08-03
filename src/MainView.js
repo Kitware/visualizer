@@ -46,12 +46,14 @@ export class Visualizer extends React.Component {
       if (nextProps.remoteRendering) {
         // Changing back to remote rendering
         const params = this.renderer.getCameraParameters();
-        this.props.updateCamera(
-          this.props.viewId,
-          params.focalPoint,
-          params.viewUp,
-          params.position
-        );
+        if (params) {
+          this.props.updateCamera(
+            this.props.viewId,
+            params.focalPoint,
+            params.viewUp,
+            params.position
+          );
+        }
       }
       ImageProviders.reset();
       this.needsSetImageProvider = true;
