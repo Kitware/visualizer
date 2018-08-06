@@ -11,7 +11,7 @@ import network from './network';
 import setup from './setup';
 import MainView from './MainView';
 
-import { getActiveStore } from './redux';
+import { getActiveStore, dispatch, actions } from './redux';
 
 function start() {
   setImmediate(() => {
@@ -42,6 +42,11 @@ export function connect(config = {}) {
   network.onError(loading);
   network.onClose(() => loading('Server disconnected'));
   network.connect(config);
+
+  // Configure renderer to local if asked for
+  if (config.renderer) {
+    dispatch(actions.view.setRemoteRendering(config.renderer === 'remote'));
+  }
 }
 
 export function connectWithArgsAsConfig(baseConfig = {}) {
