@@ -23,10 +23,10 @@
     "react-redux": "5.0.6",
     "redux": "3.7.2",
     "reselect": "3.0.1",
-    "kw-web-suite": "6.0.2",
+    "kw-web-suite": "6.2.0",
     "kw-doc": "1.1.2",
-    "paraviewweb": "3.2.3",
-    "vtk.js": "7.5.4",
+    "paraviewweb": "3.2.5",
+    "vtk.js": "7.6.1",
     "wslink": "0.1.7"
   },
   "scripts": {
@@ -34,7 +34,7 @@
     "reformat": "prettier --config ./prettier.config.js --write \"src/**/*.js\"",
     "reformat-only": "prettier --single-quote --trailing-comma es5 --print-width 80 --arrow-parens always --write",
     "build": "webpack --mode development",
-    "build:debug": "webpack --display-modules --mode development",
+    "build:debug": "webpack --display-modules --mode development --devtool source-map",
     "build:release": "webpack  --mode production",
     "doc": "kw-doc -c ./documentation/config.js",
     "doc:www": "kw-doc -c ./documentation/config.js -s",
