@@ -53,6 +53,13 @@ export default function reducer(state = initialState, action) {
   }
 }
 
+// --- Bind UI callbacks ------------------------------------------------------
+
+let resetCameraCallback = () => {};
+export function setResetCameraCallback(fn) {
+  resetCameraCallback = fn;
+}
+
 // --- Action Creators --------------------------------------------------------
 
 export function setRemoteRendering(remote) {
@@ -82,6 +89,7 @@ export function setServerMaxFPS(maxFPS) {
 // --- Async actions ---
 
 export function resetCamera() {
+  resetCameraCallback();
   return (dispatch) => {
     const netRequest = netActions.createRequest('Reset camera');
     network

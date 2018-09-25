@@ -31,6 +31,23 @@ export class Visualizer extends React.Component {
     this.toggleMenu = this.toggleMenu.bind(this);
     this.localImageReady = this.localImageReady.bind(this);
     this.busyStatusUpdated = this.busyStatusUpdated.bind(this);
+
+    // Link resetCamera call to local renderer too
+    const resetCamera = () => {
+      if (this.renderer && this.renderer.resetCamera) {
+        this.renderer.resetCamera();
+        if (this.renderer.updateRenderWindowSize) {
+          this.renderer.updateRenderWindowSize();
+        }
+      }
+    };
+    actions.view.setResetCameraCallback(() => {
+      resetCamera();
+      // The client need the data to figure out the camera location
+      // Therefore we need to wait for the data to show up hoping 0.5s
+      // would be enough.
+      setTimeout(resetCamera, 500);
+    });
   }
 
   componentWillMount() {
@@ -80,9 +97,6 @@ export class Visualizer extends React.Component {
 
   resetCamera() {
     this.props.resetCamera();
-    if (this.renderer && this.renderer.resetCamera) {
-      this.renderer.resetCamera();
-    }
   }
 
   toggleMenu() {
