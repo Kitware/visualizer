@@ -11,6 +11,43 @@ ParaView Visualizer is a standalone application that leverages ParaView capabili
 
 The ParaViewWeb Visualizer aims to provide a ParaView-like application for your browser.
 
+## Run it from ParaView
+
+ParaView already come with Visualizer and allow you to run it from the command line. Therefore it is not really needed to install anything. Please find below how you can start a local web server to try it out.
+
+```macOS
+$ cd paraview.app/Contents
+$ ./bin/pvpython                                        \
+    ./Resources/web/visualizer/server/pvw-visualizer.py  \
+    --content ./Resources/web/visualizer/www/             \
+    --data $PWD/data                                       \
+    --port 8080
+
+==> Open your browser to http://localhost:8080/
+```
+
+```Linux
+$ cd ParaView-5.6.0-Linux-64bit
+$ ./bin/pvpython                                                 \
+    ./share/paraview-5.6/web/visualizer/server/pvw-visualizer.py  \
+    --content ./share/paraview-5.6/web/visualizer/www/             \
+    --data $PWD/share/paraview-5.6/data                             \
+    --port 8080
+
+==> Open your browser to http://localhost:8080/
+```
+
+```Windows
+$ cd ParaView-5.6.0-Windows-64bit
+$ .\bin\pvpython.exe                                          \
+   share\paraview-5.6\web\visualizer\server\pvw-visualizer.py  \
+   --content share\paraview-5.6\web\visualizer\www\             \
+   --data "C:\...full_path...\data"                              \
+   --port 8080
+
+==> Open your browser to http://localhost:8080/
+```
+
 ## Installation
 
 It only takes few minutes to set up ParaView Visualizer. If you encounter a problem and can't find the solution here, please [submit a GitHub issue](https://github.com/kitware/visualizer/issues).
