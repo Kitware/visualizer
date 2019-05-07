@@ -7,6 +7,7 @@ import * as save from './ducks/save';
 import * as time from './ducks/time';
 import * as ui from './ducks/ui';
 import * as view from './ducks/view';
+import * as custom from './ducks/customproxies';
 
 function resetVisualizerState() {
   return { type: 'RESET_VISUALIZER_STATE' };
@@ -23,4 +24,5 @@ export default {
   time,
   ui,
   view,
+  custom,
 };

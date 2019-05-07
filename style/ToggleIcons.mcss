@@ -85,6 +85,17 @@
     composes: activeButton;
 }
 
+.cuttingPlaneButton {
+    composes: button;
+    composes: fa-bomb from 'font-awesome/css/font-awesome.css';
+}
+
+.cuttingPlaneButtonActive {
+    composes: cuttingPlaneButton;
+    composes: activeButton;
+}
+
+
 .saveButton {
     composes: button;
     composes: fa-hdd-o from 'font-awesome/css/font-awesome.css';

@@ -212,7 +212,7 @@ class _VisualizerServer(pv_wslink.PVServerProtocol):
 
         # Disable interactor-based render calls
         simple.GetRenderView().EnableRenderOnInteraction = 0
-        simple.GetRenderView().Background = [0,0,0]
+        simple.GetRenderView().Background = [1,1,1]
 
         # ProxyManager helper
         pxm = simple.servermanager.ProxyManager()

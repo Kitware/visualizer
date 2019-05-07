@@ -16,6 +16,10 @@ import { getActiveStore, dispatch, actions } from './redux';
 function start() {
   setImmediate(() => {
     setup(network.getClient().session);
+    const userParams = vtkURLExtract.extractURLParameters();
+    if (userParams.file) {
+      dispatch(actions.custom.fetchAllDeleteAndLoad(userParams.file));
+    }
   });
 
   // Mount UI
@@ -29,7 +33,7 @@ function start() {
   );
 }
 
-function loading(message = 'Loading ParaView...') {
+function loading(message = 'Loading Viewer') {
   // Mount UI
   const container = document.querySelector('.content');
   ReactDOM.unmountComponentAtNode(container);
