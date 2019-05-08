@@ -58,7 +58,11 @@ spec:
             }
             if (isValidBranch) {
                 stage ('Trigger OnScale_Paraview') {
-                    build "../OnScale_Paraview/${env.BRANCH_NAME}"
+                    build (
+                        job: "../OnScale_Paraview/${env.BRANCH_NAME}",
+                        wait: false
+                    )
+                    echo "OnScale_Paraview build running"
                 }
             } else {
                 echo skipMessage
