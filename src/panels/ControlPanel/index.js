@@ -11,6 +11,7 @@ import InformationPanel from './InformationPanel';
 import PipelineBrowser from './PipelineBrowser';
 import SavePanel from './SavePanel';
 import SettingPanel from './SettingPanel';
+import CuttingPlanePanel from './CuttingPlanePanel';
 
 import { selectors, actions, dispatch } from '../../redux';
 
@@ -81,6 +82,15 @@ export class ControlPanel extends React.Component {
                   : style.infoButton
               }
             />
+            <i
+              data-idx="6"
+              onClick={this.updateActive}
+              className={
+                this.props.activeIdx === 6
+                  ? style.cuttingPlaneButtonActive
+                  : style.cuttingPlaneButton
+              }
+            />
           </div>
           <div className={style.actions}>
             <i
@@ -102,6 +112,7 @@ export class ControlPanel extends React.Component {
           <SavePanel visible={this.props.activeIdx === 3} />
           <InformationPanel visible={this.props.activeIdx === 4} />
           <SettingPanel visible={this.props.activeIdx === 5} />
+          <CuttingPlanePanel visible={this.props.activeIdx === 6} />
         </div>
       </div>
     );

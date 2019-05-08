@@ -21,7 +21,7 @@ export class Visualizer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuVisible: true,
+      menuVisible: false,
       isRendererBusy: false,
     };
 
@@ -144,6 +144,9 @@ export class Visualizer extends React.Component {
             <TimeController />
             <i className={style.resetCameraButton} onClick={this.resetCamera} />
           </div>
+        </div>
+        <div className={style.controlPanelToggle}>
+          <i onClick={this.toggleMenu} className={style.customToggleButton} />
         </div>
         <Renderer
           ref={(c) => {
