@@ -1,11 +1,13 @@
 #!/usr/bin/env groovy
 
 // Define which branches Jenkins is allowed to run on
-def RUN_ON_BRANCH = 'kyle-vnc'
+def RUN_ON_BRANCH = 'master'
 
 // Pushes to this repository should just trigger a build in the corresponding
 // branch of the OnScale_Paraview repository, as that is where this code
 // gets built and deployed.
+// NOTE: This pipeline does not wait for the OnScale_Paraview job to complete,
+//  and will pass regardless of the end state of that build.
 
 podTemplate(
     label: 'jenkins-pipeline',
@@ -69,8 +71,7 @@ spec:
             }
         } catch (e) {
             if (isValidBranch) {
-                // slackSendWrapper('Failed', 'danger', env.BRANCH_NAME, gitCommit)
-                echo 'skip for now'
+                slackSendWrapper('Failed', 'danger', env.BRANCH_NAME, gitCommit)
             }
             throw (e)
         }
