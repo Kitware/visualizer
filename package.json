@@ -25,7 +25,7 @@
     "reselect": "3.0.1",
     "kw-web-suite": "6.2.0",
     "kw-doc": "1.1.2",
-    "paraviewweb": "3.2.7",
+    "paraviewweb": "3.2.8",
     "vtk.js": "8.5.2",
     "wslink": "0.1.7"
   },
