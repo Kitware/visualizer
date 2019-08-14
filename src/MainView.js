@@ -100,7 +100,7 @@ export class Visualizer extends React.Component {
   }
 
   toggleMenu() {
-    this.setState({ menuVisible: !this.state.menuVisible });
+    this.setState((prevState) => ({ menuVisible: !prevState.menuVisible }));
   }
 
   localImageReady(img) {

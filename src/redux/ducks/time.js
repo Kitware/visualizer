@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import network from '../../network';
 import * as netActions from './network';
 import { fetchProxy } from './proxies';
