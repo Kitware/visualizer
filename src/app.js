@@ -3,6 +3,7 @@ import 'normalize.css';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'regenerator-runtime/runtime';
 
 import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
 import ProgressLoaderWidget from 'paraviewweb/src/React/Widgets/ProgressLoaderWidget';

@@ -15,6 +15,7 @@ module.exports = [
   },
   {
     test: /\.mcss$/,
+    exclude: /node_modules(\/|\\)vtk.js(\/|\\)/,
     use: [
       { loader: 'style-loader' },
       {
@@ -60,6 +61,7 @@ module.exports = [
   },
   {
     test: /\.css$/,
+    exclude: /node_modules(\/|\\)vtk.js(\/|\\)/,
     use: [
       { loader: 'style-loader' },
       { loader: 'css-loader' },
