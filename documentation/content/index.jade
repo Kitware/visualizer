@@ -1,7 +1,7 @@
 layout: index
 description: Full feature ParaViewWeb application
 subtitle: The ParaView like application in the Web
-cmd: npm install -g pvw-visualizer
+cmd: pvpython -m paraview.apps.visualizer
 comments: false
 ---
 
@@ -13,7 +13,10 @@ ul#intro-feature-list
       h3.intro-feature-title
         a(href="https://www.npmjs.com/package/pvw-visualizer").link Releases
         img(style="padding-left: 25px",src="https://badge.fury.io/js/pvw-visualizer.svg")
-      p.intro-feature-desc ParaView Visualizer is available via npm and should be used via Webpack or Browserify within your project using standard ES6 import syntax for embedded usage.
+      p.intro-feature-desc
+        | ParaView Visualizer is available inside
+        a(href="https://www.paraview.org/download/").link  ParaView
+        |  and can be run via its Python environment (pvpython) using the command line listed above.
 
   li.intro-feature-wrap
     .intro-feature

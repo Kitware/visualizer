@@ -26,9 +26,9 @@
     "reselect": "4.0.0",
     "kw-web-suite": "8.0.0",
     "kw-doc": "1.3.1",
-    "paraviewweb": "3.2.14",
+    "paraviewweb": "3.2.21",
     "vtk.js": "19.2.2",
-    "wslink": "0.1.11"
+    "wslink": "1.0.6"
   },
   "scripts": {
     "validate": "prettier --config ./prettier.config.js --list-different \"src/**/*.js\"",

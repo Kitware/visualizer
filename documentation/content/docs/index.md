@@ -17,10 +17,9 @@ ParaView already come with Visualizer and allow you to run it from the command l
 
 ```macOS
 $ cd paraview.app/Contents
-$ ./bin/pvpython                                        \
-    ./Resources/web/visualizer/server/pvw-visualizer.py  \
-    --content ./Resources/web/visualizer/www/             \
-    --data $PWD/data                                       \
+$ ./bin/pvpython                \
+    -m paraview.apps.visualizer  \
+    --data $PWD/data               \
     --port 8080
 
 ==> Open your browser to http://localhost:8080/
@@ -28,10 +27,9 @@ $ ./bin/pvpython                                        \
 
 ```Linux
 $ cd ParaView-5.6.0-Linux-64bit
-$ ./bin/pvpython                                                 \
-    ./share/paraview-5.6/web/visualizer/server/pvw-visualizer.py  \
-    --content ./share/paraview-5.6/web/visualizer/www/             \
-    --data $PWD/share/paraview-5.6/data                             \
+$ ./bin/pvpython                    \
+    -m paraview.apps.visualizer      \
+    --data $PWD/data                  \
     --port 8080
 
 ==> Open your browser to http://localhost:8080/
@@ -39,10 +37,9 @@ $ ./bin/pvpython                                                 \
 
 ```Windows
 $ cd ParaView-5.6.0-Windows-64bit
-$ .\bin\pvpython.exe                                          \
-   share\paraview-5.6\web\visualizer\server\pvw-visualizer.py  \
-   --content share\paraview-5.6\web\visualizer\www\             \
-   --data "C:\...full_path...\data"                              \
+$ .\bin\pvpython.exe               \
+   -m paraview.apps.visualizer      \
+   --data "C:\...full_path...\data"  \
    --port 8080
 
 ==> Open your browser to http://localhost:8080/
@@ -63,10 +60,10 @@ $ npm install -g pvw-visualizer
 $ Visualizer --paraview /Applications/paraview.app --data ~/Desktop
 ```
 
-For production usage, ParaView Visualizer should be deployed within your Web infrastructure following the proper requirements: 
+For production usage, ParaView Visualizer should be deployed within your Web infrastructure following the proper requirements:
 
 1) Serve the Visualizer application to the client (Static content: JS + HTML) using any kind of Web server (Apache, Nginx, Tomcat, Node...).
-2) Enable the client to start a new ParaView process on the server side (Cluster). We provide a generic launcher implementation using Python which could be replaced with something more appropriate to your infrastructure. 
+2) Enable the client to start a new ParaView process on the server side (Cluster). We provide a generic launcher implementation using Python which could be replaced with something more appropriate to your infrastructure.
 3) Configure your network to forward the WebSocket connection to the proper backend host running the ParaView server.
 
 For better rendering performance, the ParaView server should run on a GPU machine.
@@ -118,7 +115,7 @@ Alternatively, download and run [node](http://nodejs.org/).
 
 ### Install pvw-visualizer
 
-This is useful if you want to embed Visualizer within your own application or just use some Visualizer components. 
+This is useful if you want to embed Visualizer within your own application or just use some Visualizer components.
 
 ``` bash
 $ npm install pvw-visualizer --save
