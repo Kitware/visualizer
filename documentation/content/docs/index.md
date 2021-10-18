@@ -26,7 +26,7 @@ $ ./bin/pvpython                \
 ```
 
 ```Linux
-$ cd ParaView-5.6.0-Linux-64bit
+$ cd ParaView-5.10.0-Linux-64bit
 $ ./bin/pvpython                    \
     -m paraview.apps.visualizer      \
     --data $PWD/data                  \
@@ -36,7 +36,7 @@ $ ./bin/pvpython                    \
 ```
 
 ```Windows
-$ cd ParaView-5.6.0-Windows-64bit
+$ cd ParaView-5.10.0-Windows-64bit
 $ .\bin\pvpython.exe               \
    -m paraview.apps.visualizer      \
    --data "C:\...full_path...\data"  \
