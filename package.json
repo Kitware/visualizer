@@ -11,7 +11,7 @@
   "dependencies": {
     "commander": "3.0.0",
     "open": "6.4.0",
-    "shelljs": "0.8.3"
+    "shelljs": "0.8.5"
   },
   "devDependencies": {
     "regenerator-runtime": "0.13.9",
