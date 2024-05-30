@@ -10,7 +10,8 @@ The table below indicates which versions of ParaView and Visualizer work togethe
 | 5.4      | 2.1.4                     | <= 2.2.0                             |
 | 5.5.2    | 3.1.4 (Issue - see below) | <= 3.1.4                             |
 | 5.6      | 3.1.10                    | <= master                            |
-| master   | 3.1.10                    | <= master                            |
+| 5.12     | 3.1.10                    | <= master                            |
+| 5.13     | Visualizer has been removed from ParaView bundle |               |
 
 ## ParaView 5.5.2 - Bundle issue
 
