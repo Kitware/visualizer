@@ -15,7 +15,7 @@ The ParaViewWeb Visualizer aims to provide a ParaView-like application for your 
 
 ParaView already come with Visualizer and allow you to run it from the command line. Therefore it is not really needed to install anything. Please find below how you can start a local web server to try it out.
 
-> :warning: ParaView 5.13 along with newer versions of ParaView are removing the bundling of any Web applications. Therefore that section is only relevant for ParaView older than 5.13.
+> ParaView 5.13 along with newer versions of ParaView are removing the bundling of any Web applications. Therefore that section is only relevant for ParaView older than 5.13. You can refer to the blog [Exposing Web applications with ParaView 5.13 is getting simpler](https://www.kitware.com/exposing-web-application-with-paraview-5-13-is-getting-simpler/) to learn more.
 
 ```macOS
 $ cd paraview.app/Contents
